@@ -11,6 +11,8 @@ public class ClientProxy extends CommonProxy {
         @Override
         public void registerRenderers() {
         	
+        	RenderingRegistry.addNewArmourRendererPrefix("DogeArmour");
+        	
         	RenderingRegistry.registerEntityRenderingHandler(DogeMob.class, new DogeMob.RenderDoge(new ModelWolf(), new ModelWolf(), 0.5f));
         	
         }

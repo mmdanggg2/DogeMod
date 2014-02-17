@@ -2,6 +2,15 @@ package mmdanggg2.doge;
  
 import mmdanggg2.doge.blocks.DogeBlock;
 import mmdanggg2.doge.entities.DogeMob;
+import mmdanggg2.doge.items.DogeAxe;
+import mmdanggg2.doge.items.DogeBoots;
+import mmdanggg2.doge.items.DogeChestplate;
+import mmdanggg2.doge.items.DogeHelmet;
+import mmdanggg2.doge.items.DogeHoe;
+import mmdanggg2.doge.items.DogeLeggings;
+import mmdanggg2.doge.items.DogePickaxe;
+import mmdanggg2.doge.items.DogeShovel;
+import mmdanggg2.doge.items.DogeSword;
 import mmdanggg2.doge.items.Dogecoin;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -32,6 +41,26 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
 public class Doge {
 	
+	//Inits
+	
+	public static EnumToolMaterial dogeToolMat = EnumHelper.addToolMaterial("Doge", 3, 600, 20.0F, 4.0F, 30);
+	public static EnumArmorMaterial dogeArmorMat = EnumHelper.addArmorMaterial("Doge", 30, new int[]{5, 10, 8, 5}, 30);
+	
+
+	//Doge Tools
+	public final static Item dogePickaxe = new DogePickaxe(5001, dogeToolMat);
+	public final static Item dogeAxe = new DogeAxe(5002, dogeToolMat);
+	public final static Item dogeShovel = new DogeShovel(5003, dogeToolMat);
+	public final static Item dogeHoe = new DogeHoe(5004, dogeToolMat);
+	public final static Item dogeSword = new DogeSword(5005, dogeToolMat);
+	
+	//Doge Armour
+	public final static Item dogeHelmet = new DogeHelmet(5006, dogeArmorMat, 5, 0);
+	public final static Item dogeChestplate = new DogeChestplate(5007, dogeArmorMat, 5, 1);
+	public final static Item dogeLeggings = new DogeLeggings(5008, dogeArmorMat, 5, 2);
+	public final static Item dogeBoots = new DogeBoots(5009, dogeArmorMat, 5, 3);
+	
+	
 	//Other
 	public final static Block dogeBlock = new DogeBlock(500, Material.ground);
 	
@@ -55,9 +84,41 @@ public class Doge {
         public void load(FMLInitializationEvent event) {
                 proxy.registerRenderers();
                 
+                dogeToolMat.customCraftingMaterial = dogecoin;
+                dogeArmorMat.customCraftingMaterial = dogecoin;
+                
                 //Items
                 GameRegistry.registerItem(dogecoin, "dogecoin");
                 LanguageRegistry.addName(dogecoin, "Dogecoin");
+                
+                //Doge Tools
+                GameRegistry.registerItem(dogePickaxe, "dogePickaxe");
+                LanguageRegistry.addName(dogePickaxe, "such mine");
+
+                GameRegistry.registerItem(dogeAxe, "dogeAxe");
+                LanguageRegistry.addName(dogeAxe, "many chop");
+
+                GameRegistry.registerItem(dogeShovel, "dogeShovel");
+                LanguageRegistry.addName(dogeShovel, "much dig");
+
+                GameRegistry.registerItem(dogeHoe, "dogeHoe");
+                LanguageRegistry.addName(dogeHoe, "very farm");
+
+                GameRegistry.registerItem(dogeSword, "dogeSword");
+                LanguageRegistry.addName(dogeSword, "wow attack");
+                
+                //Doge Armour
+                GameRegistry.registerItem(dogeHelmet, "dogeHelmet");
+                LanguageRegistry.addName(dogeHelmet, "many protect face");
+
+                GameRegistry.registerItem(dogeChestplate, "dogeChestplate");
+                LanguageRegistry.addName(dogeChestplate, "much chest armour");
+
+                GameRegistry.registerItem(dogeLeggings, "dogeLeggings");
+                LanguageRegistry.addName(dogeLeggings, "very leg defend");
+
+                GameRegistry.registerItem(dogeBoots, "dogeBoots");
+                LanguageRegistry.addName(dogeBoots, "wow shoes");
                 
                 
                 //Blocks
@@ -73,6 +134,35 @@ public class Doge {
                 		'#', new ItemStack(dogecoin));
                 
                 GameRegistry.addShapelessRecipe(new ItemStack(dogecoin, 9), new ItemStack(dogeBlock));
+                
+                //Doge Tool Recipes
+                GameRegistry.addRecipe(new ItemStack(dogePickaxe), "###", " S ", " S ", 
+                		'#', new ItemStack(dogecoin), 'S', new ItemStack(Item.stick));
+                
+                GameRegistry.addRecipe(new ItemStack(dogeAxe), " ##", " S#", " S ", 
+                		'#', new ItemStack(dogecoin), 'S', new ItemStack(Item.stick));
+                
+                GameRegistry.addRecipe(new ItemStack(dogeShovel), " # ", " S ", " S ", 
+                		'#', new ItemStack(dogecoin), 'S', new ItemStack(Item.stick));
+                
+                GameRegistry.addRecipe(new ItemStack(dogeHoe), " ##", " S ", " S ", 
+                		'#', new ItemStack(dogecoin), 'S', new ItemStack(Item.stick));
+                
+                GameRegistry.addRecipe(new ItemStack(dogeSword), " # ", " # ", " S ", 
+                		'#', new ItemStack(dogecoin), 'S', new ItemStack(Item.stick));
+                
+                //Doge Armour Recipes
+                GameRegistry.addRecipe(new ItemStack(dogeHelmet), "###", "# #",
+                		'#', new ItemStack(dogecoin));
+                
+                GameRegistry.addRecipe(new ItemStack(dogeChestplate), "# #", "###", "###", 
+                		'#', new ItemStack(dogecoin));
+                
+                GameRegistry.addRecipe(new ItemStack(dogeLeggings), "###", "# #", "# #", 
+                		'#', new ItemStack(dogecoin));
+                
+                GameRegistry.addRecipe(new ItemStack(dogeBoots), "# #", "# #",
+                		'#', new ItemStack(dogecoin));
                 
                 
                 //Mobs
