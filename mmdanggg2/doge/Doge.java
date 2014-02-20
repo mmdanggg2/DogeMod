@@ -66,6 +66,8 @@ public class Doge {
 	
 	public final static Item dogecoin = new Dogecoin(5000);
 	
+	public final static Item dogeLauncher = new DogeLauncher(5010);
+	
 	
         // The instance of your mod that Forge uses.
         @Instance(BasicInfo.NAME)
@@ -90,6 +92,9 @@ public class Doge {
                 //Items
                 GameRegistry.registerItem(dogecoin, "dogecoin");
                 LanguageRegistry.addName(dogecoin, "Dogecoin");
+
+                GameRegistry.registerItem(dogeLauncher, "dogeLauncher");
+                LanguageRegistry.addName(dogeLauncher, "Doge Launcher");
                 
                 //Doge Tools
                 GameRegistry.registerItem(dogePickaxe, "dogePickaxe");
