@@ -2,6 +2,7 @@ package mmdanggg2.doge;
  
 import mmdanggg2.doge.blocks.DogeBlock;
 import mmdanggg2.doge.entities.DogeMob;
+import mmdanggg2.doge.entities.DogeProjectile;
 import mmdanggg2.doge.items.DogeAxe;
 import mmdanggg2.doge.items.DogeBoots;
 import mmdanggg2.doge.items.DogeChestplate;
@@ -170,11 +171,16 @@ public class Doge {
                 		'#', new ItemStack(dogecoin));
                 
                 
+                //Entities
+                
+                registerMobEntity(DogeProjectile.class, "DogeProjectile", 0xeaeae9, 0xc99a03);
+                LanguageRegistry.instance().addStringLocalization("entity.DogeProjectile.name", "Doge Projectile");
+                
                 //Mobs
-                registerEntity(DogeMob.class, "DogeMob", 0xeaeae9, 0xc99a03);
+                registerMobEntity(DogeMob.class, "DogeMob", 0xeaeae9, 0xc99a03);
                 LanguageRegistry.instance().addStringLocalization("entity.DogeMob.name", "Doge");
                 
-                
+//                EntityRegistry.registerModEntity(entityClass, entityName, id, mod, trackingRange, updateFrequency, sendsVelocityUpdates);
         }
        
         @EventHandler
@@ -182,7 +188,7 @@ public class Doge {
                 // Stub Method
         }
         
-    public void registerEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor) {
+    public void registerMobEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor) {
         int id = EntityRegistry.findGlobalUniqueEntityId();
 
         EntityRegistry.registerGlobalEntityID(entityClass, entityName, id);

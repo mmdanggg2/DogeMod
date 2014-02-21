@@ -1,8 +1,14 @@
 package mmdanggg2.doge;
 
+import mmdanggg2.doge.entities.DogeProjectile;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.entity.projectile.EntityEgg;
+import net.minecraft.entity.projectile.EntityFireball;
+import net.minecraft.entity.projectile.EntitySmallFireball;
+import net.minecraft.entity.projectile.EntitySnowball;
+import net.minecraft.entity.projectile.EntityWitherSkull;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -29,7 +35,7 @@ public class DogeLauncher extends Item {
 		
 		if (!par2World.isRemote)
         {
-            par2World.spawnEntityInWorld(new EntityEgg(par2World, par3EntityPlayer));
+            par2World.spawnEntityInWorld(new DogeProjectile(par2World, par3EntityPlayer));
         }
 		
 		return par1ItemStack;
