@@ -1,6 +1,7 @@
 package mmdanggg2.doge;
  
 import mmdanggg2.doge.blocks.DogeBlock;
+import mmdanggg2.doge.client.ClientProxy;
 import mmdanggg2.doge.entities.DogeMob;
 import mmdanggg2.doge.entities.DogeProjectile;
 import mmdanggg2.doge.items.DogeAxe;
@@ -8,6 +9,7 @@ import mmdanggg2.doge.items.DogeBoots;
 import mmdanggg2.doge.items.DogeChestplate;
 import mmdanggg2.doge.items.DogeHelmet;
 import mmdanggg2.doge.items.DogeHoe;
+import mmdanggg2.doge.items.DogeLauncher;
 import mmdanggg2.doge.items.DogeLeggings;
 import mmdanggg2.doge.items.DogePickaxe;
 import mmdanggg2.doge.items.DogeShovel;
@@ -26,6 +28,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.EnumHelper;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -56,7 +59,7 @@ public class Doge {
 	public final static Item dogeSword = new DogeSword(5005, dogeToolMat);
 	
 	//Doge Armour
-	public final static Item dogeHelmet = new DogeHelmet(5006, dogeArmorMat, 5, 0);
+	public final static Item dogeHelmet = new DogeHelmet(5006, dogeArmorMat, ClientProxy.addArmour("DogeArmour"), 0);
 	public final static Item dogeChestplate = new DogeChestplate(5007, dogeArmorMat, 5, 1);
 	public final static Item dogeLeggings = new DogeLeggings(5008, dogeArmorMat, 5, 2);
 	public final static Item dogeBoots = new DogeBoots(5009, dogeArmorMat, 5, 3);
@@ -173,14 +176,13 @@ public class Doge {
                 
                 //Entities
                 
-                registerMobEntity(DogeProjectile.class, "DogeProjectile", 0xeaeae9, 0xc99a03);
-                LanguageRegistry.instance().addStringLocalization("entity.DogeProjectile.name", "Doge Projectile");
+                EntityRegistry.registerModEntity(DogeProjectile.class, "dogeProjectile", EntityRegistry.findGlobalUniqueEntityId(), this, 128, 1, true);
                 
                 //Mobs
                 registerMobEntity(DogeMob.class, "DogeMob", 0xeaeae9, 0xc99a03);
                 LanguageRegistry.instance().addStringLocalization("entity.DogeMob.name", "Doge");
                 
-//                EntityRegistry.registerModEntity(entityClass, entityName, id, mod, trackingRange, updateFrequency, sendsVelocityUpdates);
+                
         }
        
         @EventHandler
