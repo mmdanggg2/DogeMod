@@ -6,7 +6,7 @@ import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemHoe;
 
 public class DogeHoe extends ItemHoe {
-
+	
 	public DogeHoe(int id, EnumToolMaterial par2EnumToolMaterial) {
 		super(id, par2EnumToolMaterial);
 		
@@ -15,5 +15,5 @@ public class DogeHoe extends ItemHoe {
 		setTextureName(BasicInfo.NAME.toLowerCase() + ":dogeHoe");
 		
 	}
-
+	
 }

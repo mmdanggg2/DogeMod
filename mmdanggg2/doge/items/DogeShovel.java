@@ -6,7 +6,7 @@ import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemSpade;
 
 public class DogeShovel extends ItemSpade {
-
+	
 	public DogeShovel(int id, EnumToolMaterial par2EnumToolMaterial) {
 		super(id, par2EnumToolMaterial);
 		
@@ -15,5 +15,5 @@ public class DogeShovel extends ItemSpade {
 		setTextureName(BasicInfo.NAME.toLowerCase() + ":dogeShovel");
 		
 	}
-
+	
 }

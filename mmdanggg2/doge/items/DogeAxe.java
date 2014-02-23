@@ -6,7 +6,7 @@ import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemAxe;
 
 public class DogeAxe extends ItemAxe {
-
+	
 	public DogeAxe(int id, EnumToolMaterial par2EnumToolMaterial) {
 		super(id, par2EnumToolMaterial);
 		
@@ -15,5 +15,5 @@ public class DogeAxe extends ItemAxe {
 		setTextureName(BasicInfo.NAME.toLowerCase() + ":dogeAxe");
 		
 	}
-
+	
 }

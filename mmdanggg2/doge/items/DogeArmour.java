@@ -2,7 +2,6 @@ package mmdanggg2.doge.items;
 
 import mmdanggg2.doge.BasicInfo;
 import mmdanggg2.doge.Doge;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.ItemArmor;
@@ -25,6 +24,6 @@ public class DogeArmour extends ItemArmor {
 		} else {
 			return null;
 		}
-
+		
 	}
 }

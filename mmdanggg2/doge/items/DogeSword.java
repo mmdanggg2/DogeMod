@@ -6,7 +6,7 @@ import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemSword;
 
 public class DogeSword extends ItemSword {
-
+	
 	public DogeSword(int par1, EnumToolMaterial par2EnumToolMaterial) {
 		super(par1, par2EnumToolMaterial);
 		
@@ -15,5 +15,5 @@ public class DogeSword extends ItemSword {
 		setTextureName(BasicInfo.NAME.toLowerCase() + ":dogeSword");
 		
 	}
-
+	
 }

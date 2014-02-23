@@ -5,7 +5,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
@@ -22,12 +21,12 @@ public class DogeProjectile extends EntityThrowable
 	{
 		super(par1World);
 	}
-
+	
 	public DogeProjectile(World par1World, EntityLivingBase par2EntityLivingBase)
 	{
 		super(par1World, par2EntityLivingBase);
 	}
-
+	
 	public DogeProjectile(World par1World, double par2, double par4, double par6)
 	{
 		super(par1World, par2, par4, par6);
@@ -55,12 +54,12 @@ public class DogeProjectile extends EntityThrowable
 				}
 			}
 		}
-
+		
 		//        for (int j = 0; j < 8; ++j)
 		//        {
 		//            this.worldObj.spawnParticle("snowballpoof", this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
 		//        }
-
+		
 		if (!this.worldObj.isRemote)
 		{
 			if (dropCoin)
