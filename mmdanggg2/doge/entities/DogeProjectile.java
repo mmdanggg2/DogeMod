@@ -14,6 +14,10 @@ import net.minecraft.world.World;
 
 public class DogeProjectile extends EntityThrowable
 {
+	
+	public boolean dropCoin = true;
+	public float damage = 8.0f;
+	
 	public DogeProjectile(World par1World)
 	{
 		super(par1World);
@@ -31,7 +35,7 @@ public class DogeProjectile extends EntityThrowable
 	
 	@Override
 	protected float getGravityVelocity() {
-		return -0.05f;
+		return 0.03f;
 	}
 	
 	/**
@@ -39,7 +43,6 @@ public class DogeProjectile extends EntityThrowable
 	 */
 	protected void onImpact(MovingObjectPosition par1MovingObjectPosition)
 	{
-		int dropCoin = 1;
 		if (par1MovingObjectPosition.entityHit != null)
 		{
 			Entity hitEntity = par1MovingObjectPosition.entityHit;
@@ -48,7 +51,7 @@ public class DogeProjectile extends EntityThrowable
 				EntityLiving hitEntLiving = (EntityLiving) hitEntity;
 				if (hitEntLiving.getHealth() == 0)
 				{
-					dropCoin = 0;
+					dropCoin = false;
 				}
 			}
 		}
@@ -60,14 +63,14 @@ public class DogeProjectile extends EntityThrowable
 
 		if (!this.worldObj.isRemote)
 		{
-			if (dropCoin == 1)
+			if (dropCoin)
 			{
 				EntityItem coin = new EntityItem(this.worldObj);
 				coin.setEntityItemStack(new ItemStack(Doge.dogecoin, 1));
 				coin.setPosition(this.posX, this.posY, this.posZ);
 				this.worldObj.spawnEntityInWorld(coin);
 			}
-			this.setDead();
+			setDead();
 		}
 	}
 }
