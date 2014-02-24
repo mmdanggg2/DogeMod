@@ -13,8 +13,8 @@ import net.minecraft.world.World;
 
 public class DogeLauncher extends Item {
 	
-	public DogeLauncher(int id) {
-		super(id);
+	public DogeLauncher() {
+		super();
 		setMaxStackSize(1);
 		setCreativeTab(CreativeTabs.tabTools);
 		setUnlocalizedName("dogeLauncher");
@@ -28,7 +28,7 @@ public class DogeLauncher extends Item {
 		
 		boolean flag = par3EntityPlayer.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, par1ItemStack) > 0;
 		
-		if (flag || par3EntityPlayer.inventory.hasItem(Doge.dogecoin.itemID))
+		if (flag || par3EntityPlayer.inventory.hasItem(Doge.dogecoin))
 		{
 			
 			DogeProjectile projectile = new DogeProjectile(par2World, par3EntityPlayer);
@@ -45,7 +45,7 @@ public class DogeLauncher extends Item {
 			}
 			else
 			{
-				par3EntityPlayer.inventory.consumeInventoryItem(Doge.dogecoin.itemID);
+				par3EntityPlayer.inventory.consumeInventoryItem(Doge.dogecoin);
 			}
 			
 			par2World.playSoundAtEntity(par3EntityPlayer, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));

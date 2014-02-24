@@ -25,7 +25,7 @@ public class DogeMobRender extends RenderWolf {
 	}
 	
 	@Override
-	protected int func_82447_a(EntityWolf par1EntityWolf, int par2, float par3)
+	protected int shouldRenderPass(EntityWolf par1EntityWolf, int par2, float par3)
 	{
 		float f1;
 		
@@ -51,7 +51,7 @@ public class DogeMobRender extends RenderWolf {
 	}
 	
 	@Override
-	protected ResourceLocation func_110914_a(EntityWolf par1EntityWolf)
+	protected ResourceLocation getEntityTexture(EntityWolf par1EntityWolf)
 	{
 		return par1EntityWolf.isTamed() ? tamedWolfTextures : (par1EntityWolf.isAngry() ? anrgyWolfTextures : wolfTextures);
 	}

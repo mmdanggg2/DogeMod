@@ -1,0 +1,17 @@
+tile.dogeBlock.name=Doge Block
+
+item.dogecoin.name=Dogecoin
+item.dogeLauncher.name=Doge Launcher
+
+item.dogePickaxe.name=such mine
+item.dogeAxe.name=many chop
+item.dogeShovel.name=much dig
+item.dogeHoe.name=very farm
+item.dogeSword.name=wow attack
+
+item.dogeHelmet.name=many protect face
+item.dogeChestplate.name=much chest armour
+item.dogeLeggings.name=very leg defend
+item.dogeBoots.name=wow shoes
+
+entity.dogeMob.name=Doge

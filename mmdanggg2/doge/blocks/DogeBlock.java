@@ -7,14 +7,14 @@ import net.minecraft.creativetab.CreativeTabs;
 
 public class DogeBlock extends Block {
 	
-	public DogeBlock(int id, Material material) {
-		super(id, material);
+	public DogeBlock(Material material) {
+		super(material);
 		
 		setHardness(1.0f);
-		setStepSound(Block.soundMetalFootstep);
-		setUnlocalizedName("dogeBlock");
+		setStepSound(Block.soundTypeMetal);
+		setBlockName("dogeBlock");
 		setCreativeTab(CreativeTabs.tabBlock);
-		setTextureName(BasicInfo.NAME.toLowerCase() + ":dogeblock");
+		setBlockTextureName(BasicInfo.NAME.toLowerCase() + ":dogeblock");
 	}
 	
 }

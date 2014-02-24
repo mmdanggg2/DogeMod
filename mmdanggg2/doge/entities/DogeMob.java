@@ -9,6 +9,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
@@ -27,15 +28,15 @@ public class DogeMob extends EntityWolf
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setAttribute(0.35D);
+		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.35D);
 		
 		if (this.isTamed())
 		{
-			this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(200.0D);
+			this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(200.0D);
 		}
 		else
 		{
-			this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(50.0D);
+			this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(50.0D);
 		}
 	}
 	
@@ -46,11 +47,11 @@ public class DogeMob extends EntityWolf
 		
 		if (par1)
 		{
-			this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(200.0D);
+			this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(200.0D);
 		}
 		else
 		{
-			this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(50.0D);
+			this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(50.0D);
 		}
 	}
 	
@@ -66,9 +67,9 @@ public class DogeMob extends EntityWolf
 		 {
 			 if (itemstack != null)
 			 {
-				 if (Item.itemsList[itemstack.itemID] instanceof ItemFood)
+				 if (itemstack.getItem() instanceof ItemFood)
 				 {
-					 ItemFood itemfood = (ItemFood)Item.itemsList[itemstack.itemID];
+					 ItemFood itemfood = (ItemFood)itemstack.getItem();
 					 
 					 if (itemfood.isWolfsFavoriteMeat() && this.dataWatcher.getWatchableObjectFloat(18) < 20.0F)
 					 {
@@ -77,7 +78,8 @@ public class DogeMob extends EntityWolf
 							 --itemstack.stackSize;
 						 }
 						 
-						 this.heal((float)itemfood.getHealAmount());
+//						 this.heal((float)itemfood.getHealAmount()); //IDK what new method is
+						 this.heal(10f);
 						 
 						 if (itemstack.stackSize <= 0)
 						 {
@@ -87,9 +89,9 @@ public class DogeMob extends EntityWolf
 						 return true;
 					 }
 				 }
-				 else if (itemstack.itemID == Item.dyePowder.itemID)
+				 else if (itemstack.getItem() == Items.dye)
 				 {
-					 int i = BlockColored.getBlockFromDye(itemstack.getItemDamage());
+					 int i = BlockColored.func_150031_c(itemstack.getItemDamage());
 					 
 					 if (i != this.getCollarColor())
 					 {
@@ -114,7 +116,7 @@ public class DogeMob extends EntityWolf
 				 this.setAttackTarget((EntityLivingBase)null);
 			 }
 		 }
-		 else if (itemstack != null && itemstack.itemID == Doge.dogecoin.itemID && !this.isAngry())
+		 else if (itemstack != null && itemstack.getItem() == Doge.dogecoin && !this.isAngry())
 		 {
 			 if (!par1EntityPlayer.capabilities.isCreativeMode)
 			 {
@@ -149,16 +151,16 @@ public class DogeMob extends EntityWolf
 	  */
 	 public boolean isBreedingItem(ItemStack par1ItemStack)
 	 {
-		 return par1ItemStack == null ? false : (!(Item.itemsList[par1ItemStack.itemID] instanceof ItemFood)) ? false : par1ItemStack.itemID == Doge.dogecoin.itemID;
+		 return par1ItemStack == null ? false : (!(par1ItemStack.getItem() instanceof ItemFood)) ? false : par1ItemStack.getItem() == Doge.dogecoin;
 	 }
 	 
 	 /**
 	  * Returns the item ID for the item the mob drops on death.
 	  */
 	 @Override
-	 protected int getDropItemId()
+	 protected Item getDropItem()
 	 {
-		 return Doge.dogecoin.itemID;
+		 return Doge.dogecoin;
 	 }
 	 
 	 /**

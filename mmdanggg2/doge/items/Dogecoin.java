@@ -1,6 +1,7 @@
 package mmdanggg2.doge.items;
 
 import mmdanggg2.doge.BasicInfo;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -8,14 +9,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class Dogecoin extends Item {
-	
-	public Dogecoin(int id) {
-		super(id);
+	public Dogecoin() {
+		super();
 		setMaxStackSize(64);
 		setCreativeTab(CreativeTabs.tabMaterials);
 		setUnlocalizedName("dogecoin");
-		setTextureName(BasicInfo.NAME.toLowerCase() + ":dogecoin");
-		
+//		setTextureName(BasicInfo.NAME.toLowerCase() + ":dogecoin");
+	}
+	
+	@Override
+	public void registerIcons(IIconRegister iconRegister) {
+		itemIcon = iconRegister.registerIcon(BasicInfo.NAME.toLowerCase() + ":dogecoin");
 	}
 	
 	@Override
