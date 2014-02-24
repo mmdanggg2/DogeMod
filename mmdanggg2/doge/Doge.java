@@ -27,6 +27,7 @@ import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.EnumHelper;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -46,30 +47,47 @@ public class Doge {
 	
 	//Inits
 	
+	private static int dogecoinID;
+	private static int dogeLauncherID;
+	
+	private static int dogePickaxeID;
+	private static int dogeAxeID;
+	private static int dogeShovelID;
+	private static int dogeHoeID;
+	private static int dogeSwordID;
+	
+	private static int dogeHelmetID;
+	private static int dogeChestplateID;
+	private static int dogeLeggingsID;
+	private static int dogeBootsID;
+	
+	private static int dogeBlockID;
+	
 	public static EnumToolMaterial dogeToolMat = EnumHelper.addToolMaterial("Doge", 3, 600, 20.0F, 4.0F, 30);
 	public static EnumArmorMaterial dogeArmorMat = EnumHelper.addArmorMaterial("Doge", 30, new int[]{5, 10, 8, 5}, 30);
 	
+	private static int dogeArmourRenderID;
 	
 	//Doge Tools
-	public final static Item dogePickaxe = new DogePickaxe(5001, dogeToolMat);
-	public final static Item dogeAxe = new DogeAxe(5002, dogeToolMat);
-	public final static Item dogeShovel = new DogeShovel(5003, dogeToolMat);
-	public final static Item dogeHoe = new DogeHoe(5004, dogeToolMat);
-	public final static Item dogeSword = new DogeSword(5005, dogeToolMat);
+	public static Item dogePickaxe;
+	public static Item dogeAxe;
+	public static Item dogeShovel;
+	public static Item dogeHoe;
+	public static Item dogeSword;
 	
 	//Doge Armour
-	public final static Item dogeHelmet = new DogeHelmet(5006, dogeArmorMat, ClientProxy.addArmour("DogeArmour"), 0);
-	public final static Item dogeChestplate = new DogeChestplate(5007, dogeArmorMat, 5, 1);
-	public final static Item dogeLeggings = new DogeLeggings(5008, dogeArmorMat, 5, 2);
-	public final static Item dogeBoots = new DogeBoots(5009, dogeArmorMat, 5, 3);
+	public static Item dogeHelmet;
+	public static Item dogeChestplate;
+	public static Item dogeLeggings;
+	public static Item dogeBoots;
 	
 	
 	//Other
-	public final static Block dogeBlock = new DogeBlock(500, Material.ground);
+	public static Block dogeBlock;
 	
-	public final static Item dogecoin = new Dogecoin(5000);
+	public static Item dogecoin;
 	
-	public final static Item dogeLauncher = new DogeLauncher(5010);
+	public static Item dogeLauncher;
 	
 	
 	// The instance of your mod that Forge uses.
@@ -82,7 +100,33 @@ public class Doge {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		// Stub Method
+		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
+		
+		// loading the configuration from its file
+		config.load();
+		
+		//Items
+		dogecoinID = config.getItem("dogecoin", 5000).getInt();
+		dogeLauncherID = config.getItem("dogeLauncher", 5010).getInt();
+		
+		//Doge Tools
+		dogePickaxeID = config.getItem("dogePickaxe", 5001).getInt();
+		dogeAxeID = config.getItem("dogeAxe", 5002).getInt();
+		dogeShovelID = config.getItem("dogeShovel", 5003).getInt();
+		dogeHoeID = config.getItem("dogeHoe", 5004).getInt();
+		dogeSwordID = config.getItem("dogeSword", 5005).getInt();
+		
+		//Doge Armour
+		dogeHelmetID = config.getItem("dogeHelmet", 5006).getInt();
+		dogeChestplateID = config.getItem("dogeChestplate", 5007).getInt();
+		dogeLeggingsID = config.getItem("dogeLeggings", 5008).getInt();
+		dogeBootsID = config.getItem("dogeBoots", 5009).getInt();
+		
+		//Blocks
+		dogeBlockID = config.getBlock("dogeBlock", 500).getInt();
+		
+		// saving the configuration to its file
+		config.save();
 	}
 	
 	@EventHandler
@@ -93,43 +137,56 @@ public class Doge {
 		dogeArmorMat.customCraftingMaterial = dogecoin;
 		
 		//Items
+		dogecoin = new Dogecoin(dogecoinID);
 		GameRegistry.registerItem(dogecoin, "dogecoin");
 		LanguageRegistry.addName(dogecoin, "Dogecoin");
 		
+		dogeLauncher = new DogeLauncher(dogeLauncherID);
 		GameRegistry.registerItem(dogeLauncher, "dogeLauncher");
 		LanguageRegistry.addName(dogeLauncher, "Doge Launcher");
 		
 		//Doge Tools
+		dogePickaxe = new DogePickaxe(dogePickaxeID, dogeToolMat);
 		GameRegistry.registerItem(dogePickaxe, "dogePickaxe");
 		LanguageRegistry.addName(dogePickaxe, "such mine");
 		
+		dogeAxe = new DogeAxe(dogeAxeID, dogeToolMat);
 		GameRegistry.registerItem(dogeAxe, "dogeAxe");
 		LanguageRegistry.addName(dogeAxe, "many chop");
 		
+		dogeShovel = new DogeShovel(dogeShovelID, dogeToolMat);
 		GameRegistry.registerItem(dogeShovel, "dogeShovel");
 		LanguageRegistry.addName(dogeShovel, "much dig");
 		
+		dogeHoe = new DogeHoe(dogeHoeID, dogeToolMat);
 		GameRegistry.registerItem(dogeHoe, "dogeHoe");
 		LanguageRegistry.addName(dogeHoe, "very farm");
 		
+		dogeSword = new DogeSword(dogeSwordID, dogeToolMat);
 		GameRegistry.registerItem(dogeSword, "dogeSword");
 		LanguageRegistry.addName(dogeSword, "wow attack");
 		
 		//Doge Armour
+		dogeArmourRenderID = ClientProxy.addArmour("DogeArmour");
+		dogeHelmet = new DogeHelmet(dogeHelmetID, dogeArmorMat, dogeArmourRenderID, 0);
 		GameRegistry.registerItem(dogeHelmet, "dogeHelmet");
 		LanguageRegistry.addName(dogeHelmet, "many protect face");
 		
+		dogeChestplate = new DogeChestplate(dogeChestplateID, dogeArmorMat, dogeArmourRenderID, 1);
 		GameRegistry.registerItem(dogeChestplate, "dogeChestplate");
 		LanguageRegistry.addName(dogeChestplate, "much chest armour");
 		
+		dogeLeggings = new DogeLeggings(dogeLeggingsID, dogeArmorMat, dogeArmourRenderID, 2);
 		GameRegistry.registerItem(dogeLeggings, "dogeLeggings");
 		LanguageRegistry.addName(dogeLeggings, "very leg defend");
 		
+		dogeBoots = new DogeBoots(dogeBootsID, dogeArmorMat, dogeArmourRenderID, 3);
 		GameRegistry.registerItem(dogeBoots, "dogeBoots");
 		LanguageRegistry.addName(dogeBoots, "wow shoes");
 		
 		
 		//Blocks
+		dogeBlock = new DogeBlock(dogeBlockID, Material.ground);
 		GameRegistry.registerBlock(dogeBlock, "dogeBlock");
 		LanguageRegistry.addName(dogeBlock, "Doge Block");
 		
