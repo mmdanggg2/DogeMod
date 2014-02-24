@@ -131,7 +131,6 @@ public class Doge {
 	
 	@EventHandler
 	public void load(FMLInitializationEvent event) {
-		proxy.registerRenderers();
 		
 		dogeToolMat.customCraftingMaterial = dogecoin;
 		dogeArmorMat.customCraftingMaterial = dogecoin;
@@ -238,7 +237,7 @@ public class Doge {
 		registerMobEntity(DogeMob.class, "DogeMob", 0xeaeae9, 0xc99a03);
 		LanguageRegistry.instance().addStringLocalization("entity.DogeMob.name", "Doge");
 		
-		
+		proxy.registerRenderers();
 	}
 	
 	@EventHandler
