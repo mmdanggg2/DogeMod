@@ -127,10 +127,6 @@ public class Doge {
 		
 		// saving the configuration to its file
 		config.save();
-	}
-	
-	@EventHandler
-	public void load(FMLInitializationEvent event) {
 		
 		dogeToolMat.customCraftingMaterial = dogecoin;
 		dogeArmorMat.customCraftingMaterial = dogecoin;
@@ -190,6 +186,19 @@ public class Doge {
 		LanguageRegistry.addName(dogeBlock, "Doge Block");
 		
 		
+		//Entities
+		
+		EntityRegistry.registerModEntity(DogeProjectile.class, "dogeProjectile", EntityRegistry.findGlobalUniqueEntityId(), this, 128, 1, true);
+		
+		//Mobs
+		registerMobEntity(DogeMob.class, "DogeMob", 0xeaeae9, 0xc99a03);
+		LanguageRegistry.instance().addStringLocalization("entity.DogeMob.name", "Doge");
+		
+	}
+	
+	@EventHandler
+	public void load(FMLInitializationEvent event) {
+		
 		//Recipes
 		GameRegistry.addRecipe(new ItemStack(dogecoin, 1), " G ", "GDG", " G ",
 				'D', new ItemStack(Item.diamond), 'G', new ItemStack(Item.ingotGold));
@@ -227,15 +236,6 @@ public class Doge {
 		
 		GameRegistry.addRecipe(new ItemStack(dogeBoots), "# #", "# #",
 				'#', new ItemStack(dogecoin));
-		
-		
-		//Entities
-		
-		EntityRegistry.registerModEntity(DogeProjectile.class, "dogeProjectile", EntityRegistry.findGlobalUniqueEntityId(), this, 128, 1, true);
-		
-		//Mobs
-		registerMobEntity(DogeMob.class, "DogeMob", 0xeaeae9, 0xc99a03);
-		LanguageRegistry.instance().addStringLocalization("entity.DogeMob.name", "Doge");
 		
 		proxy.registerRenderers();
 	}
