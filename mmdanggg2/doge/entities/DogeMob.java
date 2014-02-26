@@ -63,60 +63,7 @@ public class DogeMob extends EntityWolf
 	{
 		ItemStack itemstack = par1EntityPlayer.inventory.getCurrentItem();
 		
-		if (this.isTamed())
-		{
-			if (itemstack != null)
-			{
-				if (itemstack.getItem() instanceof ItemFood)
-				{
-					ItemFood itemfood = (ItemFood)itemstack.getItem();
-					
-					if (itemfood.isWolfsFavoriteMeat() && this.dataWatcher.getWatchableObjectFloat(18) < 20.0F)
-					{
-						if (!par1EntityPlayer.capabilities.isCreativeMode)
-						{
-							--itemstack.stackSize;
-						}
-						
-						//						 this.heal((float)itemfood.getHealAmount()); //IDK what new method is
-						this.heal(10f);
-						
-						if (itemstack.stackSize <= 0)
-						{
-							par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
-						}
-						
-						return true;
-					}
-				}
-				else if (itemstack.getItem() == Items.dye)
-				{
-					int i = BlockColored.func_150031_c(itemstack.getItemDamage());
-					
-					if (i != this.getCollarColor())
-					{
-						this.setCollarColor(i);
-						
-						if (!par1EntityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
-						{
-							par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
-						}
-						
-						return true;
-					}
-				}
-			}
-			
-			if (par1EntityPlayer.getCommandSenderName().equalsIgnoreCase(this.getOwnerName()) && !this.worldObj.isRemote && !this.isBreedingItem(itemstack))
-			{
-				this.aiSit.setSitting(!this.isSitting());
-				this.isJumping = false;
-				this.setPathToEntity((PathEntity)null);
-				this.setTarget((Entity)null);
-				this.setAttackTarget((EntityLivingBase)null);
-			}
-		}
-		else if (itemstack != null && itemstack.getItem() == Doge.dogecoin && !this.isAngry())
+		if (itemstack != null && itemstack.itemID == Doge.dogecoin.itemID && !this.isAngry() && !this.isTamed())
 		{
 			if (!par1EntityPlayer.capabilities.isCreativeMode)
 			{
@@ -130,21 +77,18 @@ public class DogeMob extends EntityWolf
 			
 			if (!this.worldObj.isRemote)
 			{
-				this.setTamed(true);
-				this.setPathToEntity((PathEntity)null);
-				this.setAttackTarget((EntityLivingBase)null);
+				makeTamed(par1EntityPlayer);
 				this.aiSit.setSitting(true);
-				this.setHealth(200.0F);
-				this.setOwner(par1EntityPlayer.getCommandSenderName());
-				this.playTameEffect(true);
-				this.worldObj.setEntityState(this, (byte)7);
 			}
 			
 			return true;
 		}
 		
+		if (itemstack != null && itemstack.itemID == Item.bone.itemID && !this.isAngry()) { return false; }
+		
 		return super.interact(par1EntityPlayer);
 	}
+	
 	/**
 	 * Checks if the parameter is an item which this animal can be fed to breed it (wheat, carrots or seeds depending on
 	 * the animal type)
@@ -214,5 +158,16 @@ public class DogeMob extends EntityWolf
 			DogeMob entitywolf = (DogeMob)par1EntityAnimal;
 			return !entitywolf.isTamed() ? false : (entitywolf.isSitting() ? false : this.isInLove() && entitywolf.isInLove());
 		}
+	}
+	
+	public void makeTamed(EntityPlayer par1EntityPlayer) {
+		this.setTamed(true);
+		this.setPathToEntity((PathEntity)null);
+		this.setAttackTarget((EntityLivingBase)null);
+		//		this.aiSit.setSitting(true);
+		this.setHealth(200.0F);
+		this.setOwner(par1EntityPlayer.getCommandSenderName());
+		this.playTameEffect(true);
+		this.worldObj.setEntityState(this, (byte)7);
 	}
 }

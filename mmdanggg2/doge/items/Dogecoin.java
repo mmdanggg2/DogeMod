@@ -1,8 +1,10 @@
 package mmdanggg2.doge.items;
 
 import mmdanggg2.doge.BasicInfo;
+import mmdanggg2.doge.entities.DogeMob;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -14,12 +16,30 @@ public class Dogecoin extends Item {
 		setMaxStackSize(64);
 		setCreativeTab(CreativeTabs.tabMaterials);
 		setUnlocalizedName("dogecoin");
-//		setTextureName(BasicInfo.NAME.toLowerCase() + ":dogecoin");
+		setTextureName(BasicInfo.NAME.toLowerCase() + ":dogecoin");
 	}
 	
 	@Override
-	public void registerIcons(IIconRegister iconRegister) {
-		itemIcon = iconRegister.registerIcon(BasicInfo.NAME.toLowerCase() + ":dogecoin");
+	public boolean itemInteractionForEntity(ItemStack par1ItemStack, EntityPlayer player, EntityLivingBase activatedEntity) {
+		if (!player.worldObj.isRemote && !(activatedEntity instanceof DogeMob) && !(activatedEntity instanceof EntityPlayer)) {
+			if (!player.capabilities.isCreativeMode)
+			{
+				--par1ItemStack.stackSize;
+			}
+			DogeMob newDoge = new DogeMob(activatedEntity.worldObj);
+			newDoge.setLocationAndAngles(
+					activatedEntity.posX,
+					activatedEntity.posY,
+					activatedEntity.posZ,
+					activatedEntity.rotationYaw,
+					activatedEntity.rotationPitch);
+			activatedEntity.setDead();
+			if (!player.worldObj.isRemote) {
+				player.worldObj.spawnEntityInWorld(newDoge);
+				newDoge.makeTamed(player);
+			}
+		}
+		return false;
 	}
 	
 	@Override
