@@ -1,8 +1,6 @@
 package mmdanggg2.doge.entities;
 
 import mmdanggg2.doge.Doge;
-import net.minecraft.block.BlockColored;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -63,7 +61,7 @@ public class DogeMob extends EntityWolf
 	{
 		ItemStack itemstack = par1EntityPlayer.inventory.getCurrentItem();
 		
-		if (itemstack != null && itemstack.itemID == Doge.dogecoin.itemID && !this.isAngry() && !this.isTamed())
+		if (itemstack != null && itemstack.getItem() == Doge.dogecoin && !this.isAngry() && !this.isTamed())
 		{
 			if (!par1EntityPlayer.capabilities.isCreativeMode)
 			{
@@ -84,7 +82,7 @@ public class DogeMob extends EntityWolf
 			return true;
 		}
 		
-		if (itemstack != null && itemstack.itemID == Item.bone.itemID && !this.isAngry()) { return false; }
+		if (itemstack != null && itemstack.getItem() == Items.bone && !this.isAngry()) { return false; }
 		
 		return super.interact(par1EntityPlayer);
 	}
