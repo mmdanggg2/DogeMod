@@ -18,7 +18,7 @@ public class DogeLauncher extends Item {
 		setMaxStackSize(1);
 		setCreativeTab(CreativeTabs.tabTools);
 		setUnlocalizedName("dogeLauncher");
-		setTextureName(BasicInfo.NAME.toLowerCase() + ":dogelauncher");
+		setTextureName(BasicInfo.NAME.toLowerCase() + ":dogeLauncher");
 		
 	}
 	
