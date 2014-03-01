@@ -17,10 +17,10 @@ public class DogeArmour extends ItemArmor {
 				|| stack.getItem() == Doge.dogeChestplate
 				|| stack.getItem() == Doge.dogeBoots) {
 			
-			return BasicInfo.NAME.toLowerCase() + ":textures/models/armor/Doge_Layer_1.png";
+			return BasicInfo.NAME.toLowerCase() + ":textures/models/armor/doge_layer_1.png";
 		}
 		if (stack.getItem() == Doge.dogeLeggings) {
-			return BasicInfo.NAME.toLowerCase() + ":textures/models/armor/Doge_Layer_2.png";
+			return BasicInfo.NAME.toLowerCase() + ":textures/models/armor/doge_layer_2.png";
 		} else {
 			return null;
 		}

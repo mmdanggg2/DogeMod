@@ -15,7 +15,7 @@ newVer = raw_input('Version number: ')
 
 modinfo = json.load(open('mcmod.info'))
 
-modinfo['version'] = newVer
+modinfo[0]['version'] = newVer
 
 json.dump(modinfo, open('mcmod.info', 'w'), indent = 4)
 
