@@ -206,6 +206,9 @@ public class Doge {
 		GameRegistry.addRecipe(new ItemStack(dogeBlock), "###", "###", "###",
 				'#', new ItemStack(dogecoin));
 		
+		GameRegistry.addRecipe(new ItemStack(dogeLauncher, 1), " D ", "DD ", " BD",
+				'D', new ItemStack(dogecoin), 'B', new ItemStack(Block.stoneButton));
+		
 		GameRegistry.addShapelessRecipe(new ItemStack(dogecoin, 9), new ItemStack(dogeBlock));
 		
 		//Doge Tool Recipes
