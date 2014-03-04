@@ -1,7 +1,6 @@
 package mmdanggg2.doge;
 
 import mmdanggg2.doge.blocks.DogeBlock;
-import mmdanggg2.doge.client.ClientProxy;
 import mmdanggg2.doge.entities.DogeMob;
 import mmdanggg2.doge.entities.DogeProjectile;
 import mmdanggg2.doge.items.DogeAxe;
@@ -163,7 +162,7 @@ public class Doge {
 		//		LanguageRegistry.addName(dogeSword, "wow attack");
 		
 		//Doge Armour
-		dogeArmourRenderID = ClientProxy.addArmour("DogeArmour");
+		dogeArmourRenderID = proxy.addArmour("DogeArmour");
 		dogeHelmet = new DogeHelmet(dogeArmorMat, dogeArmourRenderID, 0);
 		GameRegistry.registerItem(dogeHelmet, "dogeHelmet");
 		//		LanguageRegistry.addName(dogeHelmet, "many protect face");
