@@ -4,15 +4,15 @@
         "parent": "", 
         "url": "http://www.mmdanggg2.co.uk", 
         "logoFile": "pack.png", 
-        "updateUrl": "", 
-        "credits": "Made by your friendly neighborhood mmdanggg2", 
-        "authors": [
-            "mmdanggg2"
-        ], 
-        "version": "0.4", 
-        "modid": "Doge", 
         "dependancies": [
             "Forge"
+        ], 
+        "updateUrl": "", 
+        "credits": "Made by your friendly neighborhood mmdanggg2", 
+        "version": "0.4.1", 
+        "modid": "Doge", 
+        "authors": [
+            "mmdanggg2"
         ], 
         "screenshots": [], 
         "description": "The DogeMod adds a slew of Doge related items."
