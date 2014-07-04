@@ -13,6 +13,8 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class DogeMob extends EntityWolf
 {
@@ -85,6 +87,13 @@ public class DogeMob extends EntityWolf
 		if (itemstack != null && itemstack.getItem() == Items.bone && !this.isAngry()) { return false; }
 		
 		return super.interact(par1EntityPlayer);
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public float getTailRotation()
+	{
+		return this.isAngry() ? 1.5393804F : (this.isTamed() ? (0.75F - (200.0F - this.dataWatcher.getWatchableObjectFloat(18)) * 0.003F) * (float)Math.PI : ((float)Math.PI / 5F));
 	}
 	
 	/**
