@@ -37,7 +37,7 @@ public class DogeLauncher extends Item {
 			
 			if (powerEnchLvl > 0)
 			{
-				projectile.damage = projectile.damage + powerEnchLvl * 0.5f + 0.5f;
+				projectile.damage = projectile.damage + powerEnchLvl * 2f + 1f;
 			}
 			if (flag)
 			{
