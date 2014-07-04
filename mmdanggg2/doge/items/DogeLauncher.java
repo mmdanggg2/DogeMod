@@ -19,7 +19,6 @@ public class DogeLauncher extends Item {
 		setCreativeTab(CreativeTabs.tabTools);
 		setUnlocalizedName("dogeLauncher");
 		setTextureName(BasicInfo.NAME.toLowerCase() + ":dogeLauncher");
-		
 	}
 	
 	@Override
@@ -37,7 +36,7 @@ public class DogeLauncher extends Item {
 			
 			if (powerEnchLvl > 0)
 			{
-				projectile.damage = projectile.damage + powerEnchLvl * 0.5f + 0.5f;
+				projectile.damage = projectile.damage + powerEnchLvl * 2f + 1f;
 			}
 			if (flag)
 			{
@@ -66,5 +65,4 @@ public class DogeLauncher extends Item {
 		
 		return par1ItemStack;
 	}
-	
 }

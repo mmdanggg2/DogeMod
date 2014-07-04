@@ -40,12 +40,13 @@ public class DogeProjectile extends EntityThrowable
 	/**
 	 * Called when this EntityThrowable hits a block or entity.
 	 */
+	@Override
 	protected void onImpact(MovingObjectPosition par1MovingObjectPosition)
 	{
 		if (par1MovingObjectPosition.entityHit != null)
 		{
 			Entity hitEntity = par1MovingObjectPosition.entityHit;
-			hitEntity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), 8.0F);
+			hitEntity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), this.damage);
 			if (hitEntity instanceof EntityLiving) {
 				EntityLiving hitEntLiving = (EntityLiving) hitEntity;
 				if (hitEntLiving.getHealth() == 0)
