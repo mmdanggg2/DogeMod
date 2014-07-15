@@ -1,8 +1,6 @@
 package mmdanggg2.doge;
 
 import mmdanggg2.doge.blocks.DogeBlock;
-import mmdanggg2.doge.entities.DogeMob;
-import mmdanggg2.doge.entities.DogeProjectile;
 import mmdanggg2.doge.items.DogeAxe;
 import mmdanggg2.doge.items.DogeBoots;
 import mmdanggg2.doge.items.DogeChestplate;
@@ -24,8 +22,6 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.EnumHelper;
 import cpw.mods.fml.common.Mod;
@@ -35,66 +31,17 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkMod;
-import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.common.network.NetworkMod;import cpw.mods.fml.common.registry.LanguageRegistry;
 
 @Mod(modid=BasicInfo.ID, name=BasicInfo.NAME, version=BasicInfo.VER)
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
 public class Doge {
-	
-	//Inits
-	
-	private static int dogecoinID;
-	private static int dogeLauncherID;
-	
-	private static int dogePickaxeID;
-	private static int dogeAxeID;
-	private static int dogeShovelID;
-	private static int dogeHoeID;
-	private static int dogeSwordID;
-	
-	private static int dogeHelmetID;
-	private static int dogeChestplateID;
-	private static int dogeLeggingsID;
-	private static int dogeBootsID;
-	
-	private static int dogeBlockID;
-	
-	public static EnumToolMaterial dogeToolMat = EnumHelper.addToolMaterial("Doge", 3, 600, 20.0F, 4.0F, 30);
-	public static EnumArmorMaterial dogeArmorMat = EnumHelper.addArmorMaterial("Doge", 30, new int[]{5, 10, 8, 5}, 30);
-	
-	private static int dogeArmourRenderID;
-	
-	//Doge Tools
-	public static Item dogePickaxe;
-	public static Item dogeAxe;
-	public static Item dogeShovel;
-	public static Item dogeHoe;
-	public static Item dogeSword;
-	
-	//Doge Armour
-	public static Item dogeHelmet;
-	public static Item dogeChestplate;
-	public static Item dogeLeggings;
-	public static Item dogeBoots;
-	
-	
-	//Other
-	public static Block dogeBlock;
-	
-	public static Item dogecoin;
-	
-	public static Item dogeLauncher;
-	
-	
-	// The instance of your mod that Forge uses.
+		// The instance of your mod that Forge uses.
 	@Instance(BasicInfo.NAME)
 	public static Doge instance;
 	
 	// Says where the client and server 'proxy' code is loaded.
-	@SidedProxy(clientSide=BasicInfo.CLIENTPROXY + "ClientProxy", serverSide=BasicInfo.COMMONPROXY + "CommonProxy")
+	@SidedProxy(clientSide = BasicInfo.CLIENTPROXY + "ClientProxy", serverSide = BasicInfo.COMMONPROXY + "CommonProxy")
 	public static CommonProxy proxy;
 	
 	@EventHandler
@@ -129,6 +76,7 @@ public class Doge {
 		
 		dogeToolMat.customCraftingMaterial = dogecoin;
 		dogeArmorMat.customCraftingMaterial = dogecoin;
+		DogeRegisterItems.register();
 		
 		//Items
 		dogecoin = new Dogecoin(dogecoinID);
@@ -246,18 +194,4 @@ public class Doge {
 	public void postInit(FMLPostInitializationEvent event) {
 		// Stub Method
 	}
-	
-	public void registerMobEntity(Class<? extends Entity> entityClass, String entityName, int bkEggColor, int fgEggColor) {
-		int id = EntityRegistry.findGlobalUniqueEntityId();
-		
-		EntityRegistry.registerGlobalEntityID(entityClass, entityName, id);
-		EntityList.entityEggs.put(Integer.valueOf(id), new EntityEggInfo(id, bkEggColor, fgEggColor));
-	}
-	
-	public void addSpawn(Class<? extends EntityLiving> entityClass, int spawnProb, int min, int max, BiomeGenBase[] biomes) {
-		if (spawnProb > 0) {
-			EntityRegistry.addSpawn(entityClass, spawnProb, min, max, EnumCreatureType.creature, biomes);
-		}
-	}
-	
 }
