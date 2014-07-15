@@ -103,7 +103,7 @@ public class DogeMob extends EntityWolf
 	@Override
 	public boolean isBreedingItem(ItemStack par1ItemStack)
 	{
-		return par1ItemStack == null ? false : (!(par1ItemStack.getItem() instanceof ItemFood)) ? false : par1ItemStack.getItem() == Doge.dogecoin;
+		return par1ItemStack == null ? false : (!(par1ItemStack.getItem() instanceof ItemFood) ? false : ((ItemFood) par1ItemStack.getItem()).isWolfsFavoriteMeat());
 	}
 	
 	/**
@@ -131,11 +131,10 @@ public class DogeMob extends EntityWolf
 	public DogeMob createChild(EntityAgeable par1EntityAgeable)
 	{
 		DogeMob childAnimal = new DogeMob(this.worldObj);
-		String s = this.getOwnerName();
+		String owner = this.func_152113_b();
 		
-		if (s != null && s.trim().length() > 0)
-		{
-			childAnimal.setOwner(s);
+		if (owner != null && owner.trim().length() > 0) {
+			childAnimal.func_152115_b(owner);
 			childAnimal.setTamed(true);
 		}
 		
@@ -173,7 +172,7 @@ public class DogeMob extends EntityWolf
 		this.setAttackTarget((EntityLivingBase)null);
 		//		this.aiSit.setSitting(true);
 		this.setHealth(200.0F);
-		this.setOwner(par1EntityPlayer.getCommandSenderName());
+		this.func_152115_b(par1EntityPlayer.getUniqueID().toString());
 		this.playTameEffect(true);
 		this.worldObj.setEntityState(this, (byte)7);
 	}
