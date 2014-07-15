@@ -103,7 +103,7 @@ public class DogeMob extends EntityWolf
 	@Override
 	public boolean isBreedingItem(ItemStack par1ItemStack)
 	{
-		return par1ItemStack == null ? false : (!(par1ItemStack.getItem() instanceof ItemFood)) ? false : par1ItemStack.getItem() == Doge.dogecoin;
+		return par1ItemStack == null ? false : (!(par1ItemStack.getItem() instanceof ItemFood) ? false : ((ItemFood) par1ItemStack.getItem()).isWolfsFavoriteMeat());
 	}
 	
 	/**
