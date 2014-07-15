@@ -1,24 +1,6 @@
 package mmdanggg2.doge;
 
-import mmdanggg2.doge.blocks.DogeBlock;
-import mmdanggg2.doge.items.DogeAxe;
-import mmdanggg2.doge.items.DogeBoots;
-import mmdanggg2.doge.items.DogeChestplate;
-import mmdanggg2.doge.items.DogeHelmet;
-import mmdanggg2.doge.items.DogeHoe;
-import mmdanggg2.doge.items.DogeLauncher;
-import mmdanggg2.doge.items.DogeLeggings;
-import mmdanggg2.doge.items.DogePickaxe;
-import mmdanggg2.doge.items.DogeShovel;
-import mmdanggg2.doge.items.DogeSword;
-import mmdanggg2.doge.items.Dogecoin;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityEggInfo;
-import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
@@ -31,18 +13,63 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkMod;import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.common.network.NetworkMod;
 
 @Mod(modid=BasicInfo.ID, name=BasicInfo.NAME, version=BasicInfo.VER)
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
 public class Doge {
-		// The instance of your mod that Forge uses.
+	
+	// The instance of your mod that Forge uses.
 	@Instance(BasicInfo.NAME)
 	public static Doge instance;
 	
 	// Says where the client and server 'proxy' code is loaded.
 	@SidedProxy(clientSide = BasicInfo.CLIENTPROXY + "ClientProxy", serverSide = BasicInfo.COMMONPROXY + "CommonProxy")
 	public static CommonProxy proxy;
+	
+	// Inits
+	
+	public static int dogecoinID;
+	public static int dogeLauncherID;
+	
+	public static int dogePickaxeID;
+	public static int dogeAxeID;
+	public static int dogeShovelID;
+	public static int dogeHoeID;
+	public static int dogeSwordID;
+	
+	public static int dogeHelmetID;
+	public static int dogeChestplateID;
+	public static int dogeLeggingsID;
+	public static int dogeBootsID;
+	
+	public static int dogeBlockID;
+	
+	public static EnumToolMaterial dogeToolMat = EnumHelper.addToolMaterial("Doge", 3, 600, 20.0F, 4.0F, 30);
+	public static EnumArmorMaterial dogeArmorMat = EnumHelper.addArmorMaterial("Doge", 30, new int[] { 5, 10, 8, 5 }, 30);
+	
+	public static int dogeArmourRenderID = proxy.addArmour("DogeArmour");
+	
+	// Doge Tools
+	public static Item dogePickaxe;
+	public static Item dogeAxe;
+	public static Item dogeShovel;
+	public static Item dogeHoe;
+	public static Item dogeSword;
+	
+	// Doge Armour
+	public static Item dogeHelmet;
+	public static Item dogeChestplate;
+	public static Item dogeLeggings;
+	public static Item dogeBoots;
+	
+	// Other
+	public static Block dogeBlock;
+	
+	public static Item dogecoin;
+	
+	public static Item dogeLauncher;
+	
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -74,119 +101,17 @@ public class Doge {
 		// saving the configuration to its file
 		config.save();
 		
-		dogeToolMat.customCraftingMaterial = dogecoin;
-		dogeArmorMat.customCraftingMaterial = dogecoin;
 		DogeRegisterItems.register();
-		
-		//Items
-		dogecoin = new Dogecoin(dogecoinID);
-		GameRegistry.registerItem(dogecoin, "dogecoin");
-		LanguageRegistry.addName(dogecoin, "Dogecoin");
-		
-		dogeLauncher = new DogeLauncher(dogeLauncherID);
-		GameRegistry.registerItem(dogeLauncher, "dogeLauncher");
-		LanguageRegistry.addName(dogeLauncher, "Doge Launcher");
-		
-		//Doge Tools
-		dogePickaxe = new DogePickaxe(dogePickaxeID, dogeToolMat);
-		GameRegistry.registerItem(dogePickaxe, "dogePickaxe");
-		LanguageRegistry.addName(dogePickaxe, "such mine");
-		
-		dogeAxe = new DogeAxe(dogeAxeID, dogeToolMat);
-		GameRegistry.registerItem(dogeAxe, "dogeAxe");
-		LanguageRegistry.addName(dogeAxe, "many chop");
-		
-		dogeShovel = new DogeShovel(dogeShovelID, dogeToolMat);
-		GameRegistry.registerItem(dogeShovel, "dogeShovel");
-		LanguageRegistry.addName(dogeShovel, "much dig");
-		
-		dogeHoe = new DogeHoe(dogeHoeID, dogeToolMat);
-		GameRegistry.registerItem(dogeHoe, "dogeHoe");
-		LanguageRegistry.addName(dogeHoe, "very farm");
-		
-		dogeSword = new DogeSword(dogeSwordID, dogeToolMat);
-		GameRegistry.registerItem(dogeSword, "dogeSword");
-		LanguageRegistry.addName(dogeSword, "wow attack");
-		
-		//Doge Armour
-		dogeArmourRenderID = proxy.addArmour("DogeArmour");
-		dogeHelmet = new DogeHelmet(dogeHelmetID, dogeArmorMat, dogeArmourRenderID, 0);
-		GameRegistry.registerItem(dogeHelmet, "dogeHelmet");
-		LanguageRegistry.addName(dogeHelmet, "many protect face");
-		
-		dogeChestplate = new DogeChestplate(dogeChestplateID, dogeArmorMat, dogeArmourRenderID, 1);
-		GameRegistry.registerItem(dogeChestplate, "dogeChestplate");
-		LanguageRegistry.addName(dogeChestplate, "much chest armour");
-		
-		dogeLeggings = new DogeLeggings(dogeLeggingsID, dogeArmorMat, dogeArmourRenderID, 2);
-		GameRegistry.registerItem(dogeLeggings, "dogeLeggings");
-		LanguageRegistry.addName(dogeLeggings, "very leg defend");
-		
-		dogeBoots = new DogeBoots(dogeBootsID, dogeArmorMat, dogeArmourRenderID, 3);
-		GameRegistry.registerItem(dogeBoots, "dogeBoots");
-		LanguageRegistry.addName(dogeBoots, "wow shoes");
-		
-		
-		//Blocks
-		dogeBlock = new DogeBlock(dogeBlockID, Material.ground);
-		GameRegistry.registerBlock(dogeBlock, "dogeBlock");
-		LanguageRegistry.addName(dogeBlock, "Doge Block");
-		
-		
-		//Entities
-		
-		EntityRegistry.registerModEntity(DogeProjectile.class, "dogeProjectile", EntityRegistry.findGlobalUniqueEntityId(), this, 128, 1, true);
-		
-		//Mobs
-		registerMobEntity(DogeMob.class, "DogeMob", 0xeaeae9, 0xc99a03);
-		LanguageRegistry.instance().addStringLocalization("entity.DogeMob.name", "Doge");
-		
+
+		DogeRegisterBlocks.register();
+
+		DogeRegisterEntities.register();
+
+		DogeRegisterRecipies.register();
 	}
 	
 	@EventHandler
 	public void load(FMLInitializationEvent event) {
-		
-		//Recipes
-		GameRegistry.addRecipe(new ItemStack(dogecoin, 1), " G ", "GDG", " G ",
-				'D', new ItemStack(Item.diamond), 'G', new ItemStack(Item.ingotGold));
-		
-		GameRegistry.addRecipe(new ItemStack(dogeBlock), "###", "###", "###",
-				'#', new ItemStack(dogecoin));
-		
-		GameRegistry.addRecipe(new ItemStack(dogeLauncher, 1), " D ", "DD ", " BD",
-				'D', new ItemStack(dogecoin), 'B', new ItemStack(Block.stoneButton));
-		
-		GameRegistry.addShapelessRecipe(new ItemStack(dogecoin, 9), new ItemStack(dogeBlock));
-		
-		//Doge Tool Recipes
-		GameRegistry.addRecipe(new ItemStack(dogePickaxe), "###", " S ", " S ",
-				'#', new ItemStack(dogecoin), 'S', new ItemStack(Item.stick));
-		
-		GameRegistry.addRecipe(new ItemStack(dogeAxe), " ##", " S#", " S ",
-				'#', new ItemStack(dogecoin), 'S', new ItemStack(Item.stick));
-		
-		GameRegistry.addRecipe(new ItemStack(dogeShovel), " # ", " S ", " S ",
-				'#', new ItemStack(dogecoin), 'S', new ItemStack(Item.stick));
-		
-		GameRegistry.addRecipe(new ItemStack(dogeHoe), " ##", " S ", " S ",
-				'#', new ItemStack(dogecoin), 'S', new ItemStack(Item.stick));
-		
-		GameRegistry.addRecipe(new ItemStack(dogeSword), " # ", " # ", " S ",
-				'#', new ItemStack(dogecoin), 'S', new ItemStack(Item.stick));
-		
-		//Doge Armour Recipes
-		GameRegistry.addRecipe(new ItemStack(dogeHelmet), "###", "# #",
-				'#', new ItemStack(dogecoin));
-		
-		GameRegistry.addRecipe(new ItemStack(dogeChestplate), "# #", "###", "###",
-				'#', new ItemStack(dogecoin));
-		
-		GameRegistry.addRecipe(new ItemStack(dogeLeggings), "###", "# #", "# #",
-				'#', new ItemStack(dogecoin));
-		
-		GameRegistry.addRecipe(new ItemStack(dogeBoots), "# #", "# #",
-				'#', new ItemStack(dogecoin));
-		
 		proxy.registerRenderers();
 	}
 	
