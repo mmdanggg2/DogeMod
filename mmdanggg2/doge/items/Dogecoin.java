@@ -2,7 +2,6 @@ package mmdanggg2.doge.items;
 
 import mmdanggg2.doge.BasicInfo;
 import mmdanggg2.doge.entities.DogeMob;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;

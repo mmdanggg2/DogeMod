@@ -37,9 +37,9 @@ public class Doge {
 	//Inits
 	public static int dogeArmourRenderID = proxy.addArmour("DogeArmour");
 	
-	public static ToolMaterial dogeToolMat = EnumHelper.addToolMaterial("Doge", 3, 600, 20.0F, 4.0F, 30);
-	public static ArmorMaterial dogeArmorMat = EnumHelper.addArmorMaterial("Doge", 30, new int[] { 5, 10, 8, 5 }, 30);
-
+	public static ToolMaterial dogeToolMat;
+	public static ArmorMaterial dogeArmorMat;
+	
 	// Doge Tools
 	public static DogePickaxe dogePickaxe;
 	public static DogeAxe dogeAxe;
@@ -67,8 +67,15 @@ public class Doge {
 		// loading the configuration from its file
 		config.load();
 		
+		int toolDurability = config.get("Doge_Tools", "ToolDurability", 780, "How many uses the tools have (Default 780)").getInt(780);
+		float toolSpeed = (float) config.get("Doge_Tools", "ToolSpeed", 20.0F, "How fast the tools mine their respective blocks (Default 20.0)").getDouble(20.0F);
+		float toolDamage = (float) config.get("Doge_Tools", "ToolDamage", 6.0F, "How much damage the tools do (Default 6.0)").getDouble(6.0F);
+		
 		// saving the configuration to its file
 		config.save();
+		
+		dogeToolMat = EnumHelper.addToolMaterial("Doge", 3, toolDurability, toolSpeed, toolDamage, 30);
+		dogeArmorMat = EnumHelper.addArmorMaterial("Doge", 30, new int[] { 5, 10, 8, 5 }, 30);
 		
 		DogeRegisterItems.register();
 		
