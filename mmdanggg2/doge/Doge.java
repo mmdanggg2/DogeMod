@@ -12,6 +12,7 @@ import mmdanggg2.doge.items.DogePickaxe;
 import mmdanggg2.doge.items.DogeShovel;
 import mmdanggg2.doge.items.DogeSword;
 import mmdanggg2.doge.items.Dogecoin;
+import mmdanggg2.doge.util.DogeLogger;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraftforge.common.config.Configuration;
@@ -35,7 +36,7 @@ public class Doge {
 	public static CommonProxy proxy;
 
 	//Inits
-	public static int dogeArmourRenderID = proxy.addArmour("DogeArmour");
+	public static final int dogeArmourRenderID = proxy.addArmour("DogeArmour");
 	
 	public static ToolMaterial dogeToolMat;
 	public static ArmorMaterial dogeArmorMat;
@@ -59,30 +60,40 @@ public class Doge {
 	public static Dogecoin dogecoin;
 
 	public static DogeLauncher dogeLauncher;
+	
+	// Settings
+	public static int toolDurability;
+	public static float toolSpeed;
+	public static float toolDamage;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
-		
+
+		DogeLogger.logInfo("Loading Config");
 		// loading the configuration from its file
 		config.load();
 		
-		int toolDurability = config.get("Doge_Tools", "ToolDurability", 780, "How many uses the tools have (Default 780)").getInt(780);
-		float toolSpeed = (float) config.get("Doge_Tools", "ToolSpeed", 20.0F, "How fast the tools mine their respective blocks (Default 20.0)").getDouble(20.0F);
-		float toolDamage = (float) config.get("Doge_Tools", "ToolDamage", 6.0F, "How much damage the tools do (Default 6.0)").getDouble(6.0F);
+		toolDurability = config.get("Doge_Tools", "ToolDurability", 780, "How many uses the tools have (Default 780)").getInt(780);
+		toolSpeed = (float) config.get("Doge_Tools", "ToolSpeed", 20.0F, "How fast the tools mine their respective blocks (Default 20.0)").getDouble(20.0F);
+		toolDamage = (float) config.get("Doge_Tools", "ToolDamage", 6.0F, "How much damage the tools do (Default 6.0)").getDouble(6.0F);
 		
 		// saving the configuration to its file
 		config.save();
 		
 		dogeToolMat = EnumHelper.addToolMaterial("Doge", 3, toolDurability, toolSpeed, toolDamage, 30);
 		dogeArmorMat = EnumHelper.addArmorMaterial("Doge", 30, new int[] { 5, 10, 8, 5 }, 30);
-		
+
+		DogeLogger.logInfo("Registering Items");
 		DogeRegisterItems.register();
 		
+		DogeLogger.logInfo("Registering Blocks");
 		DogeRegisterBlocks.register();
 		
+		DogeLogger.logInfo("Registering Entities");
 		DogeRegisterEntities.register();
 		
+		DogeLogger.logInfo("Registering Recipies");
 		DogeRegisterRecipies.register();
 	}
 	
@@ -90,7 +101,7 @@ public class Doge {
 	public void load(FMLInitializationEvent event) {
 		
 		proxy.registerRenderers();
-		
+
 	}
 	
 	@EventHandler
