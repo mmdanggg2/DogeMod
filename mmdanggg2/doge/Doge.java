@@ -1,6 +1,7 @@
 package mmdanggg2.doge;
 
 import mmdanggg2.doge.blocks.DogeBlock;
+import mmdanggg2.doge.creativetab.DogeCreativeTab;
 import mmdanggg2.doge.items.DogeAxe;
 import mmdanggg2.doge.items.DogeBoots;
 import mmdanggg2.doge.items.DogeChestplate;
@@ -13,6 +14,7 @@ import mmdanggg2.doge.items.DogeShovel;
 import mmdanggg2.doge.items.DogeSword;
 import mmdanggg2.doge.items.Dogecoin;
 import mmdanggg2.doge.util.DogeLogger;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraftforge.common.config.Configuration;
@@ -65,6 +67,9 @@ public class Doge {
 	public static int toolDurability;
 	public static float toolSpeed;
 	public static float toolDamage;
+	
+	// Creative Tab
+	public static CreativeTabs dogeTab;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -85,6 +90,8 @@ public class Doge {
 		dogeArmorMat = EnumHelper.addArmorMaterial("Doge", 30, new int[] { 5, 10, 8, 5 }, 30);
 		
 		dogeArmourRenderID = proxy.addArmour("DogeArmour");
+		
+		dogeTab = new DogeCreativeTab("dogeTab");
 
 		DogeLogger.logInfo("Registering Items");
 		DogeRegisterItems.register();

@@ -16,3 +16,5 @@ item.dogeLeggings.name=very leg defend
 item.dogeBoots.name=wow shoes
 
 entity.dogeMob.name=Doge
+
+itemGroup.dogeTab=Doge Mod

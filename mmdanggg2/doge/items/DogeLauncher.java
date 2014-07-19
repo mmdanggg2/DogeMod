@@ -4,7 +4,6 @@ import mmdanggg2.doge.BasicInfo;
 import mmdanggg2.doge.Doge;
 import mmdanggg2.doge.entities.DogeProjectile;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,7 +18,7 @@ public class DogeLauncher extends ItemBow {
 	public DogeLauncher() {
 		super();
 		setMaxStackSize(1);
-		setCreativeTab(CreativeTabs.tabTools);
+		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogeLauncher");
 		setTextureName(BasicInfo.NAME.toLowerCase() + ":dogeLauncher");
 	}
