@@ -36,7 +36,7 @@ public class Doge {
 	public static CommonProxy proxy;
 
 	//Inits
-	public static final int dogeArmourRenderID = proxy.addArmour("DogeArmour");
+	public static int dogeArmourRenderID;
 	
 	public static ToolMaterial dogeToolMat;
 	public static ArmorMaterial dogeArmorMat;
@@ -83,6 +83,8 @@ public class Doge {
 		
 		dogeToolMat = EnumHelper.addToolMaterial("Doge", 3, toolDurability, toolSpeed, toolDamage, 30);
 		dogeArmorMat = EnumHelper.addArmorMaterial("Doge", 30, new int[] { 5, 10, 8, 5 }, 30);
+		
+		dogeArmourRenderID = proxy.addArmour("DogeArmour");
 
 		DogeLogger.logInfo("Registering Items");
 		DogeRegisterItems.register();
@@ -101,6 +103,7 @@ public class Doge {
 	public void load(FMLInitializationEvent event) {
 		
 		proxy.registerRenderers();
+		proxy.regCape();
 
 	}
 	

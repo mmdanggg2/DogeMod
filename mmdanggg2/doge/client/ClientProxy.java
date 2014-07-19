@@ -7,6 +7,9 @@ import mmdanggg2.doge.entities.DogeProjectile;
 import mmdanggg2.doge.renderer.DogeMobRender;
 import net.minecraft.client.model.ModelWolf;
 import net.minecraft.client.renderer.entity.RenderSnowball;
+
+import com.jadarstudios.developercapes.DevCapes;
+
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
 public class ClientProxy extends CommonProxy {
@@ -20,6 +23,16 @@ public class ClientProxy extends CommonProxy {
 		
 	}
 	
-	public static int addArmour(String armourName) {return RenderingRegistry.addNewArmourRendererPrefix(armourName);}
+	@Override
+	public int addArmour(String armourName) {
+		return RenderingRegistry.addNewArmourRendererPrefix(armourName);
+	}
 	
+	@Override
+	public void regCape() {
+		DevCapes capesInstance = DevCapes.getInstance();
+		capesInstance.addUser("mmdanggg2", "http://www.mmdanggg2.co.uk/doge/mmdanggg2Cape.png");
+		capesInstance.addUser("Oscip", "http://www.mmdanggg2.co.uk/doge/OscipCape.png");
+	}
+
 }
