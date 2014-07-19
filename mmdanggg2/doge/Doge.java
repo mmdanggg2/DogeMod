@@ -13,6 +13,7 @@ import mmdanggg2.doge.items.DogePickaxe;
 import mmdanggg2.doge.items.DogeShovel;
 import mmdanggg2.doge.items.DogeSword;
 import mmdanggg2.doge.items.Dogecoin;
+import mmdanggg2.doge.items.GPUPick;
 import mmdanggg2.doge.util.DogeLogger;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item.ToolMaterial;
@@ -63,6 +64,8 @@ public class Doge {
 
 	public static DogeLauncher dogeLauncher;
 	
+	public static GPUPick gpuPick;
+
 	// Settings
 	public static int toolDurability;
 	public static float toolSpeed;
