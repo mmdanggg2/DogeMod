@@ -6,20 +6,18 @@ import mmdanggg2.doge.util.NBTHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 
 public class GPUPick extends Item {
 
-	private int tickCount;
-
 	public GPUPick() {
 		this.maxStackSize = 1;
-		this.setMaxDamage(100);
+		this.setMaxDamage(20);
 		this.setCreativeTab(Doge.dogeTab);
 		this.setUnlocalizedName("gpuPick");
 		this.setTextureName(BasicInfo.NAME.toLowerCase() + ":gpuPick");
@@ -49,13 +47,22 @@ public class GPUPick extends Item {
 	public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int xPos, int yPos, int zPos,
 			EntityLivingBase entityLiving) {
 		if (!world.isRemote) {
+			
+			if (world.rand.nextInt((stack.getMaxDamage() + 1) / 2) == 0) {
+				EntityItem coin = new EntityItem(world);
+				coin.setEntityItemStack(new ItemStack(Doge.dogecoin, 1));
+				coin.setPosition(xPos + .5, yPos + .5, zPos + .5);
+				world.spawnEntityInWorld(coin);
+			}
+
 			NBTTagCompound stackTag = stack.stackTagCompound;
 			float speed = NBTHelper.getFloat(stackTag, "speed", 1);
-			speed = speed + 0.5f;
+			speed = speed + 2f;
 			stackTag.setFloat("speed", speed);
 			stack.damageItem(1, entityLiving);
-			if (entityLiving instanceof EntityPlayer) {
-				((EntityPlayer) entityLiving).addChatMessage(new ChatComponentText("" + (int) speed));
+			if (stack.getItemDamage() >= stack.getMaxDamage()) {
+				world.createExplosion(entityLiving, xPos, yPos, zPos, 2f, true);
+				stack.damageItem(1, entityLiving);
 			}
 		}
 		return super.onBlockDestroyed(stack, world, block, xPos, yPos, zPos, entityLiving);
@@ -63,13 +70,6 @@ public class GPUPick extends Item {
 	
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		if (!world.isRemote) {
-			NBTTagCompound stackTag = stack.stackTagCompound;
-			float speed = NBTHelper.getFloat(stackTag, "speed", 1);
-			speed = 1;
-			stackTag.setFloat("speed", speed);
-			stack.setItemDamage(0);
-		}
 		return super.onItemRightClick(stack, world, player);
 	}
 	
@@ -82,19 +82,23 @@ public class GPUPick extends Item {
 			
 			NBTTagCompound stackTag = stack.stackTagCompound;
 			
-			if (tickCount >= 30) {
-				tickCount = 0;
-				if (stack.getItemDamage() > 0) {
-					float speed = NBTHelper.getFloat(stackTag, "speed", 1);
-					if (speed > 1) {
-						speed = speed - 0.5f;
-						stackTag.setFloat("speed", speed);
+			if (!inHand) {
+				int tickCount = NBTHelper.getInt(stackTag, "tickCount", 0);
+
+				if (tickCount >= 20) {
+					tickCount = 0;
+					if (stack.getItemDamage() > 0) {
+						float speed = NBTHelper.getFloat(stackTag, "speed", 1);
+						if (speed > 1) {
+							speed = speed - 1f;
+							stackTag.setFloat("speed", speed);
+						}
+						stack.damageItem(-1, (EntityLivingBase) entity);
 					}
-					stack.damageItem(-1, (EntityLivingBase) entity);
 				}
+				tickCount++;
+				stackTag.setInteger("tickCount", tickCount);
 			}
-			
-			tickCount++;
 		}
 		super.onUpdate(stack, world, entity, itemSlot, inHand);
 	}
@@ -107,6 +111,6 @@ public class GPUPick extends Item {
 	private void initTags(ItemStack stack) {
 		stack.stackTagCompound = new NBTTagCompound();
 		stack.stackTagCompound.setFloat("speed", 1.0f);
-		stack.stackTagCompound.setFloat("speed", 1.0f);
+		stack.stackTagCompound.setInteger("tickCount", 0);
 	}
 }
