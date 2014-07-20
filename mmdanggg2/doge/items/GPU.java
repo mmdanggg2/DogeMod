@@ -13,14 +13,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class GPUPick extends Item {
+public class GPU extends Item {
 
-	public GPUPick() {
+	public GPU() {
 		this.maxStackSize = 1;
 		this.setMaxDamage(20);
 		this.setCreativeTab(Doge.dogeTab);
-		this.setUnlocalizedName("gpuPick");
-		this.setTextureName(BasicInfo.NAME.toLowerCase() + ":gpuPick");
+		this.setUnlocalizedName("gpu");
+		this.setTextureName(BasicInfo.NAME.toLowerCase() + ":gpu");
 	}
 	
 	@Override
@@ -85,7 +85,7 @@ public class GPUPick extends Item {
 			if (!inHand) {
 				int tickCount = NBTHelper.getInt(stackTag, "tickCount", 0);
 
-				if (tickCount >= 20) {
+				if (tickCount >= 30) {
 					tickCount = 0;
 					if (stack.getItemDamage() > 0) {
 						float speed = NBTHelper.getFloat(stackTag, "speed", 1);

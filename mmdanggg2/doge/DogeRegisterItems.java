@@ -11,7 +11,7 @@ import mmdanggg2.doge.items.DogePickaxe;
 import mmdanggg2.doge.items.DogeShovel;
 import mmdanggg2.doge.items.DogeSword;
 import mmdanggg2.doge.items.Dogecoin;
-import mmdanggg2.doge.items.GPUPick;
+import mmdanggg2.doge.items.GPU;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class DogeRegisterItems {
@@ -27,8 +27,8 @@ public class DogeRegisterItems {
 		Doge.dogeLauncher = new DogeLauncher();
 		GameRegistry.registerItem(Doge.dogeLauncher, "dogeLauncher");
 		
-		Doge.gpuPick = new GPUPick();
-		GameRegistry.registerItem(Doge.gpuPick, "gpuPick");
+		Doge.gpu = new GPU();
+		GameRegistry.registerItem(Doge.gpu, "gpu");
 		
 		// Doge Tools
 		Doge.dogePickaxe = new DogePickaxe(Doge.dogeToolMat);
