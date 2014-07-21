@@ -1,8 +1,10 @@
 
 tile.dogeBlock.name=Doge Block
+tile.miningRig.name=Mining Rig
 
 item.dogecoin.name=Dogecoin
 item.dogeLauncher.name=Doge Launcher
+item.gpu.name=GPU
 
 item.dogePickaxe.name=such mine
 item.dogeAxe.name=many chop

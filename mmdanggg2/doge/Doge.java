@@ -1,6 +1,8 @@
 package mmdanggg2.doge;
 
 import mmdanggg2.doge.blocks.DogeBlock;
+import mmdanggg2.doge.blocks.MiningRig;
+import mmdanggg2.doge.client.interfaces.GUIHandler;
 import mmdanggg2.doge.creativetab.DogeCreativeTab;
 import mmdanggg2.doge.items.DogeAxe;
 import mmdanggg2.doge.items.DogeBoots;
@@ -65,6 +67,8 @@ public class Doge {
 	public static DogeLauncher dogeLauncher;
 	
 	public static GPU gpu;
+	
+	public static MiningRig miningRig;
 
 	// Settings
 	public static int toolDurability;
@@ -114,6 +118,7 @@ public class Doge {
 		
 		proxy.registerRenderers();
 		proxy.regCape();
+		new GUIHandler();
 
 	}
 	
