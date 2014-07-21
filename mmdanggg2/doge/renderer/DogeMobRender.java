@@ -1,6 +1,7 @@
 package mmdanggg2.doge.renderer;
 
 import mmdanggg2.doge.BasicInfo;
+import mmdanggg2.doge.entities.DogeMob;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderWolf;
 import net.minecraft.entity.passive.EntitySheep;
@@ -15,10 +16,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class DogeMobRender extends RenderWolf {
 	
-	private static final ResourceLocation wolfTextures = new ResourceLocation(BasicInfo.NAME.toLowerCase(), "textures/entity/doge/doge.png");
-	private static final ResourceLocation tamedWolfTextures = new ResourceLocation(BasicInfo.NAME.toLowerCase(), "textures/entity/doge/doge_tame.png");
-	private static final ResourceLocation anrgyWolfTextures = new ResourceLocation(BasicInfo.NAME.toLowerCase(), "textures/entity/doge/doge_angry.png");
-	private static final ResourceLocation wolfCollarTextures = new ResourceLocation(BasicInfo.NAME.toLowerCase(), "textures/entity/doge/doge_collar.png");
+	private static final ResourceLocation dogeNorm = new ResourceLocation(BasicInfo.NAME.toLowerCase(), "textures/entity/doge/doge.png");
+	private static final ResourceLocation dogeTame = new ResourceLocation(BasicInfo.NAME.toLowerCase(), "textures/entity/doge/doge_tame.png");
+	private static final ResourceLocation dogeAngry = new ResourceLocation(BasicInfo.NAME.toLowerCase(), "textures/entity/doge/doge_angry.png");
+	private static final ResourceLocation dogeCollar = new ResourceLocation(BasicInfo.NAME.toLowerCase(), "textures/entity/doge/doge_collar.png");
 	
 	public DogeMobRender(ModelBase par1ModelBase, ModelBase par2ModelBase, float par3) {
 		super(par1ModelBase, par2ModelBase, par3);
@@ -32,13 +33,13 @@ public class DogeMobRender extends RenderWolf {
 		if (par2 == 0 && par1EntityWolf.getWolfShaking())
 		{
 			f1 = par1EntityWolf.getBrightness(par3) * par1EntityWolf.getShadingWhileShaking(par3);
-			this.bindTexture(wolfTextures);
+			this.bindTexture(dogeNorm);
 			GL11.glColor3f(f1, f1, f1);
 			return 1;
 		}
 		else if (par2 == 1 && par1EntityWolf.isTamed())
 		{
-			this.bindTexture(wolfCollarTextures);
+			this.bindTexture(dogeCollar);
 			f1 = 1.0F;
 			int j = par1EntityWolf.getCollarColor();
 			GL11.glColor3f(f1 * EntitySheep.fleeceColorTable[j][0], f1 * EntitySheep.fleeceColorTable[j][1], f1 * EntitySheep.fleeceColorTable[j][2]);
@@ -51,9 +52,25 @@ public class DogeMobRender extends RenderWolf {
 	}
 	
 	@Override
-	protected ResourceLocation getEntityTexture(EntityWolf par1EntityWolf)
+	protected ResourceLocation getEntityTexture(EntityWolf wolf)
 	{
-		return par1EntityWolf.isTamed() ? tamedWolfTextures : (par1EntityWolf.isAngry() ? anrgyWolfTextures : wolfTextures);
+		DogeMob doge = null;
+		if (wolf instanceof DogeMob) {
+			doge = (DogeMob) wolf;
+		}
+		else {
+			super.getEntityTexture(wolf);
+		}
+
+		ResourceLocation returnedTex = dogeNorm;
+		
+		if (doge.isTamed()) {
+			returnedTex = dogeTame;
+		}
+		else if (doge.isAngry()) {
+			returnedTex = dogeAngry;
+		}
+		return returnedTex;
 	}
 	
 }

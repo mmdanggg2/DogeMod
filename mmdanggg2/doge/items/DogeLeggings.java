@@ -1,15 +1,14 @@
 package mmdanggg2.doge.items;
 
 import mmdanggg2.doge.BasicInfo;
-import net.minecraft.creativetab.CreativeTabs;
+import mmdanggg2.doge.Doge;
 
 public class DogeLeggings extends DogeArmour {
 	
-	public DogeLeggings(ArmorMaterial par2EnumArmorMaterial,
-			int par3, int armourPart) {
+	public DogeLeggings(ArmorMaterial par2EnumArmorMaterial, int par3, int armourPart) {
 		super(par2EnumArmorMaterial, par3, armourPart);
 		
-		setCreativeTab(CreativeTabs.tabCombat);
+		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogeLeggings");
 		setTextureName(BasicInfo.NAME.toLowerCase() + ":dogeLeggings");
 		

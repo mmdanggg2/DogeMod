@@ -1,7 +1,7 @@
 package mmdanggg2.doge.items;
 
 import mmdanggg2.doge.BasicInfo;
-import net.minecraft.creativetab.CreativeTabs;
+import mmdanggg2.doge.Doge;
 import net.minecraft.item.ItemPickaxe;
 
 public class DogePickaxe extends ItemPickaxe {
@@ -9,7 +9,7 @@ public class DogePickaxe extends ItemPickaxe {
 	public DogePickaxe(ToolMaterial par2EnumToolMaterial) {
 		super(par2EnumToolMaterial);
 		
-		setCreativeTab(CreativeTabs.tabTools);
+		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogePickaxe");
 		setTextureName(BasicInfo.NAME.toLowerCase() + ":dogePick");
 		
