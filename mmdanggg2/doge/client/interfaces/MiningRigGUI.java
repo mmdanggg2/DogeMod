@@ -31,4 +31,14 @@ public class MiningRigGUI extends GuiContainer {
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 	}
 	
+	@Override
+	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
+		fontRendererObj.drawString("Mining Rig", 8, 2, 0x404040);
+	}
+	
+	@Override
+	public void initGui() {
+		super.initGui();
+		buttonList.clear();
+	}
 }
