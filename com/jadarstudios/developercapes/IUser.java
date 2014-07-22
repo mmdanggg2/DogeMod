@@ -6,7 +6,7 @@
  */
 package com.jadarstudios.developercapes;
 
-import net.minecraft.client.renderer.texture.ITextureObject;
+import net.minecraft.client.renderer.texture.TextureObject;
 import net.minecraft.util.ResourceLocation;
 
 /**
@@ -16,13 +16,13 @@ import net.minecraft.util.ResourceLocation;
  */
 public interface IUser
 {
-    /**
-     * @return The {@link ResourceLocation} that contains the cape file
-     */
-    public ResourceLocation getResource();
-    
-    /**
-     * @return The {@link ITextureObject} that contains the cape
-     */
-    public ITextureObject getTexture();
+	/**
+	 * @return The {@link ResourceLocation} that contains the cape file
+	 */
+	public ResourceLocation getResource();
+	
+	/**
+	 * @return The {@link ITextureObject} that contains the cape
+	 */
+	public TextureObject getTexture();
 }

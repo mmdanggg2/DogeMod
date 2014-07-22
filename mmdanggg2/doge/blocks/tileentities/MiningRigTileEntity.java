@@ -11,7 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 public class MiningRigTileEntity extends TileEntity implements IInventory {
 	
 	private ItemStack[] items;
-
+	
 	public MiningRigTileEntity() {
 		items = new ItemStack[4];
 	}
@@ -40,10 +40,10 @@ public class MiningRigTileEntity extends TileEntity implements IInventory {
 	public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
 		
-		NBTTagList items = compound.getTagList("Items", 10);
+		NBTTagList items = compound.getTagList("Items");
 		
 		for (int i = 0; i < items.tagCount(); i++) {
-			NBTTagCompound item = items.getCompoundTagAt(i);
+			NBTTagCompound item = (NBTTagCompound) items.tagAt(i);
 			int slot = item.getByte("Slot");
 			
 			if (slot >= 0 && slot < getSizeInventory()) {
@@ -51,10 +51,11 @@ public class MiningRigTileEntity extends TileEntity implements IInventory {
 			}
 		}
 	}
-
+	
 	@Override
-	public void closeInventory() {}
-
+	public void closeChest() {
+	}
+	
 	@Override
 	public ItemStack decrStackSize(int arg0, int count) {
 		ItemStack stack = getStackInSlot(arg0);
@@ -70,52 +71,53 @@ public class MiningRigTileEntity extends TileEntity implements IInventory {
 		
 		return stack;
 	}
-
+	
 	@Override
-	public String getInventoryName() {
+	public String getInvName() {
 		return "MiningRig";
 	}
-
+	
 	@Override
 	public int getInventoryStackLimit() {
 		return 1;
 	}
-
+	
 	@Override
 	public int getSizeInventory() {
 		return items.length;
 	}
-
+	
 	@Override
 	public ItemStack getStackInSlot(int i) {
 		return items[i];
 	}
-
+	
 	@Override
 	public ItemStack getStackInSlotOnClosing(int arg0) {
 		ItemStack stack = getStackInSlot(arg0);
 		setInventorySlotContents(arg0, null);
 		return stack;
 	}
-
+	
 	@Override
-	public boolean hasCustomInventoryName() {
+	public boolean isInvNameLocalized() {
 		return false;
 	}
-
+	
 	@Override
 	public boolean isItemValidForSlot(int arg0, ItemStack arg1) {
 		return arg1.getItem() == Doge.dogecoin;
 	}
-
+	
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer arg0) {
 		return arg0.getDistanceSq(xCoord + .5, yCoord + .5, zCoord + .5) <= 64;
 	}
-
+	
 	@Override
-	public void openInventory() {}
-
+	public void openChest() {
+	}
+	
 	@Override
 	public void setInventorySlotContents(int arg0, ItemStack stack) {
 		items[arg0] = stack;

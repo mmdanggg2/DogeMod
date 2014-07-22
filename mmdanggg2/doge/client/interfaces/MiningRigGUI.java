@@ -16,13 +16,13 @@ public class MiningRigGUI extends GuiContainer {
 	
 	public MiningRigGUI(InventoryPlayer invPlayer, MiningRigTileEntity miningRig) {
 		super(new MiningRigContainer(invPlayer, miningRig));
-
+		
 		xSize = 176;
 		ySize = 154;
 	}
 	
 	private static final ResourceLocation texture = new ResourceLocation("doge", "textures/gui/miningRigGUI.png");
-
+	
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float arg0, int arg1, int arg2) {
 		GL11.glColor4f(1, 1, 1, 1);
@@ -33,7 +33,7 @@ public class MiningRigGUI extends GuiContainer {
 	
 	@Override
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
-		fontRendererObj.drawString("Mining Rig", 8, 2, 0x404040);
+		fontRenderer.drawString("Mining Rig", 8, 2, 0x404040);
 	}
 	
 	@Override

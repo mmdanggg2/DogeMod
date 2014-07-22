@@ -14,8 +14,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
 public class GPU extends Item {
-
-	public GPU() {
+	
+	public GPU(int id) {
+		super(id);
 		this.maxStackSize = 1;
 		this.setMaxDamage(20);
 		this.setCreativeTab(Doge.dogeTab);
@@ -34,17 +35,18 @@ public class GPU extends Item {
 	}
 	
 	@Override
-	public float getDigSpeed(ItemStack stack, Block block, int meta) {
+	public float getStrVsBlock(ItemStack stack, Block block, int meta) {
 		return NBTHelper.getFloat(stack.stackTagCompound, "speed", 1);
 	}
 	
 	@Override
-	public int getHarvestLevel(ItemStack stack, String toolClass) {
-		return 3;
+	public boolean canHarvestBlock(Block block) {
+		return true;
 	}
 	
 	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int xPos, int yPos, int zPos,
+	public boolean onBlockDestroyed(ItemStack stack, World world, int block,
+			int xPos, int yPos, int zPos,
 			EntityLivingBase entityLiving) {
 		if (!world.isRemote) {
 			
@@ -54,7 +56,7 @@ public class GPU extends Item {
 				coin.setPosition(xPos + .5, yPos + .5, zPos + .5);
 				world.spawnEntityInWorld(coin);
 			}
-
+			
 			NBTTagCompound stackTag = stack.stackTagCompound;
 			float speed = NBTHelper.getFloat(stackTag, "speed", 1);
 			speed = speed + 2f;
@@ -84,7 +86,7 @@ public class GPU extends Item {
 			
 			if (!inHand) {
 				int tickCount = NBTHelper.getInt(stackTag, "tickCount", 0);
-
+				
 				if (tickCount >= 30) {
 					tickCount = 0;
 					if (stack.getItemDamage() > 0) {

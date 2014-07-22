@@ -11,14 +11,14 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 public class GUIHandler implements IGuiHandler {
 	
 	public GUIHandler() {
-		NetworkRegistry.INSTANCE.registerGuiHandler(Doge.instance, this);
+		NetworkRegistry.instance().registerGuiHandler(Doge.instance, this);
 	}
 	
 	@Override
 	public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
 		switch (id) {
 		case 0:
-			TileEntity te = world.getTileEntity(x, y, z);
+			TileEntity te = world.getBlockTileEntity(x, y, z);
 			if (te != null && te instanceof MiningRigTileEntity) {
 				return new MiningRigGUI(player.inventory, (MiningRigTileEntity) te);
 			}
@@ -31,7 +31,7 @@ public class GUIHandler implements IGuiHandler {
 	public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
 		switch (id) {
 		case 0:
-			TileEntity te = world.getTileEntity(x, y, z);
+			TileEntity te = world.getBlockTileEntity(x, y, z);
 			if (te != null && te instanceof MiningRigTileEntity) {
 				return new MiningRigContainer(player.inventory, (MiningRigTileEntity) te);
 			}

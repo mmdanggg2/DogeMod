@@ -14,6 +14,7 @@ public class DogeBlock extends Block {
 		setStepSound(Block.soundMetalFootstep);
 		setUnlocalizedName("dogeBlock");
 		setCreativeTab(Doge.dogeTab);
+		setTextureName(BasicInfo.NAME.toLowerCase() + ":dogeblock");
 	}
 	
 }

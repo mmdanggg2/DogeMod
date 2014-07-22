@@ -30,8 +30,9 @@ public class DogeRegisterItems {
 		GameRegistry.registerItem(Doge.dogeLauncher, "dogeLauncher");
 		LanguageRegistry.addName(Doge.dogeLauncher, "Doge Launcher");
 		
-		Doge.gpu = new GPU();
+		Doge.gpu = new GPU(Doge.gpuID);
 		GameRegistry.registerItem(Doge.gpu, "gpu");
+		LanguageRegistry.addName(Doge.gpu, "GPU");
 		
 		// Doge Tools
 		Doge.dogePickaxe = new DogePickaxe(Doge.dogePickaxeID, Doge.dogeToolMat);

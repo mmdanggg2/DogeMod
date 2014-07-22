@@ -1,29 +1,19 @@
 package mmdanggg2.doge;
 
-import net.minecraft.block.Block;
+import mmdanggg2.doge.blocks.DogeBlock;
+import mmdanggg2.doge.blocks.MiningRig;
+import mmdanggg2.doge.client.interfaces.GUIHandler;
+import mmdanggg2.doge.creativetab.DogeCreativeTab;
+import mmdanggg2.doge.items.DogeLauncher;
+import mmdanggg2.doge.items.Dogecoin;
+import mmdanggg2.doge.items.GPU;
+import mmdanggg2.doge.util.DogeLogger;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.EnumHelper;
-import mmdanggg2.doge.blocks.DogeBlock;
-import mmdanggg2.doge.blocks.MiningRig;
-import mmdanggg2.doge.client.interfaces.GUIHandler;
-import mmdanggg2.doge.creativetab.DogeCreativeTab;
-import mmdanggg2.doge.items.DogeAxe;
-import mmdanggg2.doge.items.DogeBoots;
-import mmdanggg2.doge.items.DogeChestplate;
-import mmdanggg2.doge.items.DogeHelmet;
-import mmdanggg2.doge.items.DogeHoe;
-import mmdanggg2.doge.items.DogeLauncher;
-import mmdanggg2.doge.items.DogeLeggings;
-import mmdanggg2.doge.items.DogePickaxe;
-import mmdanggg2.doge.items.DogeShovel;
-import mmdanggg2.doge.items.DogeSword;
-import mmdanggg2.doge.items.Dogecoin;
-import mmdanggg2.doge.items.GPU;
-import mmdanggg2.doge.util.DogeLogger;
-import net.minecraft.creativetab.CreativeTabs;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -62,10 +52,13 @@ public class Doge {
 	public static int dogeBootsID;
 	
 	public static int dogeBlockID;
+	public static int miningRigID;
+	public static int gpuID;
+	
 	public static int dogeArmourRenderID;
 	
-	public static ToolMaterial dogeToolMat;
-	public static ArmorMaterial dogeArmorMat;
+	public static EnumToolMaterial dogeToolMat;
+	public static EnumArmorMaterial dogeArmorMat;
 	
 	// Doge Tools
 	public static Item dogePickaxe;
@@ -82,15 +75,15 @@ public class Doge {
 	
 	// Other
 	public static DogeBlock dogeBlock;
-
+	
 	public static Dogecoin dogecoin;
-
+	
 	public static DogeLauncher dogeLauncher;
 	
 	public static GPU gpu;
 	
 	public static MiningRig miningRig;
-
+	
 	// Settings
 	public static int toolDurability;
 	public static float toolSpeed;
@@ -98,11 +91,11 @@ public class Doge {
 	
 	// Creative Tab
 	public static CreativeTabs dogeTab;
-
+	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
-
+		
 		DogeLogger.logInfo("Loading Config");
 		// loading the configuration from its file
 		config.load();
@@ -114,6 +107,7 @@ public class Doge {
 		//Items
 		dogecoinID = config.getItem("dogecoin", 5000).getInt();
 		dogeLauncherID = config.getItem("dogeLauncher", 5010).getInt();
+		gpuID = config.getItem("gpu", 5011).getInt();
 		
 		//Doge Tools
 		dogePickaxeID = config.getItem("dogePickaxe", 5001).getInt();
@@ -130,6 +124,7 @@ public class Doge {
 		
 		//Blocks
 		dogeBlockID = config.getBlock("dogeBlock", 500).getInt();
+		miningRigID = config.getBlock("miningRig", 501).getInt();
 		
 		// saving the configuration to its file
 		config.save();
@@ -140,16 +135,16 @@ public class Doge {
 		dogeArmourRenderID = proxy.addArmour("DogeArmour");
 		
 		dogeTab = new DogeCreativeTab("dogeTab");
-
+		
 		DogeLogger.logInfo("Registering Items");
 		DogeRegisterItems.register();
-
+		
 		DogeLogger.logInfo("Registering Blocks");
 		DogeRegisterBlocks.register();
-
+		
 		DogeLogger.logInfo("Registering Entities");
 		DogeRegisterEntities.register();
-
+		
 		DogeLogger.logInfo("Registering Recipies");
 		DogeRegisterRecipies.register();
 	}

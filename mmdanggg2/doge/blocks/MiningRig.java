@@ -12,22 +12,22 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
+import cpw.mods.fml.common.network.FMLNetworkHandler;
 
 public class MiningRig extends BlockContainer {
 	
-	public MiningRig(Material material) {
-		super(material);
+	public MiningRig(int id, Material material) {
+		super(id, material);
 		
 		setHardness(1.0f);
-		setStepSound(Block.soundTypeMetal);
-		setBlockName("miningRig");
+		setStepSound(Block.soundMetalFootstep);
+		setUnlocalizedName("miningRig");
 		setCreativeTab(Doge.dogeTab);
-		setBlockTextureName(BasicInfo.NAME.toLowerCase() + ":miningRig");
+		setTextureName(BasicInfo.NAME.toLowerCase() + ":miningRig");
 	}
-
+	
 	@Override
-	public TileEntity createNewTileEntity(World world, int metadata) {
+	public TileEntity createNewTileEntity(World world) {
 		return new MiningRigTileEntity();
 	}
 	
@@ -38,8 +38,9 @@ public class MiningRig extends BlockContainer {
 	}
 	
 	@Override
-	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
-		TileEntity te = world.getTileEntity(x, y, z);
+	public void breakBlock(World world, int x, int y, int z, int blockID,
+			int meta) {
+		TileEntity te = world.getBlockTileEntity(x, y, z);
 		if (te != null && te instanceof IInventory) {
 			IInventory inventory = (IInventory) te;
 			
@@ -64,6 +65,6 @@ public class MiningRig extends BlockContainer {
 			}
 		}
 		
-		super.breakBlock(world, x, y, z, block, meta);
+		super.breakBlock(world, x, y, z, blockID, meta);
 	}
 }

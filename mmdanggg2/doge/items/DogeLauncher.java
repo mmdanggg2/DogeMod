@@ -3,14 +3,14 @@ package mmdanggg2.doge.items;
 import mmdanggg2.doge.BasicInfo;
 import mmdanggg2.doge.Doge;
 import mmdanggg2.doge.entities.DogeProjectile;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 
 public class DogeLauncher extends ItemBow {
@@ -25,7 +25,7 @@ public class DogeLauncher extends ItemBow {
 	
 	@Override
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-
+		
 		boolean flag = par3EntityPlayer.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, par1ItemStack) > 0;
 		
 		if (flag || par3EntityPlayer.inventory.hasItem(Doge.dogecoin.itemID))
@@ -57,12 +57,12 @@ public class DogeLauncher extends ItemBow {
 		return par1ItemStack;
 	}
 	@Override
-	public void registerIcons(IIconRegister iconRegister) {
+	public void registerIcons(IconRegister iconRegister) {
 		this.itemIcon = iconRegister.registerIcon(this.getIconString());
 	}
 	
 	@Override
-	public IIcon getItemIconForUseDuration(int p_94599_1_) {
+	public Icon getItemIconForUseDuration(int p_94599_1_) {
 		return this.itemIcon;
 	}
 	

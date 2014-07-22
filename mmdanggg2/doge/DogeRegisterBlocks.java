@@ -14,8 +14,9 @@ public class DogeRegisterBlocks {
 		GameRegistry.registerBlock(Doge.dogeBlock, "dogeBlock");
 		LanguageRegistry.addName(Doge.dogeBlock, "Doge Block");
 		
-		Doge.miningRig = new MiningRig(Material.iron);
+		Doge.miningRig = new MiningRig(Doge.miningRigID, Material.iron);
 		GameRegistry.registerBlock(Doge.miningRig, "miningRig");
 		GameRegistry.registerTileEntity(MiningRigTileEntity.class, "miningRigTileEntity");
+		LanguageRegistry.addName(Doge.miningRig, "Mining Rig");
 	}
 }
