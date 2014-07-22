@@ -1,8 +1,8 @@
 package mmdanggg2.doge.items;
 
 import mmdanggg2.doge.BasicInfo;
+import mmdanggg2.doge.Doge;
 import mmdanggg2.doge.entities.DogeMob;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -14,7 +14,7 @@ public class Dogecoin extends Item {
 	public Dogecoin(int id) {
 		super(id);
 		setMaxStackSize(64);
-		setCreativeTab(CreativeTabs.tabMaterials);
+		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogecoin");
 		setTextureName(BasicInfo.NAME.toLowerCase() + ":dogecoin");
 		

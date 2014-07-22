@@ -1,9 +1,9 @@
 package mmdanggg2.doge.blocks;
 
 import mmdanggg2.doge.BasicInfo;
+import mmdanggg2.doge.Doge;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
 
 public class DogeBlock extends Block {
 	
@@ -13,8 +13,7 @@ public class DogeBlock extends Block {
 		setHardness(1.0f);
 		setStepSound(Block.soundMetalFootstep);
 		setUnlocalizedName("dogeBlock");
-		setCreativeTab(CreativeTabs.tabBlock);
-		setTextureName(BasicInfo.NAME.toLowerCase() + ":dogeblock");
+		setCreativeTab(Doge.dogeTab);
 	}
 	
 }

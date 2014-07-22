@@ -8,6 +8,9 @@ public class CommonProxy {
 		// Nothing here as the server doesn't render graphics or entities!
 	}
 	
-	public static int addArmour(String armourName) {return 0;}
+	public int addArmour(String armourName) {
+		return 0;
+	}
 	
+	public void regCape() {}
 }

@@ -15,7 +15,7 @@ public class DogeProjectile extends EntityThrowable
 {
 	
 	public boolean dropCoin = true;
-	public float damage = 8.0f;
+	public float damage;
 	
 	public DogeProjectile(World par1World)
 	{
@@ -25,6 +25,10 @@ public class DogeProjectile extends EntityThrowable
 	public DogeProjectile(World par1World, EntityLivingBase par2EntityLivingBase)
 	{
 		super(par1World, par2EntityLivingBase);
+		this.motionX = this.motionX * 1.5;
+		this.motionY = this.motionY * 1.5;
+		this.motionZ = this.motionZ * 1.5;
+		damage = Doge.toolDamage * 2.0F;
 	}
 	
 	public DogeProjectile(World par1World, double par2, double par4, double par6)
@@ -34,7 +38,7 @@ public class DogeProjectile extends EntityThrowable
 	
 	@Override
 	protected float getGravityVelocity() {
-		return 0.03f;
+		return 0.04f;
 	}
 	
 	/**
