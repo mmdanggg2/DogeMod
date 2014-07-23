@@ -1,0 +1,22 @@
+
+tile.dogeBlock.name=Doge Block
+tile.miningRig.name=Equipo de Perforación Minera
+
+item.dogecoin.name=Dogecoin
+item.dogeLauncher.name=Disparador Doge
+item.gpu.name=GPU
+
+item.dogePickaxe.name=vaya mineria
+item.dogeAxe.name=mucha tala
+item.dogeShovel.name=mucha escavacion
+item.dogeHoe.name=bien granjero
+item.dogeSword.name=ataque muy guau
+
+item.dogeHelmet.name=cara proteccion
+item.dogeChestplate.name=pecho mucha proteccion
+item.dogeLeggings.name=pies mucha defensa
+item.dogeBoots.name=zapatos guau
+
+entity.dogeMob.name=Doge
+
+itemGroup.dogeTab=Doge Mod
