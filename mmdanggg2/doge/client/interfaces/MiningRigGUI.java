@@ -18,7 +18,7 @@ public class MiningRigGUI extends GuiContainer {
 		super(new MiningRigContainer(invPlayer, miningRig));
 
 		xSize = 176;
-		ySize = 154;
+		ySize = 132;
 	}
 	
 	private static final ResourceLocation texture = new ResourceLocation("doge", "textures/gui/miningRigGUI.png");
@@ -33,7 +33,7 @@ public class MiningRigGUI extends GuiContainer {
 	
 	@Override
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
-		fontRendererObj.drawString("Mining Rig", 8, 2, 0x404040);
+		fontRendererObj.drawString("Mining Rig", (xSize / 2) - 23, 7, 0x404040);
 	}
 	
 	@Override

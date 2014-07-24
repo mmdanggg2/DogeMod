@@ -125,4 +125,9 @@ public class MiningRigTileEntity extends TileEntity implements IInventory {
 		}
 		
 	}
+	
+	@Override
+	public void updateEntity() {
+		super.updateEntity();
+	}
 }
