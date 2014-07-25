@@ -17,7 +17,7 @@ public class MiningRigGUI extends GuiContainer {
 	public MiningRigGUI(InventoryPlayer invPlayer, MiningRigTileEntity miningRig) {
 		super(new MiningRigContainer(invPlayer, miningRig));
 
-		xSize = 176;
+		xSize = 193;
 		ySize = 132;
 	}
 	
@@ -33,7 +33,7 @@ public class MiningRigGUI extends GuiContainer {
 	
 	@Override
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
-		fontRendererObj.drawString("Mining Rig", (xSize / 2) - 23, 7, 0x404040);
+		fontRendererObj.drawString("Mining Rig", 65, 7, 0x404040);
 	}
 	
 	@Override

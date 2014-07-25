@@ -1,8 +1,12 @@
 package mmdanggg2.doge.blocks.tileentities;
 
 import mmdanggg2.doge.Doge;
+import mmdanggg2.doge.items.GPU;
+import mmdanggg2.doge.util.DogeLogger;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -13,7 +17,7 @@ public class MiningRigTileEntity extends TileEntity implements IInventory {
 	private ItemStack[] items;
 
 	public MiningRigTileEntity() {
-		items = new ItemStack[4];
+		items = new ItemStack[5];
 	}
 	
 	@Override
@@ -78,7 +82,7 @@ public class MiningRigTileEntity extends TileEntity implements IInventory {
 
 	@Override
 	public int getInventoryStackLimit() {
-		return 1;
+		return 64;
 	}
 
 	@Override
@@ -104,8 +108,17 @@ public class MiningRigTileEntity extends TileEntity implements IInventory {
 	}
 
 	@Override
-	public boolean isItemValidForSlot(int arg0, ItemStack arg1) {
-		return arg1.getItem() == Doge.dogecoin;
+	public boolean isItemValidForSlot(int i, ItemStack stack) {
+		boolean valid = false;
+		Item item = stack.getItem();
+		if (i == 4) {
+			valid = (item == Doge.dogecoin);
+		}
+		else {
+			valid = (item == Doge.gpu);
+		}
+		DogeLogger.logInfo("Item is: " + item.getUnlocalizedName() + ", Slot is: " + i + ", Valid: " + valid);
+		return stack.getItem() == Doge.dogecoin;
 	}
 
 	@Override
@@ -117,8 +130,8 @@ public class MiningRigTileEntity extends TileEntity implements IInventory {
 	public void openInventory() {}
 
 	@Override
-	public void setInventorySlotContents(int arg0, ItemStack stack) {
-		items[arg0] = stack;
+	public void setInventorySlotContents(int i, ItemStack stack) {
+		items[i] = stack;
 		
 		if (stack != null && stack.stackSize > getInventoryStackLimit()) {
 			stack.stackSize = getInventoryStackLimit();
@@ -128,6 +141,30 @@ public class MiningRigTileEntity extends TileEntity implements IInventory {
 	
 	@Override
 	public void updateEntity() {
-		super.updateEntity();
+		if (!worldObj.isRemote) {
+			for (int i = 0; i < getSizeInventory(); i++) {
+				ItemStack stack = items[i];
+				if (stack != null) {
+					Item item = stack.getItem();
+					if (item instanceof GPU) {
+						GPU gpu = (GPU) item;
+						if (worldObj.rand.nextInt(100) == 0) {
+							boolean mined = gpu.attemptMine(stack, worldObj, 5);
+							if (mined) {
+								EntityItem coin = new EntityItem(worldObj);
+								coin.setEntityItemStack(new ItemStack(Doge.dogecoin, 1));
+								coin.setPosition(xCoord + .5, yCoord + 1.5, zCoord + .5);
+								worldObj.spawnEntityInWorld(coin);
+							}
+							DogeLogger.logInfo("stack dmg = " + stack.getItemDamage());
+							if (stack.getItemDamage() >= stack.getMaxDamage()) {
+								DogeLogger.logInfo("setting stack to null");
+								setInventorySlotContents(i, null);
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 }

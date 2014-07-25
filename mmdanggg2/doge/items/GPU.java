@@ -44,11 +44,12 @@ public class GPU extends Item {
 	}
 	
 	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int xPos, int yPos, int zPos,
-			EntityLivingBase entityLiving) {
+	public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int xPos, int yPos, int zPos, EntityLivingBase entityLiving) {
 		if (!world.isRemote) {
 			
-			if (world.rand.nextInt((stack.getMaxDamage() + 1) / 2) == 0) {
+			boolean mined = attemptMine(stack, world, 11);
+			
+			if (mined) {
 				EntityItem coin = new EntityItem(world);
 				coin.setEntityItemStack(new ItemStack(Doge.dogecoin, 1));
 				coin.setPosition(xPos + .5, yPos + .5, zPos + .5);
@@ -59,10 +60,9 @@ public class GPU extends Item {
 			float speed = NBTHelper.getFloat(stackTag, "speed", 1);
 			speed = speed + 2f;
 			stackTag.setFloat("speed", speed);
-			stack.damageItem(1, entityLiving);
-			if (stack.getItemDamage() >= stack.getMaxDamage()) {
-				world.createExplosion(entityLiving, xPos, yPos, zPos, 2f, true);
-				stack.damageItem(1, entityLiving);
+			if (stack.getItemDamage() > stack.getMaxDamage()) {
+				// world.createExplosion(entityLiving, xPos, yPos, zPos, 2f, true);
+				stack.stackSize = 0;
 			}
 		}
 		return super.onBlockDestroyed(stack, world, block, xPos, yPos, zPos, entityLiving);
@@ -112,5 +112,17 @@ public class GPU extends Item {
 		stack.stackTagCompound = new NBTTagCompound();
 		stack.stackTagCompound.setFloat("speed", 1.0f);
 		stack.stackTagCompound.setInteger("tickCount", 0);
+	}
+	
+	public boolean attemptMine(ItemStack stack, World world, int chance) {
+		boolean mined = false;
+		
+		stack.attemptDamageItem(1, world.rand);
+
+		if (world.rand.nextInt(chance) == 0) {
+			mined = true;
+		}
+		
+		return mined;
 	}
 }

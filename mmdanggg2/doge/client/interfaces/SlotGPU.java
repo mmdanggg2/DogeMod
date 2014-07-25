@@ -7,13 +7,21 @@ import net.minecraft.item.ItemStack;
 
 public class SlotGPU extends Slot {
 	
-	public SlotGPU(IInventory inventory, int id, int x, int y) {
+	private boolean coinSlot = false;
+
+	public SlotGPU(IInventory inventory, int id, int x, int y, boolean coinSlot) {
 		super(inventory, id, x, y);
+		this.coinSlot = coinSlot;
 	}
 	
 	@Override
 	public boolean isItemValid(ItemStack stack) {
-		return stack.getItem() == Doge.gpu;
+		if (this.coinSlot) {
+			return stack.getItem() == Doge.dogecoin;
+		}
+		else {
+			return stack.getItem() == Doge.gpu;
+		}
 	}
 	
 }

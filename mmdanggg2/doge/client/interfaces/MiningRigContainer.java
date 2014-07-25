@@ -26,8 +26,10 @@ public class MiningRigContainer extends Container {
 		}
 		
 		for (int x = 0; x < 4; x++) {
-			addSlotToContainer(new SlotGPU(miningRig, x, 26 + 36 * x, 20));
+			addSlotToContainer(new SlotGPU(miningRig, x, 26 + 36 * x, 20, false));
 		}
+		
+		addSlotToContainer(new SlotGPU(miningRig, 4, 26 + 36 * 4, 20, true));
 	}
 	
 	@Override
