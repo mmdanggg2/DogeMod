@@ -17,7 +17,7 @@ public class SlotGPU extends Slot {
 	@Override
 	public boolean isItemValid(ItemStack stack) {
 		if (this.coinSlot) {
-			return stack.getItem() == Doge.dogecoin;
+			return false;
 		}
 		else {
 			return stack.getItem() == Doge.gpu;

@@ -78,6 +78,8 @@ public class Doge {
 	// Creative Tab
 	public static CreativeTabs dogeTab;
 
+	public static boolean debug;
+
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
@@ -89,6 +91,8 @@ public class Doge {
 		toolDurability = config.get("Doge_Tools", "ToolDurability", 780, "How many uses the tools have (Default 780)").getInt(780);
 		toolSpeed = (float) config.get("Doge_Tools", "ToolSpeed", 20.0F, "How fast the tools mine their respective blocks (Default 20.0)").getDouble(20.0F);
 		toolDamage = (float) config.get("Doge_Tools", "ToolDamage", 6.0F, "How much damage the tools do (Default 6.0)").getDouble(6.0F);
+		
+		debug = config.get("Debug", "DebugOutput", false, "Show debug output in log (Default false)").getBoolean(false);
 		
 		// saving the configuration to its file
 		config.save();

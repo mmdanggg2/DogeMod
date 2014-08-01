@@ -3,7 +3,6 @@ package mmdanggg2.doge.blocks.tileentities;
 import mmdanggg2.doge.Doge;
 import mmdanggg2.doge.items.GPU;
 import mmdanggg2.doge.util.DogeLogger;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -60,12 +59,12 @@ public class MiningRigTileEntity extends TileEntity implements IInventory {
 	public void closeInventory() {}
 
 	@Override
-	public ItemStack decrStackSize(int arg0, int count) {
-		ItemStack stack = getStackInSlot(arg0);
+	public ItemStack decrStackSize(int slot, int count) {
+		ItemStack stack = getStackInSlot(slot);
 		
 		if (stack != null) {
 			if (stack.stackSize <= count) {
-				setInventorySlotContents(arg0, null);
+				setInventorySlotContents(slot, null);
 			}
 			else {
 				stack = stack.splitStack(count);
@@ -82,7 +81,7 @@ public class MiningRigTileEntity extends TileEntity implements IInventory {
 
 	@Override
 	public int getInventoryStackLimit() {
-		return 64;
+		return 1;
 	}
 
 	@Override
@@ -133,7 +132,7 @@ public class MiningRigTileEntity extends TileEntity implements IInventory {
 	public void setInventorySlotContents(int i, ItemStack stack) {
 		items[i] = stack;
 		
-		if (stack != null && stack.stackSize > getInventoryStackLimit()) {
+		if (stack != null && stack.stackSize > getInventoryStackLimit() && i != 4) {
 			stack.stackSize = getInventoryStackLimit();
 		}
 		
@@ -142,22 +141,27 @@ public class MiningRigTileEntity extends TileEntity implements IInventory {
 	@Override
 	public void updateEntity() {
 		if (!worldObj.isRemote) {
-			for (int i = 0; i < getSizeInventory(); i++) {
-				ItemStack stack = items[i];
-				if (stack != null) {
-					Item item = stack.getItem();
-					if (item instanceof GPU) {
-						GPU gpu = (GPU) item;
+			for (int i = 0; i < getSizeInventory() - 1; i++) {
+				ItemStack gpuStack = getStackInSlot(i);
+				if (gpuStack != null && gpuStack.getItem() instanceof GPU) {
+					GPU gpu = (GPU) gpuStack.getItem();
+					ItemStack dogeStack = getStackInSlot(4); 
+					if (dogeStack == null || (dogeStack.getItem() == Doge.dogecoin && dogeStack.stackSize < 64)) {
 						if (worldObj.rand.nextInt(100) == 0) {
-							boolean mined = gpu.attemptMine(stack, worldObj, 5);
+							boolean mined = gpu.attemptMine(gpuStack, worldObj, 1);
 							if (mined) {
-								EntityItem coin = new EntityItem(worldObj);
-								coin.setEntityItemStack(new ItemStack(Doge.dogecoin, 1));
-								coin.setPosition(xCoord + .5, yCoord + 1.5, zCoord + .5);
-								worldObj.spawnEntityInWorld(coin);
+								DogeLogger.logDebug("stack dmg = " + gpuStack.getItemDamage() + "; mined = " + mined);
+								if (dogeStack == null) {
+									DogeLogger.logDebug("new coin stack!");
+									dogeStack = new ItemStack(Doge.dogecoin, 1);
+								}
+								else {
+									dogeStack.stackSize++;
+									DogeLogger.logDebug("coin stack size = " + dogeStack.stackSize);
+								}
+								setInventorySlotContents(4, dogeStack);
 							}
-							DogeLogger.logInfo("stack dmg = " + stack.getItemDamage());
-							if (stack.getItemDamage() >= stack.getMaxDamage()) {
+							if (gpuStack.getItemDamage() >= gpuStack.getMaxDamage()) {
 								DogeLogger.logInfo("setting stack to null");
 								setInventorySlotContents(i, null);
 							}

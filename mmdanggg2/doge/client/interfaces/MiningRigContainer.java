@@ -50,7 +50,7 @@ public class MiningRigContainer extends Container {
 					return null;
 				}
 			}
-			else if (stack.getItem() != Doge.gpu || !mergeItemStack(stack, 36, 36 + miningRig.getSizeInventory(), false)) {
+			else if (stack.getItem() != Doge.gpu || !mergeItemStack(stack, 36, 36 + miningRig.getSizeInventory() - 1, false)) {
 				return null;
 			}
 			
@@ -65,7 +65,6 @@ public class MiningRigContainer extends Container {
 			
 			return result;
 		}
-
 		return null;
 	}
 	
