@@ -1,6 +1,6 @@
 package mmdanggg2.doge.items;
 
-import mmdanggg2.doge.BasicInfo;
+import mmdanggg2.doge.DogeInfo;
 import mmdanggg2.doge.Doge;
 import net.minecraft.item.ItemSpade;
 
@@ -11,7 +11,7 @@ public class DogeShovel extends ItemSpade {
 		
 		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogeShovel");
-		setTextureName(BasicInfo.NAME.toLowerCase() + ":dogeShovel");
+		setTextureName(DogeInfo.NAME.toLowerCase() + ":dogeShovel");
 		
 	}
 	

@@ -1,6 +1,6 @@
 package mmdanggg2.doge.blocks;
 
-import mmdanggg2.doge.BasicInfo;
+import mmdanggg2.doge.DogeInfo;
 import mmdanggg2.doge.Doge;
 import mmdanggg2.doge.blocks.tileentities.MiningRigTileEntity;
 import net.minecraft.block.Block;
@@ -23,7 +23,7 @@ public class MiningRig extends BlockContainer {
 		setStepSound(Block.soundTypeMetal);
 		setBlockName("miningRig");
 		setCreativeTab(Doge.dogeTab);
-		setBlockTextureName(BasicInfo.NAME.toLowerCase() + ":miningRig");
+		setBlockTextureName(DogeInfo.NAME.toLowerCase() + ":miningRig");
 	}
 
 	@Override

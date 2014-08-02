@@ -1,6 +1,6 @@
 package mmdanggg2.doge.items;
 
-import mmdanggg2.doge.BasicInfo;
+import mmdanggg2.doge.DogeInfo;
 import mmdanggg2.doge.Doge;
 
 public class DogeBoots extends DogeArmour {
@@ -10,7 +10,7 @@ public class DogeBoots extends DogeArmour {
 		
 		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogeBoots");
-		setTextureName(BasicInfo.NAME.toLowerCase() + ":dogeBoots");
+		setTextureName(DogeInfo.NAME.toLowerCase() + ":dogeBoots");
 		
 	}
 	

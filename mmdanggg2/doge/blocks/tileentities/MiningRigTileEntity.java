@@ -1,6 +1,7 @@
 package mmdanggg2.doge.blocks.tileentities;
 
 import mmdanggg2.doge.Doge;
+import mmdanggg2.doge.DogeInfo;
 import mmdanggg2.doge.items.GPU;
 import mmdanggg2.doge.util.DogeLogger;
 import net.minecraft.entity.player.EntityPlayer;
@@ -147,10 +148,10 @@ public class MiningRigTileEntity extends TileEntity implements IInventory {
 					GPU gpu = (GPU) gpuStack.getItem();
 					ItemStack dogeStack = getStackInSlot(4); 
 					if (dogeStack == null || (dogeStack.getItem() == Doge.dogecoin && dogeStack.stackSize < 64)) {
-						if (worldObj.rand.nextInt(100) == 0) {
-							boolean mined = gpu.attemptMine(gpuStack, worldObj, 1);
+						if (worldObj.rand.nextInt(DogeInfo.rigSpeed) == 0) {
+							boolean mined = gpu.attemptMine(gpuStack, worldObj, DogeInfo.rigChance);
+							DogeLogger.logDebug("stack dmg = " + gpuStack.getItemDamage() + "; mined = " + mined);
 							if (mined) {
-								DogeLogger.logDebug("stack dmg = " + gpuStack.getItemDamage() + "; mined = " + mined);
 								if (dogeStack == null) {
 									DogeLogger.logDebug("new coin stack!");
 									dogeStack = new ItemStack(Doge.dogecoin, 1);
@@ -162,7 +163,7 @@ public class MiningRigTileEntity extends TileEntity implements IInventory {
 								setInventorySlotContents(4, dogeStack);
 							}
 							if (gpuStack.getItemDamage() >= gpuStack.getMaxDamage()) {
-								DogeLogger.logInfo("setting stack to null");
+								DogeLogger.logDebug("setting stack to null");
 								setInventorySlotContents(i, null);
 							}
 						}
