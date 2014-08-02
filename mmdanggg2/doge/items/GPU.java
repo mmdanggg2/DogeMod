@@ -1,7 +1,7 @@
 package mmdanggg2.doge.items;
 
-import mmdanggg2.doge.DogeInfo;
 import mmdanggg2.doge.Doge;
+import mmdanggg2.doge.DogeInfo;
 import mmdanggg2.doge.util.DogeLogger;
 import mmdanggg2.doge.util.NBTHelper;
 import net.minecraft.block.Block;
@@ -66,11 +66,6 @@ public class GPU extends Item {
 				world.spawnEntityInWorld(coin);
 			}
 
-			NBTTagCompound stackTag = stack.stackTagCompound;
-			float speed = NBTHelper.getFloat(stackTag, "speed", speedStart);
-			speed = speed + speedStep;
-			DogeLogger.logDebug("GPU Speed = " + speed);
-			stackTag.setFloat("speed", speed);
 			if (stack.getItemDamage() > stack.getMaxDamage()) {
 				world.createExplosion(entityLiving, xPos, yPos, zPos, 2f, true);
 				stack.stackSize = 0;
@@ -135,6 +130,12 @@ public class GPU extends Item {
 			mined = true;
 		}
 		
+		NBTTagCompound stackTag = stack.stackTagCompound;
+		float speed = NBTHelper.getFloat(stackTag, "speed", speedStart);
+		speed = speed + speedStep;
+		DogeLogger.logDebug("GPU Speed = " + speed);
+		stackTag.setFloat("speed", speed);
+
 		return mined;
 	}
 }
