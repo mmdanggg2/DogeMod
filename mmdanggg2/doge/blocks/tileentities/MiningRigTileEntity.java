@@ -15,6 +15,7 @@ import net.minecraft.tileentity.TileEntity;
 public class MiningRigTileEntity extends TileEntity implements IInventory {
 	
 	private ItemStack[] items;
+	private boolean mining;
 
 	public MiningRigTileEntity() {
 		items = new ItemStack[5];
@@ -141,10 +142,15 @@ public class MiningRigTileEntity extends TileEntity implements IInventory {
 	
 	@Override
 	public void updateEntity() {
-		if (!worldObj.isRemote) {
-			for (int i = 0; i < getSizeInventory() - 1; i++) {
-				ItemStack gpuStack = getStackInSlot(i);
-				if (gpuStack != null && gpuStack.getItem() instanceof GPU) {
+		// FIXME ammount of gpus doesnt update on client until it is opened!
+		int gpus = 0;
+
+		for (int i = 0; i < getSizeInventory() - 1; i++) {
+			ItemStack gpuStack = getStackInSlot(i);
+			if (gpuStack != null && gpuStack.getItem() instanceof GPU) {
+				gpus++;
+
+				if (!worldObj.isRemote) {
 					GPU gpu = (GPU) gpuStack.getItem();
 					ItemStack dogeStack = getStackInSlot(4); 
 					if (dogeStack == null || (dogeStack.getItem() == Doge.dogecoin && dogeStack.stackSize < 64)) {
@@ -169,7 +175,19 @@ public class MiningRigTileEntity extends TileEntity implements IInventory {
 						}
 					}
 				}
+
 			}
 		}
+
+		if (gpus > 0) {
+			this.mining = true;
+		}
+		else {
+			this.mining = false;
+		}
+	}
+	
+	public boolean isMining() {
+		return mining;
 	}
 }

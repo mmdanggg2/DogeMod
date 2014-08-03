@@ -1,5 +1,7 @@
 package mmdanggg2.doge.blocks;
 
+import java.util.Random;
+
 import mmdanggg2.doge.Doge;
 import mmdanggg2.doge.DogeInfo;
 import mmdanggg2.doge.blocks.tileentities.MiningRigTileEntity;
@@ -160,5 +162,36 @@ public class MiningRig extends BlockContainer {
 		iconFront = icon.registerIcon(name + ":miningRigFront");
 		iconSideL = icon.registerIcon(name + ":miningRigSideL");
 		iconSideR = icon.registerIcon(name + ":miningRigSideR");
+	}
+	
+	@Override
+	public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
+		TileEntity te = world.getTileEntity(x, y, z);
+		
+		if (te != null && te instanceof MiningRigTileEntity) {
+			MiningRigTileEntity mrte = (MiningRigTileEntity) te;
+			
+			if (mrte.isMining()) {
+				int meta = world.getBlockMetadata(x, y, z);
+				float facingOffset = 1.05F;
+				
+				if (meta == 1) {
+					world.spawnParticle("smoke", x, y + rand.nextFloat(), z + rand.nextFloat(), -0.05D, 0.0D, 0.0D);
+					world.spawnParticle("reddust", x, y + rand.nextFloat(), z + rand.nextFloat(), 0.0D, 0.0D, 0.0D);
+				}
+				else if (meta == 3) {
+					world.spawnParticle("smoke", x + facingOffset, y + rand.nextFloat(), z + rand.nextFloat(), 0.05D, 0.0D, 0.0D);
+					world.spawnParticle("reddust", x + facingOffset, y + rand.nextFloat(), z + rand.nextFloat(), 0.0D, 0.0D, 0.0D);
+				}
+				else if (meta == 2) {
+					world.spawnParticle("smoke", x + rand.nextFloat(), y + rand.nextFloat(), z, 0.0D, 0.0D, -0.05D);
+					world.spawnParticle("reddust", x + rand.nextFloat(), y + rand.nextFloat(), z, 0.0D, 0.0D, 0.0D);
+				}
+				else if (meta == 0) {
+					world.spawnParticle("smoke", x + rand.nextFloat(), y + rand.nextFloat(), z + facingOffset, 0.0D, 0.0D, 0.05D);
+					world.spawnParticle("reddust", x + rand.nextFloat(), y + rand.nextFloat(), z + facingOffset, 0.0D, 0.0D, 0.0D);
+				}
+			}
+		}
 	}
 }
