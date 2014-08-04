@@ -4,7 +4,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class NBTHelper {
 	/**
-	 * @param stackTag
+	 * @param tagComp
 	 *            The NBTTagCompund to use
 	 * @param tag
 	 *            The name of the tag to get
@@ -12,13 +12,13 @@ public class NBTHelper {
 	 *            The default value of the tag if it doesn't exist
 	 * @return The value in the tag or the default if it didn't exist
 	 */
-	public static float getFloat(NBTTagCompound stackTag, String tag, float def) {
-		if (stackTag != null) {
-			if (stackTag.hasKey(tag)) {
-				return stackTag.getFloat(tag);
+	public static float getFloat(NBTTagCompound tagComp, String tag, float def) {
+		if (tagComp != null) {
+			if (tagComp.hasKey(tag)) {
+				return tagComp.getFloat(tag);
 			}
 			else {
-				stackTag.setFloat(tag, def);
+				tagComp.setFloat(tag, def);
 				return def;
 			}
 		}
@@ -26,7 +26,7 @@ public class NBTHelper {
 	}
 	
 	/**
-	 * @param stackTag
+	 * @param tagComp
 	 *            The NBTTagCompund to use
 	 * @param tag
 	 *            The name of the tag to get
@@ -34,13 +34,13 @@ public class NBTHelper {
 	 *            The default value of the tag if it doesn't exist
 	 * @return The value in the tag or the default if it didn't exist
 	 */
-	public static int getInt(NBTTagCompound stackTag, String tag, int def) {
-		if (stackTag != null) {
-			if (stackTag.hasKey(tag)) {
-				return stackTag.getInteger(tag);
+	public static int getInt(NBTTagCompound tagComp, String tag, int def) {
+		if (tagComp != null) {
+			if (tagComp.hasKey(tag)) {
+				return tagComp.getInteger(tag);
 			}
 			else {
-				stackTag.setInteger(tag, def);
+				tagComp.setInteger(tag, def);
 				return def;
 			}
 		}
