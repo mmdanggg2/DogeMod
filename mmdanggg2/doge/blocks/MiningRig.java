@@ -9,6 +9,7 @@ import mmdanggg2.doge.util.DogeLogger;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.IconFlipped;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -96,24 +97,24 @@ public class MiningRig extends BlockContainer {
 		
 		super.breakBlock(world, x, y, z, block, meta);
 	}
-	
-	private static IIcon iconTopBack;
+
 	private static IIcon iconBottom;
-	private static IIcon iconFront;
-	private static IIcon iconSideL;
-	private static IIcon iconSideR;
+	private static IIcon iconTopBackOn;
+	private static IIcon iconFrontOn;
+	private static IIcon iconSideOn;
+	private static IIcon iconTopBackOff;
+	private static IIcon iconFrontOff;
+	private static IIcon iconSideOff;
 	
 	@Override
 	public IIcon getIcon(int side, int meta) {
 		if (side == 0) {
 			return iconBottom;
 		}
-		else if (side == 1) {
-			return iconTopBack;
-		}
 		
 		int[] sideOrder;
 		
+		boolean mining = (meta & 0b100) != 0;
 		meta &= ~0b100; // set 3rd bit to 0
 
 		switch (meta) {
@@ -138,32 +139,42 @@ public class MiningRig extends BlockContainer {
 		int right = sideOrder[1];
 		int back = sideOrder[2];
 		int left = sideOrder[3];
-
-		if (side == back) {
-			return iconTopBack;
-		}
-		else if (side == front) {
-			return iconFront;
-		}
-		else if (side == left) {
-			return iconSideL;
-		}
-		else if (side == right) {
-			return iconSideR;
+		
+		if (mining) {
+			if (side == 1 || side == back) { // top and back are the same
+				return iconTopBackOn;
+			}
+			else if (side == front) {
+				return new IconFlipped(iconFrontOn, meta < 2, false);
+			}
+			else if (side == left || side == right) {
+				return new IconFlipped(iconSideOn, side == right, false);
+			}
 		}
 		else {
-			return null;
+			if (side == 1 || side == back) { // top and back are the same
+				return iconTopBackOff;
+			}
+			else if (side == front) {
+				return new IconFlipped(iconFrontOff, meta < 2, false);
+			}
+			else if (side == left || side == right) {
+				return new IconFlipped(iconSideOff, side == right, false);
+			}
 		}
+		return null;
 	}
 	
 	@Override
 	public void registerBlockIcons(IIconRegister icon) {
 		String name = DogeInfo.NAME.toLowerCase();
-		iconTopBack = icon.registerIcon(name + ":miningRigTopBack");
 		iconBottom = icon.registerIcon(name + ":miningRigBottom");
-		iconFront = icon.registerIcon(name + ":miningRigFront");
-		iconSideL = icon.registerIcon(name + ":miningRigSideL");
-		iconSideR = icon.registerIcon(name + ":miningRigSideR");
+		iconTopBackOn = icon.registerIcon(name + ":miningRigTopBackOn");
+		iconFrontOn = icon.registerIcon(name + ":miningRigFrontOn");
+		iconSideOn = icon.registerIcon(name + ":miningRigSideOn");
+		iconTopBackOff = icon.registerIcon(name + ":miningRigTopBackOff");
+		iconFrontOff = icon.registerIcon(name + ":miningRigFrontOff");
+		iconSideOff = icon.registerIcon(name + ":miningRigSideOff");
 	}
 	
 	@Override
