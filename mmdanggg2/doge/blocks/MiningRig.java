@@ -114,6 +114,8 @@ public class MiningRig extends BlockContainer {
 		
 		int[] sideOrder;
 		
+		meta &= ~0b100; // set 3rd bit to 0
+
 		switch (meta) {
 		case 0:
 			sideOrder = new int[] { 2, 5, 3, 4 };
@@ -175,6 +177,8 @@ public class MiningRig extends BlockContainer {
 				int meta = world.getBlockMetadata(x, y, z);
 				float facingOffset = 1.05F;
 				
+				meta &= ~0b100; // set 3rd bit to 0
+
 				if (meta == 1) {
 					world.spawnParticle("smoke", x, y + rand.nextFloat(), z + rand.nextFloat(), -0.05D, 0.0D, 0.0D);
 					world.spawnParticle("reddust", x, y + rand.nextFloat(), z + rand.nextFloat(), 0.0D, 0.0D, 0.0D);
