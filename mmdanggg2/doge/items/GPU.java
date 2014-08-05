@@ -158,7 +158,8 @@ public class GPU extends Item {
 			double offsetX;
 			double offsetZ;
 			double offsetY;
-			if (Minecraft.getMinecraft().thePlayer == player) {
+			
+			if (Minecraft.getMinecraft().thePlayer == player && Minecraft.getMinecraft().gameSettings.thirdPersonView == 0) {
 				yaw += 60;
 				pitch += 30;
 				depth = 0.3f;
