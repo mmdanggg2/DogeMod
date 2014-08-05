@@ -1,6 +1,6 @@
 package mmdanggg2.doge.items;
 
-import mmdanggg2.doge.BasicInfo;
+import mmdanggg2.doge.DogeInfo;
 import mmdanggg2.doge.Doge;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemArmor;
@@ -17,10 +17,10 @@ public class DogeArmour extends ItemArmor {
 				|| stack.getItem() == Doge.dogeChestplate
 				|| stack.getItem() == Doge.dogeBoots) {
 			
-			return BasicInfo.NAME.toLowerCase() + ":textures/models/armor/doge_layer_1.png";
+			return DogeInfo.NAME.toLowerCase() + ":textures/models/armor/doge_layer_1.png";
 		}
 		if (stack.getItem() == Doge.dogeLeggings) {
-			return BasicInfo.NAME.toLowerCase() + ":textures/models/armor/doge_layer_2.png";
+			return DogeInfo.NAME.toLowerCase() + ":textures/models/armor/doge_layer_2.png";
 		} else {
 			return null;
 		}

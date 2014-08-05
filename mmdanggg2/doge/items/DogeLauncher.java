@@ -1,6 +1,6 @@
 package mmdanggg2.doge.items;
 
-import mmdanggg2.doge.BasicInfo;
+import mmdanggg2.doge.DogeInfo;
 import mmdanggg2.doge.Doge;
 import mmdanggg2.doge.entities.DogeProjectile;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -20,7 +20,7 @@ public class DogeLauncher extends ItemBow {
 		setMaxStackSize(1);
 		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogeLauncher");
-		setTextureName(BasicInfo.NAME.toLowerCase() + ":dogeLauncher");
+		setTextureName(DogeInfo.NAME.toLowerCase() + ":dogeLauncher");
 	}
 	
 	@Override
