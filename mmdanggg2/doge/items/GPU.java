@@ -5,6 +5,7 @@ import mmdanggg2.doge.DogeInfo;
 import mmdanggg2.doge.util.DogeLogger;
 import mmdanggg2.doge.util.NBTHelper;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -12,6 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class GPU extends Item {
@@ -81,6 +83,11 @@ public class GPU extends Item {
 	
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity entity, int itemSlot, boolean inHand) {
+		
+		if (world.rand.nextInt(10) == 0 && inHand) {
+			randomDisplayTick(stack, world, entity);
+		}
+
 		if (!world.isRemote) {
 			if (stack.stackTagCompound == null) {
 				initTags(stack);
@@ -109,7 +116,7 @@ public class GPU extends Item {
 		}
 		super.onUpdate(stack, world, entity, itemSlot, inHand);
 	}
-	
+
 	@Override
 	public boolean canHarvestBlock(Block par1Block, ItemStack itemStack) {
 		return true;
@@ -137,5 +144,48 @@ public class GPU extends Item {
 		stackTag.setFloat("speed", speed);
 
 		return mined;
+	}
+	
+	private void randomDisplayTick(ItemStack stack, World world, Entity entity) {
+		if (entity instanceof EntityPlayer && world.isRemote) {
+			EntityPlayer player = (EntityPlayer) entity;
+			double x = player.posX;
+			double y = player.posY;
+			double z = player.posZ;
+			float yaw = player.rotationYawHead;
+			float pitch = player.rotationPitch;
+			float depth;
+			double offsetX;
+			double offsetZ;
+			double offsetY;
+			if (Minecraft.getMinecraft().thePlayer == player) {
+				yaw += 60;
+				pitch += 30;
+				depth = 0.3f;
+				offsetX = (-MathHelper.sin(yaw / 180.0F * (float) Math.PI)) * depth;
+				offsetZ = (MathHelper.cos(yaw / 180.0F * (float) Math.PI)) * depth;
+				offsetY = (-MathHelper.sin(pitch / 180.0F * (float) Math.PI)) * depth;
+			}
+			else {
+				yaw = player.renderYawOffset;
+				yaw += 35;
+				depth = 0.5f;
+				offsetX = (-MathHelper.sin(yaw / 180.0F * (float) Math.PI)) * depth;
+				offsetZ = (MathHelper.cos(yaw / 180.0F * (float) Math.PI)) * depth;
+				offsetY = -0.6;
+			}
+			if (stack.getItemDamage() > 5) {
+				world.spawnParticle("reddust", x + offsetX, y + offsetY, z + offsetZ, 0, 0, 0);
+			}
+			if (stack.getItemDamage() > 10) {
+				world.spawnParticle("reddust", x + offsetX, y + offsetY, z + offsetZ, 0, 0, 0);
+			}
+			if (stack.getItemDamage() > 15) {
+				world.spawnParticle("smoke", x + offsetX, y + offsetY, z + offsetZ, player.motionX, 0.0D, player.motionZ);
+			}
+			if (stack.getItemDamage() > 18) {
+				world.spawnParticle("flame", x + offsetX, y + offsetY, z + offsetZ, player.motionX, 0.01D, player.motionZ);
+			}
+		}
 	}
 }

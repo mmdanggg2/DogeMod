@@ -16,7 +16,7 @@ public class DogeLogger {
 
 	public static void logDebug(String message) {
 		if (DogeInfo.debug) {
-			logInfo(adjustMessage("[DEBUG]" + message));
+			FMLLog.info(adjustMessage("[DEBUG] " + message));
 		}
 	}
 }
