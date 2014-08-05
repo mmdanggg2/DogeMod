@@ -189,20 +189,20 @@ public class MiningRig extends BlockContainer {
 				float facingOffset = 1.05F;
 				
 				meta &= ~0b100; // set 3rd bit to 0
-
-				if (meta == 1) {
+				
+				if (meta == 1 && world.isAirBlock(x - 1, y, z)) {
 					world.spawnParticle("smoke", x, y + rand.nextFloat(), z + rand.nextFloat(), -0.05D, 0.0D, 0.0D);
 					world.spawnParticle("reddust", x, y + rand.nextFloat(), z + rand.nextFloat(), 0.0D, 0.0D, 0.0D);
 				}
-				else if (meta == 3) {
+				else if (meta == 3 && world.isAirBlock(x + 1, y, z)) {
 					world.spawnParticle("smoke", x + facingOffset, y + rand.nextFloat(), z + rand.nextFloat(), 0.05D, 0.0D, 0.0D);
 					world.spawnParticle("reddust", x + facingOffset, y + rand.nextFloat(), z + rand.nextFloat(), 0.0D, 0.0D, 0.0D);
 				}
-				else if (meta == 2) {
+				else if (meta == 2 && world.isAirBlock(x, y, z - 1)) {
 					world.spawnParticle("smoke", x + rand.nextFloat(), y + rand.nextFloat(), z, 0.0D, 0.0D, -0.05D);
 					world.spawnParticle("reddust", x + rand.nextFloat(), y + rand.nextFloat(), z, 0.0D, 0.0D, 0.0D);
 				}
-				else if (meta == 0) {
+				else if (meta == 0 && world.isAirBlock(x, y, z + 1)) {
 					world.spawnParticle("smoke", x + rand.nextFloat(), y + rand.nextFloat(), z + facingOffset, 0.0D, 0.0D, 0.05D);
 					world.spawnParticle("reddust", x + rand.nextFloat(), y + rand.nextFloat(), z + facingOffset, 0.0D, 0.0D, 0.0D);
 				}
