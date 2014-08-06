@@ -31,10 +31,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void regCape() {
 		DevCapes capesInstance = DevCapes.getInstance();
-		capesInstance.addUser("mmdanggg2", "http://www.mmdanggg2.co.uk/doge/mmdanggg2Cape.png");
-		capesInstance.addUser("Oscip", "http://www.mmdanggg2.co.uk/doge/OscipCape.png");
-		capesInstance.addUser("Harveyosborne", "http://www.mmdanggg2.co.uk/doge/HarveyosborneCape.png");
-		capesInstance.addUser("Clifcon", "http://www.mmdanggg2.co.uk/doge/ClifconCape.png");
+		capesInstance.registerConfig("http://www.mmdanggg2.co.uk/doge/capeConfig.json");
 	}
 
 }

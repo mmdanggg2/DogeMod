@@ -145,10 +145,10 @@ public class MiningRig extends BlockContainer {
 				return iconTopBackOn;
 			}
 			else if (side == front) {
-				return new IconFlipped(iconFrontOn, meta < 2, false);
+				return iconFrontOn;
 			}
 			else if (side == left || side == right) {
-				return new IconFlipped(iconSideOn, side == right, false);
+				return iconSideOn;
 			}
 		}
 		else {
@@ -156,10 +156,10 @@ public class MiningRig extends BlockContainer {
 				return iconTopBackOff;
 			}
 			else if (side == front) {
-				return new IconFlipped(iconFrontOff, meta < 2, false);
+				return iconFrontOff;
 			}
 			else if (side == left || side == right) {
-				return new IconFlipped(iconSideOff, side == right, false);
+				return iconSideOff;
 			}
 		}
 		return null;

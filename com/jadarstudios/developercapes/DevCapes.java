@@ -2,81 +2,134 @@
  * DeveloperCapes by Jadar
  * License: MIT License
  * (https://raw.github.com/jadar/DeveloperCapes/master/LICENSE)
- * version 3.3.0.0
+ * version 4.0.0.x
  */
+
 package com.jadarstudios.developercapes;
 
-import java.util.HashMap;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.ITextureObject;
-
+import com.jadarstudios.developercapes.cape.CapeConfig;
+import com.jadarstudios.developercapes.cape.CapeConfigManager;
+import net.minecraftforge.common.MinecraftForge;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 
 /**
- * This library adds capes for people you specify
- * 
- * @author Jadar
+ * DeveloperCapes is a library for Minecraft. It allows developers to quickly add capes for players they specify. DevCapes uses Minecraft Forge.
+ *
+ * @author jadar
  */
-@SideOnly(Side.CLIENT)
-public class DevCapes
-{
-    
+public class DevCapes {
     private static DevCapes instance;
-    
+
     public static final Logger logger = LogManager.getLogger("DevCapes");
-    
-    /**
-     * Gets the DevCapes instance
-     */
-    public static DevCapes getInstance()
-    {
-        if (instance == null)
+
+    protected DevCapes() {
+        MinecraftForge.EVENT_BUS.register(new RenderEventHandler());
+    }
+
+    public static DevCapes getInstance() {
+        if (instance == null) {
             instance = new DevCapes();
+        }
         return instance;
     }
-    
-    // name->group
-	private HashMap<String, IUser> users;
-    
+
     /**
-     * Object constructor.
+     * Gets and returns an InputStream for a URL.
      */
-    private DevCapes()
-    {
-        this.users = new HashMap<String, IUser>();
-    }
-    
-    /**
-     * @param username
-     *            The name of the user that you want to give a cape to
-     * @param capeUrl
-     *            The URL as a String of the cape that you wish to assign to the
-     *            user
-     */
-    public void addUser(final String username, final String capeUrl)
-    {
-        IUser user = this.users.get(username);
-        if (user == null)
-        {
-            user = new DefaultUser(username, capeUrl);
-            this.users.put(username, user);
-            this.loadCape(username);
+    public InputStream getStreamForURL(URL url) {
+        InputStream is = null;
+        try {
+            URLConnection connection = url.openConnection();
+            connection.setRequestProperty("User-Agent", System.getProperty("java.version"));
+            connection.connect();
+
+            is = connection.getInputStream();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            return is;
         }
     }
-    
+
     /**
-     * @param username
-     *            The name of the user whose cape you wish to load
-     * @return true of the cape was loaded properly
+     * Gets and returns an InputStream for a file.
      */
-    public boolean loadCape(final String username)
-    {
-        IUser user = this.users.get(username);
-        return Minecraft.getMinecraft().renderEngine.loadTexture(user.getResource(), user.getTexture());
+    public InputStream getStreamForFile(File file) {
+        InputStream is = null;
+        try {
+            is = new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            return is;
+        }
+    }
+
+    @Deprecated
+    /**
+     * Registers a config with DevCapes. DEPRECATED: Please use registerConfig(String jsonUrl) instead
+     *
+     * @param jsonUrl
+     *            The URL as a String that links to the Json file that you want
+     *            to add
+     * @param identifier
+     *            A unique Identifier, normally your mod id
+     *                 * @return the id of the registered config
+     */
+    public int registerConfig(String jsonURL, String identifier) {
+        return this.registerConfig(jsonURL);
+    }
+
+    /**
+     * Registers a config with DevCapes. DEPRECATED: Please use registerConfig(String jsonUrl) instead
+     *
+     * @param jsonUrl The URL as a String that links to the Json file that you want
+     *                to add
+     * @return the id of the registered config
+     */
+    public int registerConfig(String jsonUrl) {
+        int id = -1;
+        try {
+            URL url = new URL(jsonUrl);
+            id = this.registerConfig(url);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } finally {
+            return id;
+        }
+    }
+
+    @Deprecated
+    /**
+     * Registers a config with DevCapes. DEPRECATED: Please use registerConfig(URL url) instead
+     *
+     * @param jsonUrl
+     *            A {@link URL} that links to the Json file that you want to add
+     * @param identifier
+     *            A unique Identifier, normally your mod id
+     * @return the id of the registered config
+     */
+    public int registerConfig(URL url, String identifier) {
+        return this.registerConfig(url);
+    }
+
+    /**
+     * Registers a config with DevCapes and returns the ID of the config.
+     *
+     * @param jsonUrl A {@link URL} that links to the Json file that you want to add
+     * @return the id of the registered config
+     */
+    public int registerConfig(URL jsonUrl) {
+        InputStream is = this.getStreamForURL(jsonUrl);
+        CapeConfig config = CapeConfigManager.INSTANCE.parseFromStream(is);
+        int id = CapeConfigManager.getUniqueId();
+        CapeConfigManager.INSTANCE.addConfig(id, config);
+        return id;
     }
 }
