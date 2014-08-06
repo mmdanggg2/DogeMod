@@ -9,15 +9,14 @@ import mmdanggg2.doge.util.DogeLogger;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.IconFlipped;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
+import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.FMLNetworkHandler;
@@ -69,8 +68,8 @@ public class MiningRig extends BlockContainer {
 	}
 	
 	@Override
-	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
-		TileEntity te = world.getTileEntity(x, y, z);
+	public void breakBlock(World world, int x, int y, int z, int block, int meta) {
+		TileEntity te = world.getBlockTileEntity(x, y, z);
 		if (te != null && te instanceof IInventory) {
 			IInventory inventory = (IInventory) te;
 			
@@ -97,17 +96,17 @@ public class MiningRig extends BlockContainer {
 		
 		super.breakBlock(world, x, y, z, blockID, meta);
 	}
-
-	private static IIcon iconBottom;
-	private static IIcon iconTopBackOn;
-	private static IIcon iconFrontOn;
-	private static IIcon iconSideOn;
-	private static IIcon iconTopBackOff;
-	private static IIcon iconFrontOff;
-	private static IIcon iconSideOff;
+	
+	private static Icon iconBottom;
+	private static Icon iconTopBackOn;
+	private static Icon iconFrontOn;
+	private static Icon iconSideOn;
+	private static Icon iconTopBackOff;
+	private static Icon iconFrontOff;
+	private static Icon iconSideOff;
 	
 	@Override
-	public IIcon getIcon(int side, int meta) {
+	public Icon getIcon(int side, int meta) {
 		if (side == 0) {
 			return iconBottom;
 		}
@@ -116,7 +115,7 @@ public class MiningRig extends BlockContainer {
 		
 		boolean mining = (meta & 0b100) != 0;
 		meta &= ~0b100; // set 3rd bit to 0
-
+		
 		switch (meta) {
 		case 0:
 			sideOrder = new int[] { 2, 5, 3, 4 };
@@ -145,10 +144,10 @@ public class MiningRig extends BlockContainer {
 				return iconTopBackOn;
 			}
 			else if (side == front) {
-				return new IconFlipped(iconFrontOn, meta < 2, false);
+				return iconFrontOn;
 			}
 			else if (side == left || side == right) {
-				return new IconFlipped(iconSideOn, side == right, false);
+				return iconSideOn;
 			}
 		}
 		else {
@@ -156,17 +155,17 @@ public class MiningRig extends BlockContainer {
 				return iconTopBackOff;
 			}
 			else if (side == front) {
-				return new IconFlipped(iconFrontOff, meta < 2, false);
+				return iconFrontOff;
 			}
 			else if (side == left || side == right) {
-				return new IconFlipped(iconSideOff, side == right, false);
+				return iconSideOff;
 			}
 		}
 		return null;
 	}
 	
 	@Override
-	public void registerBlockIcons(IIconRegister icon) {
+	public void registerIcons(IconRegister icon) {
 		String name = DogeInfo.NAME.toLowerCase();
 		iconBottom = icon.registerIcon(name + ":miningRigBottom");
 		iconTopBackOn = icon.registerIcon(name + ":miningRigTopBackOn");
@@ -179,7 +178,7 @@ public class MiningRig extends BlockContainer {
 	
 	@Override
 	public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
-		TileEntity te = world.getTileEntity(x, y, z);
+		TileEntity te = world.getBlockTileEntity(x, y, z);
 		
 		if (te != null && te instanceof MiningRigTileEntity) {
 			MiningRigTileEntity mrte = (MiningRigTileEntity) te;

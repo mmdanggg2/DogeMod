@@ -23,7 +23,8 @@ public class GPU extends Item {
 	private float speedStep;
 	private int coolRate;
 	public GPU(int id) {
-		super(id);		this.maxStackSize = 1;
+		super(id);
+		this.maxStackSize = 1;
 		this.setMaxDamage(20);
 		this.setCreativeTab(Doge.dogeTab);
 		this.setUnlocalizedName("gpu");
@@ -55,7 +56,9 @@ public class GPU extends Item {
 	}
 	
 	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int xPos, int yPos, int zPos, EntityLivingBase entityLiving) {		if (!world.isRemote) {
+	public boolean onBlockDestroyed(ItemStack stack, World world, int block,
+			int xPos, int yPos, int zPos, EntityLivingBase entityLiving) {
+		if (!world.isRemote) {
 			
 			boolean mined = attemptMine(stack, world, coinChance);
 			
@@ -85,7 +88,7 @@ public class GPU extends Item {
 		if (world.rand.nextInt(10) == 0 && inHand) {
 			randomDisplayTick(stack, world, entity);
 		}
-
+		
 		if (!world.isRemote) {
 			if (stack.stackTagCompound == null) {
 				initTags(stack);
@@ -114,7 +117,7 @@ public class GPU extends Item {
 		}
 		super.onUpdate(stack, world, entity, itemSlot, inHand);
 	}
-
+	
 	@Override
 	public boolean canHarvestBlock(Block par1Block, ItemStack itemStack) {
 		return true;
@@ -130,7 +133,7 @@ public class GPU extends Item {
 		boolean mined = false;
 		
 		stack.attemptDamageItem(1, world.rand);
-
+		
 		if (world.rand.nextInt(chance) == 0) {
 			mined = true;
 		}
@@ -140,7 +143,7 @@ public class GPU extends Item {
 		speed = speed + speedStep;
 		DogeLogger.logDebug("GPU Speed = " + speed);
 		stackTag.setFloat("speed", speed);
-
+		
 		return mined;
 	}
 	

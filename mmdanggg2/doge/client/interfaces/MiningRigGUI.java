@@ -34,9 +34,9 @@ public class MiningRigGUI extends GuiContainer {
 	
 	@Override
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
-		String name = I18n.format("tile.miningRig.name", new Object[0]);
-		int len = fontRendererObj.getStringWidth(name);
-		fontRendererObj.drawString(name, (xSize - 18 - len) / 2, 7, 0x404040);
+		String name = I18n.getStringParams("tile.miningRig.name", new Object[0]);
+		int len = fontRenderer.getStringWidth(name);
+		fontRenderer.drawString(name, (xSize - 18 - len) / 2, 7, 0x404040);
 	}
 	
 	@Override

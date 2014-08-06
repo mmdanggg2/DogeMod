@@ -1,7 +1,7 @@
 package mmdanggg2.doge.blocks;
 
-import mmdanggg2.doge.DogeInfo;
 import mmdanggg2.doge.Doge;
+import mmdanggg2.doge.DogeInfo;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
@@ -14,7 +14,7 @@ public class DogeBlock extends Block {
 		setStepSound(Block.soundMetalFootstep);
 		setUnlocalizedName("dogeBlock");
 		setCreativeTab(Doge.dogeTab);
-		setBlockTextureName(DogeInfo.NAME.toLowerCase() + ":dogeblock");
+		setTextureName(DogeInfo.NAME.toLowerCase() + ":dogeblock");
 	}
 	
 }
