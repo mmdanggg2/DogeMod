@@ -16,8 +16,10 @@ public class DogeRegisterRecipies {
 		
 		GameRegistry.addShapelessRecipe(new ItemStack(Doge.dogecoin, 9), new ItemStack(Doge.dogeBlock));
 		
-		GameRegistry.addRecipe(new ItemStack(Doge.gpu, 1), "III", "CGC", "RBR", 'R', new ItemStack(Item.redstone), 'G', new ItemStack(Item.ingotGold), 'B', new ItemStack(Block.blockRedstone), 'C', new ItemStack(Item.comparator), 'I', new ItemStack(Item.ingotIron));
+		GameRegistry.addRecipe(new ItemStack(Doge.gpu, 1), "RBR", "CGC", "III", 'R', new ItemStack(Items.redstone), 'G', new ItemStack(Items.gold_ingot), 'B', new ItemStack(Blocks.redstone_block), 'C', new ItemStack(Items.comparator), 'I', new ItemStack(Items.iron_ingot));
 		
+		GameRegistry.addRecipe(new ItemStack(Doge.miningRig, 1), "CDC", "GIG", "RPR", 'R', new ItemStack(Items.redstone), 'G', new ItemStack(Items.gold_ingot), 'P', new ItemStack(Items.iron_pickaxe), 'I', new ItemStack(Blocks.iron_block), 'C', new ItemStack(Items.comparator), 'D', new ItemStack(Doge.dogecoin));
+
 		// Doge Tool Recipes
 		GameRegistry.addRecipe(new ItemStack(Doge.dogePickaxe), "###", " S ", " S ", '#', new ItemStack(Doge.dogecoin), 'S', new ItemStack(Item.stick));
 		
