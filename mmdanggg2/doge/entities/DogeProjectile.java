@@ -1,6 +1,7 @@
 package mmdanggg2.doge.entities;
 
 import mmdanggg2.doge.Doge;
+import mmdanggg2.doge.DogeInfo;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -28,7 +29,7 @@ public class DogeProjectile extends EntityThrowable
 		this.motionX = this.motionX * 1.5;
 		this.motionY = this.motionY * 1.5;
 		this.motionZ = this.motionZ * 1.5;
-		damage = Doge.toolDamage * 2.0F;
+		damage = DogeInfo.toolDamage * 2.0F;
 	}
 	
 	public DogeProjectile(World par1World, double par2, double par4, double par6)

@@ -23,16 +23,16 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 
-@Mod(modid=BasicInfo.ID, name=BasicInfo.NAME, version=BasicInfo.VER)
+@Mod(modid=DogeInfo.ID, name=DogeInfo.NAME, version=DogeInfo.VER)
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
 public class Doge {
 	
 	// The instance of your mod that Forge uses.
-	@Instance(BasicInfo.NAME)
+	@Instance(DogeInfo.NAME)
 	public static Doge instance;
 	
 	// Says where the client and server 'proxy' code is loaded.
-	@SidedProxy(clientSide = BasicInfo.CLIENTPROXY + "ClientProxy", serverSide = BasicInfo.COMMONPROXY + "CommonProxy")
+	@SidedProxy(clientSide = DogeInfo.CLIENTPROXY, serverSide = DogeInfo.COMMONPROXY)
 	public static CommonProxy proxy;
 	
 	// Inits
@@ -61,17 +61,17 @@ public class Doge {
 	public static EnumArmorMaterial dogeArmorMat;
 	
 	// Doge Tools
-	public static Item dogePickaxe;
-	public static Item dogeAxe;
-	public static Item dogeShovel;
-	public static Item dogeHoe;
-	public static Item dogeSword;
+	public static DogePickaxe dogePickaxe;
+	public static DogeAxe dogeAxe;
+	public static DogeShovel dogeShovel;
+	public static DogeHoe dogeHoe;
+	public static DogeSword dogeSword;
 	
 	// Doge Armour
-	public static Item dogeHelmet;
-	public static Item dogeChestplate;
-	public static Item dogeLeggings;
-	public static Item dogeBoots;
+	public static DogeHelmet dogeHelmet;
+	public static DogeChestplate dogeChestplate;
+	public static DogeLeggings dogeLeggings;
+	public static DogeBoots dogeBoots;
 	
 	// Other
 	public static DogeBlock dogeBlock;
@@ -84,11 +84,6 @@ public class Doge {
 	
 	public static MiningRig miningRig;
 	
-	// Settings
-	public static int toolDurability;
-	public static float toolSpeed;
-	public static float toolDamage;
-	
 	// Creative Tab
 	public static CreativeTabs dogeTab;
 	
@@ -100,9 +95,19 @@ public class Doge {
 		// loading the configuration from its file
 		config.load();
 		
-		toolDurability = config.get("Doge_Tools", "ToolDurability", 780, "How many uses the tools have (Default 780)").getInt(780);
-		toolSpeed = (float) config.get("Doge_Tools", "ToolSpeed", 20.0F, "How fast the tools mine their respective blocks (Default 20.0)").getDouble(20.0F);
-		toolDamage = (float) config.get("Doge_Tools", "ToolDamage", 6.0F, "How much damage the tools do (Default 6.0)").getDouble(6.0F);
+		int tDur = DogeInfo.toolDurability = config.get("Doge_Tools", "ToolDurability", 780, "How many uses the tools have (Default 780)").getInt(780);
+		float tSpd = DogeInfo.toolSpeed = (float) config.get("Doge_Tools", "ToolSpeed", 20.0F, "How fast the tools mine their respective blocks (Default 20.0)").getDouble(20.0F);
+		float tDmg = DogeInfo.toolDamage = (float) config.get("Doge_Tools", "ToolDamage", 6.0F, "How much damage the tools do (Default 6.0)").getDouble(6.0F);
+		
+		DogeInfo.rigChance = config.get("Mining_Rig", "RigChance", 5, "How likely a GPU is to get a Dogecoin, lower is more likely. There is a 1 in x chance. (Default 5)").getInt(5);
+		DogeInfo.rigSpeed = config.get("Mining_Rig", "RigSpeed", 100, "How fast the rig uses the GPUs, lower is faster (Default 100)").getInt(100);
+		
+		DogeInfo.gpuChance = config.get("GPU", "GPUChance", 11, "How likely a GPU is to get a Dogecoin, lower is more likely. There is a 1 in x chance per block. (Default 11)").getInt(11);
+		DogeInfo.gpuSpeedStart = (float) config.get("GPU", "GPUSpeedStart", 1.0F, "The mining speed of the GPU when fully cooled (Default 1.0)").getDouble(1.0F);
+		DogeInfo.gpuSpeedStep = (float) config.get("GPU", "GPUSpeedStep", 2.0F, "How much speed the GPU gains per mine (Default 2.0)").getDouble(2.0F);
+		DogeInfo.gpuCoolRate = config.get("GPU", "GPUCoolRate", 30, "How quickly the GPU cools down when not in hand, lower is faster (Default 30)").getInt(30);
+		
+		DogeInfo.debug = config.get("Debug", "DebugOutput", false, "Show debug output in log (Default false)").getBoolean(false);
 		
 		//Items
 		dogecoinID = config.getItem("dogecoin", 5000).getInt();
@@ -129,7 +134,7 @@ public class Doge {
 		// saving the configuration to its file
 		config.save();
 		
-		dogeToolMat = EnumHelper.addToolMaterial("Doge", 3, toolDurability, toolSpeed, toolDamage, 30);
+		dogeToolMat = EnumHelper.addToolMaterial("Doge", 3, tDur, tSpd, tDmg, 30);
 		dogeArmorMat = EnumHelper.addArmorMaterial("Doge", 30, new int[] { 5, 10, 8, 5 }, 30);
 		
 		dogeArmourRenderID = proxy.addArmour("DogeArmour");

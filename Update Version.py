@@ -19,4 +19,4 @@ modinfo[0]['version'] = newVer
 
 json.dump(modinfo, open('mcmod.info', 'w'), indent = 4)
 
-updatefile('mmdanggg2\\doge\\BasicInfo.java', newVer)
+updatefile('mmdanggg2\\doge\\DogeInfo.java', newVer)

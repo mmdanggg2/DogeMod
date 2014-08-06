@@ -1,6 +1,6 @@
 package mmdanggg2.doge.items;
 
-import mmdanggg2.doge.BasicInfo;
+import mmdanggg2.doge.DogeInfo;
 import mmdanggg2.doge.Doge;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemHoe;
@@ -12,7 +12,7 @@ public class DogeHoe extends ItemHoe {
 		
 		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogeHoe");
-		setTextureName(BasicInfo.NAME.toLowerCase() + ":dogeHoe");
+		setTextureName(DogeInfo.NAME.toLowerCase() + ":dogeHoe");
 		
 	}
 	

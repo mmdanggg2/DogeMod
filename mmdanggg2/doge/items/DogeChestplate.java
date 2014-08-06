@@ -1,6 +1,6 @@
 package mmdanggg2.doge.items;
 
-import mmdanggg2.doge.BasicInfo;
+import mmdanggg2.doge.DogeInfo;
 import mmdanggg2.doge.Doge;
 import net.minecraft.item.EnumArmorMaterial;
 
@@ -12,7 +12,7 @@ public class DogeChestplate extends DogeArmour {
 		
 		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogeChestPlate");
-		setTextureName(BasicInfo.NAME.toLowerCase() + ":dogeChestplate");
+		setTextureName(DogeInfo.NAME.toLowerCase() + ":dogeChestplate");
 		
 	}
 	

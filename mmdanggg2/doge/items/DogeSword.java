@@ -1,6 +1,6 @@
 package mmdanggg2.doge.items;
 
-import mmdanggg2.doge.BasicInfo;
+import mmdanggg2.doge.DogeInfo;
 import mmdanggg2.doge.Doge;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemSword;
@@ -12,7 +12,7 @@ public class DogeSword extends ItemSword {
 		
 		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogeSword");
-		setTextureName(BasicInfo.NAME.toLowerCase() + ":dogeSword");
+		setTextureName(DogeInfo.NAME.toLowerCase() + ":dogeSword");
 		
 	}
 	
