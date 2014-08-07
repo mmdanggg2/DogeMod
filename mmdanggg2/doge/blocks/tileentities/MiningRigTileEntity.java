@@ -177,14 +177,14 @@ public class MiningRigTileEntity extends TileEntity implements IInventory {
 			int meta = getMeta();
 
 			if (gpus > 0) {
-				meta |= 0b100; // set 3rd bit to 1
+				meta |= 4; // set 3rd bit to 1
 				if (meta != getMeta()) {
 					DogeLogger.logDebug("Setting meta to " + Integer.toBinaryString(meta) + ", " + meta);
 					worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, meta, 2);
 				}
 			}
 			else {
-				meta &= ~0b100; // set 3rd bit to 0
+				meta &= ~4; // set 3rd bit to 0
 				if (meta != getMeta()) {
 					DogeLogger.logDebug("Setting meta to " + Integer.toBinaryString(meta) + ", " + meta);
 					worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, meta, 2);
@@ -194,7 +194,7 @@ public class MiningRigTileEntity extends TileEntity implements IInventory {
 	}
 	
 	public boolean isMining() {
-		return (getMeta() & 0b100) != 0; // if 3rd bit is 1
+		return (getMeta() & 4) != 0; // if 3rd bit is 1
 	}
 	
 	private int getMeta() {
