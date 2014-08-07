@@ -113,8 +113,8 @@ public class MiningRig extends BlockContainer {
 		
 		int[] sideOrder;
 		
-		boolean mining = (meta & 0b100) != 0;
-		meta &= ~0b100; // set 3rd bit to 0
+		boolean mining = (meta & 4) != 0;
+		meta &= ~4; // set 3rd bit to 0
 		
 		switch (meta) {
 		case 0:
@@ -187,7 +187,7 @@ public class MiningRig extends BlockContainer {
 				int meta = world.getBlockMetadata(x, y, z);
 				float facingOffset = 1.05F;
 				
-				meta &= ~0b100; // set 3rd bit to 0
+				meta &= ~4; // set 3rd bit to 0
 				
 				if (meta == 1 && world.isAirBlock(x - 1, y, z)) {
 					world.spawnParticle("smoke", x, y + rand.nextFloat(), z + rand.nextFloat(), -0.05D, 0.0D, 0.0D);
