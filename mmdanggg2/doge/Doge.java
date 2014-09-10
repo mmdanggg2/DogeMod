@@ -116,6 +116,9 @@ public class Doge {
 		
 		DogeLogger.logInfo("Registering Recipies");
 		DogeRegisterRecipies.register();
+		
+		dogeToolMat.customCraftingMaterial = dogecoin;
+		dogeArmorMat.customCraftingMaterial = dogecoin;
 	}
 	
 	@EventHandler
