@@ -1,18 +1,21 @@
 package mmdanggg2.doge.blocks.tileentities;
 
+import java.util.Map;
+
 import mmdanggg2.doge.Doge;
 import mmdanggg2.doge.DogeInfo;
+import mmdanggg2.doge.blocks.MiningRig;
 import mmdanggg2.doge.items.GPU;
 import mmdanggg2.doge.util.DogeLogger;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 
-public class MiningRigTileEntity extends TileEntity implements IInventory {
+public class MiningRigTileEntity extends TileEntity implements ISidedInventory {
 	
 	private ItemStack[] items;
 
@@ -117,8 +120,8 @@ public class MiningRigTileEntity extends TileEntity implements IInventory {
 		else {
 			valid = (item == Doge.gpu);
 		}
-		DogeLogger.logInfo("Item is: " + item.getUnlocalizedName() + ", Slot is: " + i + ", Valid: " + valid);
-		return stack.getItem() == Doge.dogecoin;
+		// DogeLogger.logInfo("Item is: " + item.getUnlocalizedName() + ", Slot is: " + i + ", Valid: " + valid);
+		return valid;
 	}
 
 	@Override
@@ -199,5 +202,54 @@ public class MiningRigTileEntity extends TileEntity implements IInventory {
 	
 	private int getMeta() {
 		return worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+	}
+	
+	@Override
+	public int[] getAccessibleSlotsFromSide(int side) {
+		int[] inSlots = new int[] { 0, 1, 2, 3 };
+		int[] outSlots = new int[] { 4 };
+		
+		Map<String, Integer> currRotation = MiningRig.getSidesOfCurrentRotation(getMeta());
+		int front = currRotation.get("front");
+		int right = currRotation.get("right");
+		int back = currRotation.get("back");
+		int left = currRotation.get("left");
+		int top = currRotation.get("top");
+		int bottom = currRotation.get("bottom");
+		
+		if (side == top || side == back || side == left) {
+			return inSlots;
+		}
+		else if (side == bottom || side == front || side == right) {
+			return outSlots;
+		}
+		return null;
+	}
+	
+	@Override
+	public boolean canInsertItem(int slot, ItemStack stack, int side) {
+		return isItemValidForSlot(slot, stack);
+	}
+	
+	@Override
+	public boolean canExtractItem(int slot, ItemStack stack, int side) {
+		Map<String, Integer> currRotation = MiningRig.getSidesOfCurrentRotation(getMeta());
+		int front = currRotation.get("front");
+		int right = currRotation.get("right");
+		int back = currRotation.get("back");
+		int left = currRotation.get("left");
+		int top = currRotation.get("top");
+		int bottom = currRotation.get("bottom");
+		
+		if (side == top || side == back || side == left) {
+			DogeLogger.logDebug("Can't Extract Item");
+			return false;
+		}
+		else if (side == bottom || side == front || side == right) {
+			DogeLogger.logDebug("Can Extract Item");
+			return true;
+		}
+
+		return false;
 	}
 }
