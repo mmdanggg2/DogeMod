@@ -1,5 +1,7 @@
 package mmdanggg2.doge.blocks;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import mmdanggg2.doge.Doge;
@@ -107,40 +109,24 @@ public class MiningRig extends BlockContainer {
 	
 	@Override
 	public Icon getIcon(int side, int meta) {
-		if (side == 0) {
+		boolean mining = (meta & 4) != 0;
+
+		Map<String, Integer> currRotation = getSidesOfCurrentRotation(meta);
+		int front = currRotation.get("front");
+		int right = currRotation.get("right");
+		int back = currRotation.get("back");
+		int left = currRotation.get("left");
+		int top = currRotation.get("top");
+		int bottom = currRotation.get("bottom");
+
+		meta &= ~4; // set 3rd bit to 0
+		
+		if (side == bottom) {
 			return iconBottom;
 		}
 		
-		int[] sideOrder;
-		
-		boolean mining = (meta & 4) != 0;
-		meta &= ~4; // set 3rd bit to 0
-		
-		switch (meta) {
-		case 0:
-			sideOrder = new int[] { 2, 5, 3, 4 };
-			break;
-		case 1:
-			sideOrder = new int[] { 5, 2, 4, 3 };
-			break;
-		case 2:
-			sideOrder = new int[] { 3, 5, 2, 4 };
-			break;
-		case 3:
-			sideOrder = new int[] { 4, 2, 5, 3 };
-			break;
-		default:
-			sideOrder = new int[] { 2, 5, 3, 4 };
-			break;
-		}
-		
-		int front = sideOrder[0];
-		int right = sideOrder[1];
-		int back = sideOrder[2];
-		int left = sideOrder[3];
-		
 		if (mining) {
-			if (side == 1 || side == back) { // top and back are the same
+			if (side == top || side == back) { // top and back are the same
 				return iconTopBackOn;
 			}
 			else if (side == front) {
@@ -151,7 +137,7 @@ public class MiningRig extends BlockContainer {
 			}
 		}
 		else {
-			if (side == 1 || side == back) { // top and back are the same
+			if (side == top || side == back) { // top and back are the same
 				return iconTopBackOff;
 			}
 			else if (side == front) {
@@ -207,5 +193,39 @@ public class MiningRig extends BlockContainer {
 				}
 			}
 		}
+	}
+	
+	public static Map<String, Integer> getSidesOfCurrentRotation(int meta) {
+		Map<String, Integer> sides = new HashMap<String, Integer>();
+		
+		sides.put("bottom", 0);
+		sides.put("top", 1);
+		
+		meta &= ~4; // set 3rd bit to 0
+		int[] sideOrder;
+		switch (meta) {
+		case 0:
+			sideOrder = new int[] { 2, 5, 3, 4 };
+			break;
+		case 1:
+			sideOrder = new int[] { 5, 2, 4, 3 };
+			break;
+		case 2:
+			sideOrder = new int[] { 3, 5, 2, 4 };
+			break;
+		case 3:
+			sideOrder = new int[] { 4, 2, 5, 3 };
+			break;
+		default:
+			sideOrder = new int[] { 2, 5, 3, 4 };
+			break;
+		}
+		
+		sides.put("front", sideOrder[0]);
+		sides.put("left", sideOrder[1]);
+		sides.put("back", sideOrder[2]);
+		sides.put("right", sideOrder[3]);
+		
+		return sides;
 	}
 }
