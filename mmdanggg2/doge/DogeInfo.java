@@ -20,6 +20,8 @@ public class DogeInfo {
 	public static float gpuSpeedStart;
 	public static float gpuSpeedStep;
 	public static int gpuCoolRate;
+	
+	public static String[] dogecoinConvertList;
 
 	public static boolean debug;
 	

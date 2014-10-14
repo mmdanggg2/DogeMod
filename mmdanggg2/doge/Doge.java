@@ -30,7 +30,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid=DogeInfo.ID, name=DogeInfo.NAME, version=DogeInfo.VER)
+@Mod(modid = DogeInfo.ID, name = DogeInfo.NAME, version = DogeInfo.VER)
 public class Doge {
 	// The instance of your mod that Forge uses.
 	@Instance(DogeInfo.NAME)
@@ -93,6 +93,17 @@ public class Doge {
 		DogeInfo.gpuSpeedStep = (float) config.get("GPU", "GPUSpeedStep", 2.0F, "How much speed the GPU gains per mine (Default 2.0)").getDouble(2.0F);
 		DogeInfo.gpuCoolRate = config.get("GPU", "GPUCoolRate", 30, "How quickly the GPU cools down when not in hand, lower is faster (Default 30)").getInt(30);
 		
+		DogeInfo.dogecoinConvertList = config.get("Dogecoin", "DogecoinConvertWhitelist", new String[] {
+				"EntityPig",
+				"EntityWolf",
+				"EntityChicken",
+				"EntityCow",
+				"EntityOcelot",
+				"EntitySheep",
+				"EntitySquid",
+				"EntityCreeper",
+				"EntitySnowman"}, "This is a list of Java classes that are able to be converted into Shibe's by a coin.").getStringList();
+
 		DogeInfo.debug = config.get("Debug", "DebugOutput", false, "Show debug output in log (Default false)").getBoolean(false);
 		
 		// saving the configuration to its file
