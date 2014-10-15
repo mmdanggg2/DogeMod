@@ -23,6 +23,12 @@ public class DogeInfo {
 	
 	public static String[] dogecoinConvertList;
 
+	public static int[] shibeSpawnBiomes;
+	public static int shibeSpawnChance;
+	public static int shibeSpawnMinSize;
+	public static int shibeSpawnMaxSize;
+	public static float shibeAtkDamage;
+
 	public static boolean debug;
 	
 }
