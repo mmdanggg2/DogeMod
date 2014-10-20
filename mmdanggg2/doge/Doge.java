@@ -30,7 +30,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid=DogeInfo.ID, name=DogeInfo.NAME, version=DogeInfo.VER)
+@Mod(modid = DogeInfo.ID, name = DogeInfo.NAME, version = DogeInfo.VER)
 public class Doge {
 	// The instance of your mod that Forge uses.
 	@Instance(DogeInfo.NAME)
@@ -85,13 +85,30 @@ public class Doge {
 		float tSpd = DogeInfo.toolSpeed = (float) config.get("Doge_Tools", "ToolSpeed", 20.0F, "How fast the tools mine their respective blocks (Default 20.0)").getDouble(20.0F);
 		float tDmg = DogeInfo.toolDamage = (float) config.get("Doge_Tools", "ToolDamage", 6.0F, "How much damage the tools do (Default 6.0)").getDouble(6.0F);
 		
-		DogeInfo.rigChance = config.get("Mining_Rig", "RigChance", 5, "How likely a GPU is to get a Dogecoin, lower is more likely. There is a 1 in x chance. (Default 5)").getInt(5);
+		DogeInfo.rigChance = config.get("Mining_Rig", "RigChance", 5, "How likely a GPU is to get a Dogecoin, lower is more likely. There is a 1 in x chance (Default 5)").getInt(5);
 		DogeInfo.rigSpeed = config.get("Mining_Rig", "RigSpeed", 100, "How fast the rig uses the GPUs, lower is faster (Default 100)").getInt(100);
 		
 		DogeInfo.gpuChance = config.get("GPU", "GPUChance", 11, "How likely a GPU is to get a Dogecoin, lower is more likely. There is a 1 in x chance per block. (Default 11)").getInt(11);
 		DogeInfo.gpuSpeedStart = (float) config.get("GPU", "GPUSpeedStart", 1.0F, "The mining speed of the GPU when fully cooled (Default 1.0)").getDouble(1.0F);
 		DogeInfo.gpuSpeedStep = (float) config.get("GPU", "GPUSpeedStep", 2.0F, "How much speed the GPU gains per mine (Default 2.0)").getDouble(2.0F);
 		DogeInfo.gpuCoolRate = config.get("GPU", "GPUCoolRate", 30, "How quickly the GPU cools down when not in hand, lower is faster (Default 30)").getInt(30);
+		
+		DogeInfo.dogecoinConvertList = config.get("Dogecoin", "DogecoinConvertWhitelist", new String[] {
+				"EntityPig",
+				"EntityWolf",
+				"EntityChicken",
+				"EntityCow",
+				"EntityOcelot",
+				"EntitySheep",
+				"EntitySquid",
+				"EntityCreeper",
+				"EntitySnowman"}, "This is a list of Java classes that are able to be converted into Shibe's by a coin").getStringList();
+		
+		DogeInfo.shibeSpawnBiomes = config.get("Shibe", "ShibeSpawnBiomes", new int[] { 1, 4 }, "This is a list of biome id's that shibes can spawn in (Default 1, 4)").getIntList();
+		DogeInfo.shibeSpawnChance = config.get("Shibe", "ShibeSpawnChance", 4, "How likely the shibes spawn in the biomes, lower is less likely (Default 4)").getInt(4);
+		DogeInfo.shibeSpawnMinSize = config.get("Shibe", "ShibeSpawnMinSize", 1, "Minimum ammount of shibes that spawn when they do (Default 1)").getInt(1);
+		DogeInfo.shibeSpawnMaxSize = config.get("Shibe", "ShibeSpawnMaxSize", 6, "Maximum ammount of shibes that spawn when they do (Default 6)").getInt(6);
+		DogeInfo.shibeAtkDamage = config.get("Shibe", "ShibeAttackDamage", 8, "Ammount of damage a shibe will do when tame, halved when wild (Default 8)").getInt(8);
 		
 		DogeInfo.debug = config.get("Debug", "DebugOutput", false, "Show debug output in log (Default false)").getBoolean(false);
 		
