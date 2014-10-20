@@ -24,7 +24,7 @@ public class DogeRegisterEntities {
 			BiomeGenBase[] shibeBiomeList = new BiomeGenBase[biomes.length];
 			for (int i = 0; i < biomes.length; i++) {
 				DogeLogger.logDebug("Adding biome " + biomes[i]);
-				shibeBiomeList[i] = BiomeGenBase.getBiome(biomes[i]);
+				shibeBiomeList[i] = BiomeGenBase.biomeList[i];
 			}
 			addSpawn(DogeMob.class, DogeInfo.shibeSpawnChance, DogeInfo.shibeSpawnMinSize, DogeInfo.shibeSpawnMaxSize, shibeBiomeList);
 		}
