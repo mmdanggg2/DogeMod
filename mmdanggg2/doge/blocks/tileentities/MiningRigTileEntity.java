@@ -7,15 +7,22 @@ import mmdanggg2.doge.DogeInfo;
 import mmdanggg2.doge.blocks.MiningRig;
 import mmdanggg2.doge.items.GPU;
 import mmdanggg2.doge.util.DogeLogger;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityLockable;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.IChatComponent;
 
-public class MiningRigTileEntity extends TileEntity implements ISidedInventory {
+public class MiningRigTileEntity extends TileEntityLockable implements ISidedInventory, IUpdatePlayerListBox {
 	
 	private ItemStack[] items;
 
@@ -60,7 +67,7 @@ public class MiningRigTileEntity extends TileEntity implements ISidedInventory {
 	}
 
 	@Override
-	public void closeInventory() {}
+	public void closeInventory(EntityPlayer player) {}
 
 	@Override
 	public ItemStack decrStackSize(int slot, int count) {
@@ -79,7 +86,7 @@ public class MiningRigTileEntity extends TileEntity implements ISidedInventory {
 	}
 
 	@Override
-	public String getInventoryName() {
+	public String getName() {
 		return "MiningRig";
 	}
 
@@ -106,7 +113,7 @@ public class MiningRigTileEntity extends TileEntity implements ISidedInventory {
 	}
 
 	@Override
-	public boolean hasCustomInventoryName() {
+	public boolean hasCustomName() {
 		return false;
 	}
 
@@ -125,12 +132,12 @@ public class MiningRigTileEntity extends TileEntity implements ISidedInventory {
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer arg0) {
-		return arg0.getDistanceSq(xCoord + .5, yCoord + .5, zCoord + .5) <= 64;
+	public boolean isUseableByPlayer(EntityPlayer player) {
+		return player.getDistanceSq(pos.getX() + .5, pos.getY() + .5, pos.getZ() + .5) <= 64;
 	}
 
 	@Override
-	public void openInventory() {}
+	public void openInventory(EntityPlayer player) {}
 
 	@Override
 	public void setInventorySlotContents(int i, ItemStack stack) {
@@ -143,7 +150,7 @@ public class MiningRigTileEntity extends TileEntity implements ISidedInventory {
 	}
 	
 	@Override
-	public void updateEntity() {
+	public void update() {
 		if (!worldObj.isRemote) {
 			int gpus = 0;
 			
@@ -177,39 +184,37 @@ public class MiningRigTileEntity extends TileEntity implements ISidedInventory {
 				}
 			}
 			
-			int meta = getMeta();
+			IBlockState state = getState();
 
 			if (gpus > 0) {
-				meta |= 4; // set 3rd bit to 1
-				if (meta != getMeta()) {
-					DogeLogger.logDebug("Setting meta to " + Integer.toBinaryString(meta) + ", " + meta);
-					worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, meta, 2);
+				if (!isMining()) {
+					DogeLogger.logDebug("Setting mining to True");
+					MiningRig.setMining(true, worldObj, pos);
 				}
 			}
 			else {
-				meta &= ~4; // set 3rd bit to 0
-				if (meta != getMeta()) {
-					DogeLogger.logDebug("Setting meta to " + Integer.toBinaryString(meta) + ", " + meta);
-					worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, meta, 2);
+				if (isMining()) {
+					DogeLogger.logDebug("Setting meta to False");
+					MiningRig.setMining(false, worldObj, pos);
 				}
 			}
 		}
 	}
 	
 	public boolean isMining() {
-		return (getMeta() & 4) != 0; // if 3rd bit is 1
+		return false;//(Boolean) getState().getProperties().get("mining");//FIXME
 	}
 	
-	private int getMeta() {
-		return worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+	private IBlockState getState() {
+		return worldObj.getBlockState(pos);
 	}
 	
 	@Override
-	public int[] getAccessibleSlotsFromSide(int side) {
+	public int[] getSlotsForFace(EnumFacing side) {
 		int[] inSlots = new int[] { 0, 1, 2, 3 };
 		int[] outSlots = new int[] { 4 };
 		
-		Map<String, Integer> currRotation = MiningRig.getSidesOfCurrentRotation(getMeta());
+		Map<String, Integer> currRotation = MiningRig.getSidesOfCurrentRotation(getState());
 		int front = currRotation.get("front");
 		int right = currRotation.get("right");
 		int back = currRotation.get("back");
@@ -217,23 +222,23 @@ public class MiningRigTileEntity extends TileEntity implements ISidedInventory {
 		int top = currRotation.get("top");
 		int bottom = currRotation.get("bottom");
 		
-		if (side == top || side == back || side == left) {
+		/*if (side == top || side == back || side == left) {
 			return inSlots;
 		}
 		else if (side == bottom || side == front || side == right) {
 			return outSlots;
-		}
+		}*/
 		return null;
 	}
 	
 	@Override
-	public boolean canInsertItem(int slot, ItemStack stack, int side) {
+	public boolean canInsertItem(int slot, ItemStack stack, EnumFacing side) {
 		return isItemValidForSlot(slot, stack);
 	}
 	
 	@Override
-	public boolean canExtractItem(int slot, ItemStack stack, int side) {
-		Map<String, Integer> currRotation = MiningRig.getSidesOfCurrentRotation(getMeta());
+	public boolean canExtractItem(int slot, ItemStack stack, EnumFacing side) {
+		Map<String, Integer> currRotation = MiningRig.getSidesOfCurrentRotation(getState());
 		int front = currRotation.get("front");
 		int right = currRotation.get("right");
 		int back = currRotation.get("back");
@@ -241,15 +246,59 @@ public class MiningRigTileEntity extends TileEntity implements ISidedInventory {
 		int top = currRotation.get("top");
 		int bottom = currRotation.get("bottom");
 		
-		if (side == top || side == back || side == left) {
+		//FIXME
+		/*if (side == top || side == back || side == left) {
 			DogeLogger.logDebug("Can't Extract Item");
 			return false;
 		}
 		else if (side == bottom || side == front || side == right) {
 			DogeLogger.logDebug("Can Extract Item");
 			return true;
-		}
+		}*/
 
 		return false;
+	}
+
+	@Override
+	public int getField(int id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setField(int id, int value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getFieldCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void clearInventory() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public IChatComponent getDisplayName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Container createContainer(InventoryPlayer playerInventory,
+			EntityPlayer playerIn) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getGuiID() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -12,9 +12,9 @@ public class DogeBlock extends Block {
 		
 		setHardness(1.0f);
 		setStepSound(Block.soundTypeMetal);
-		setBlockName("dogeBlock");
+		setUnlocalizedName("dogeBlock");
 		setCreativeTab(Doge.dogeTab);
-		setBlockTextureName(DogeInfo.NAME.toLowerCase() + ":dogeblock");
+		//FIXME setBlockTextureName(DogeInfo.NAME.toLowerCase() + ":dogeblock");
 	}
 	
 }

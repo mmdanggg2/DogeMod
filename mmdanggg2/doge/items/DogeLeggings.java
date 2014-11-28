@@ -10,7 +10,7 @@ public class DogeLeggings extends DogeArmour {
 		
 		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogeLeggings");
-		setTextureName(DogeInfo.NAME.toLowerCase() + ":dogeLeggings");
+		//FIXME setTextureName(DogeInfo.NAME.toLowerCase() + ":dogeLeggings");
 		
 	}
 	

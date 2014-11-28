@@ -17,8 +17,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class DogeMob extends EntityWolf
 {
@@ -172,7 +172,7 @@ public class DogeMob extends EntityWolf
 	
 	public void makeTamed(EntityPlayer par1EntityPlayer) {
 		this.setTamed(true);
-		this.setPathToEntity((PathEntity)null);
+		this.navigator.clearPathEntity();
 		this.setAttackTarget((EntityLivingBase)null);
 		//		this.aiSit.setSitting(true);
 		this.setHealth(200.0F);

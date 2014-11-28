@@ -21,19 +21,19 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.common.util.EnumHelper;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+//import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(modid = DogeInfo.ID, name = DogeInfo.NAME, version = DogeInfo.VER)
 public class Doge {
 	// The instance of your mod that Forge uses.
-	@Instance(DogeInfo.NAME)
+	@Instance(DogeInfo.ID)
 	public static Doge instance;
 	
 	// Says where the client and server 'proxy' code is loaded.
@@ -69,6 +69,8 @@ public class Doge {
 	public static GPU gpu;
 	
 	public static MiningRig miningRig;
+
+	public static MiningRig miningRigOn;
 	
 	// Creative Tab
 	public static CreativeTabs dogeTab;
@@ -115,8 +117,8 @@ public class Doge {
 		// saving the configuration to its file
 		config.save();
 		
-		dogeToolMat = EnumHelper.addToolMaterial("Doge", 3, tDur, tSpd, tDmg, 30);
-		dogeArmorMat = EnumHelper.addArmorMaterial("Doge", 30, new int[] { 5, 10, 8, 5 }, 30);
+		dogeToolMat = ToolMaterial.EMERALD;//FIXME EnumHelper.addToolMaterial("Doge", 3, tDur, tSpd, tDmg, 30);
+		dogeArmorMat = ArmorMaterial.DIAMOND;//EnumHelper.addArmorMaterial("Doge", 30, new int[] { 5, 10, 8, 5 }, 30);
 		
 		dogeArmourRenderID = proxy.addArmour("DogeArmour");
 		
@@ -134,8 +136,8 @@ public class Doge {
 		DogeLogger.logInfo("Registering Recipies");
 		DogeRegisterRecipies.register();
 		
-		dogeToolMat.customCraftingMaterial = dogecoin;
-		dogeArmorMat.customCraftingMaterial = dogecoin;
+		//FIXME dogeToolMat.customCraftingMaterial = dogecoin;
+		//dogeArmorMat.customCraftingMaterial = dogecoin;
 	}
 	
 	@EventHandler

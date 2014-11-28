@@ -13,6 +13,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -28,7 +30,7 @@ public class GPU extends Item {
 		this.setMaxDamage(20);
 		this.setCreativeTab(Doge.dogeTab);
 		this.setUnlocalizedName("gpu");
-		this.setTextureName(DogeInfo.NAME.toLowerCase() + ":gpu");
+		//FIXME this.setTextureName(DogeInfo.NAME.toLowerCase() + ":gpu");
 		this.coinChance = DogeInfo.gpuChance;
 		this.speedStart = DogeInfo.gpuSpeedStart;
 		this.speedStep = DogeInfo.gpuSpeedStep;
@@ -38,26 +40,30 @@ public class GPU extends Item {
 	@Override
 	public void onCreated(ItemStack stack, World world, EntityPlayer player) {
 		if (!world.isRemote) {
-			if (stack.stackTagCompound == null) {
+			if (stack.hasTagCompound()) {
 				initTags(stack);
 			}
 			stack.setItemDamage(0);
 		}
 	}
 	
-	@Override
+	//FIXME
+	/*@Override
 	public float getDigSpeed(ItemStack stack, Block block, int meta) {
-		return NBTHelper.getFloat(stack.stackTagCompound, "speed", speedStart);
+		return NBTHelper.getFloat(stack.getTagCompound(), "speed", speedStart);
 	}
 	
 	@Override
 	public int getHarvestLevel(ItemStack stack, String toolClass) {
 		return 3;
-	}
+	}*/
 	
 	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int xPos, int yPos, int zPos, EntityLivingBase entityLiving) {
+	public boolean onBlockDestroyed(ItemStack stack, World world, Block block, BlockPos pos, EntityLivingBase entityLiving) {
 		if (!world.isRemote) {
+			int xPos = pos.getX();
+			int yPos = pos.getY();
+			int zPos = pos.getZ();
 			
 			boolean mined = attemptMine(stack, world, coinChance);
 			
@@ -73,7 +79,7 @@ public class GPU extends Item {
 				stack.stackSize = 0;
 			}
 		}
-		return super.onBlockDestroyed(stack, world, block, xPos, yPos, zPos, entityLiving);
+		return super.onBlockDestroyed(stack, world, block, pos, entityLiving);
 	}
 	
 	@Override
@@ -89,11 +95,11 @@ public class GPU extends Item {
 		}
 
 		if (!world.isRemote) {
-			if (stack.stackTagCompound == null) {
+			if (stack.hasTagCompound()) {
 				initTags(stack);
 			}
 			
-			NBTTagCompound stackTag = stack.stackTagCompound;
+			NBTTagCompound stackTag = stack.getTagCompound();
 			
 			if (!inHand) {
 				int tickCount = NBTHelper.getInt(stackTag, "tickCount", 0);
@@ -118,14 +124,15 @@ public class GPU extends Item {
 	}
 
 	@Override
-	public boolean canHarvestBlock(Block par1Block, ItemStack itemStack) {
+	public boolean canHarvestBlock(Block par1Block) {
 		return true;
 	}
 	
 	private void initTags(ItemStack stack) {
-		stack.stackTagCompound = new NBTTagCompound();
-		stack.stackTagCompound.setFloat("speed", speedStart);
-		stack.stackTagCompound.setInteger("tickCount", 0);
+		NBTTagCompound stackTag = new NBTTagCompound();
+		stackTag.setFloat("speed", speedStart);
+		stackTag.setInteger("tickCount", 0);
+		stack.setTagCompound(stackTag);
 	}
 	
 	public boolean attemptMine(ItemStack stack, World world, int chance) {
@@ -137,7 +144,7 @@ public class GPU extends Item {
 			mined = true;
 		}
 		
-		NBTTagCompound stackTag = stack.stackTagCompound;
+		NBTTagCompound stackTag = stack.getTagCompound();
 		float speed = NBTHelper.getFloat(stackTag, "speed", speedStart);
 		speed = speed + speedStep;
 		DogeLogger.logDebug("GPU Speed = " + speed);
@@ -176,16 +183,16 @@ public class GPU extends Item {
 				offsetY = -0.6;
 			}
 			if (stack.getItemDamage() > 5) {
-				world.spawnParticle("reddust", x + offsetX, y + offsetY, z + offsetZ, 0, 0, 0);
+				world.spawnParticle(EnumParticleTypes.REDSTONE, x + offsetX, y + offsetY, z + offsetZ, 0, 0, 0);
 			}
 			if (stack.getItemDamage() > 10) {
-				world.spawnParticle("reddust", x + offsetX, y + offsetY, z + offsetZ, 0, 0, 0);
+				world.spawnParticle(EnumParticleTypes.REDSTONE, x + offsetX, y + offsetY, z + offsetZ, 0, 0, 0);
 			}
 			if (stack.getItemDamage() > 15) {
-				world.spawnParticle("smoke", x + offsetX, y + offsetY, z + offsetZ, player.motionX, 0.0D, player.motionZ);
+				world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x + offsetX, y + offsetY, z + offsetZ, player.motionX, 0.0D, player.motionZ);
 			}
 			if (stack.getItemDamage() > 18) {
-				world.spawnParticle("flame", x + offsetX, y + offsetY, z + offsetZ, player.motionX, 0.01D, player.motionZ);
+				world.spawnParticle(EnumParticleTypes.FLAME, x + offsetX, y + offsetY, z + offsetZ, player.motionX, 0.01D, player.motionZ);
 			}
 		}
 	}

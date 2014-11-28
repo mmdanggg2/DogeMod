@@ -3,6 +3,7 @@ package mmdanggg2.doge.renderer;
 import mmdanggg2.doge.DogeInfo;
 import mmdanggg2.doge.entities.DogeMob;
 import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderWolf;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.passive.EntityWolf;
@@ -10,8 +11,8 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class DogeMobRender extends RenderWolf {
@@ -21,11 +22,12 @@ public class DogeMobRender extends RenderWolf {
 	private static final ResourceLocation dogeAngry = new ResourceLocation(DogeInfo.NAME.toLowerCase(), "textures/entity/doge/doge_angry.png");
 	private static final ResourceLocation dogeCollar = new ResourceLocation(DogeInfo.NAME.toLowerCase(), "textures/entity/doge/doge_collar.png");
 	
-	public DogeMobRender(ModelBase par1ModelBase, ModelBase par2ModelBase, float par3) {
-		super(par1ModelBase, par2ModelBase, par3);
+	public DogeMobRender(RenderManager par1RenderManager, ModelBase par2ModelBase, float par3) {
+		super(par1RenderManager, par2ModelBase, par3);
 	}
 	
-	@Override
+	//FIXME
+	/*@Override
 	protected int shouldRenderPass(EntityWolf par1EntityWolf, int par2, float par3)
 	{
 		float f1;
@@ -49,7 +51,7 @@ public class DogeMobRender extends RenderWolf {
 		{
 			return -1;
 		}
-	}
+	}*/
 	
 	@Override
 	protected ResourceLocation getEntityTexture(EntityWolf wolf)

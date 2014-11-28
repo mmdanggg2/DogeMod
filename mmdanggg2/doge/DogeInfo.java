@@ -2,7 +2,7 @@ package mmdanggg2.doge;
 
 public class DogeInfo {
 	
-	public static final String ID = "Doge";
+	public static final String ID = "doge";
 	public static final String NAME = "Doge";
 	public static final String VER = "0.5.2";
 	public static final String CLIENTPROXY = "mmdanggg2.doge.client.ClientProxy";

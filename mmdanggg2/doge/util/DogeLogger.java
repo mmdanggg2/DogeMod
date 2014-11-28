@@ -1,7 +1,7 @@
 package mmdanggg2.doge.util;
 
 import mmdanggg2.doge.DogeInfo;
-import cpw.mods.fml.common.FMLLog;
+import net.minecraftforge.fml.common.FMLLog;
 
 public class DogeLogger {
 	

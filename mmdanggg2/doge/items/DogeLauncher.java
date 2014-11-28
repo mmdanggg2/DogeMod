@@ -3,14 +3,14 @@ package mmdanggg2.doge.items;
 import mmdanggg2.doge.DogeInfo;
 import mmdanggg2.doge.Doge;
 import mmdanggg2.doge.entities.DogeProjectile;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.texture.IIconCreator;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
+//import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 public class DogeLauncher extends ItemBow {
@@ -20,7 +20,7 @@ public class DogeLauncher extends ItemBow {
 		setMaxStackSize(1);
 		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogeLauncher");
-		setTextureName(DogeInfo.NAME.toLowerCase() + ":dogeLauncher");
+		//FIXME setTextureName(DogeInfo.NAME.toLowerCase() + ":dogeLauncher");
 	}
 	
 	@Override
@@ -56,19 +56,20 @@ public class DogeLauncher extends ItemBow {
 		return par1ItemStack;
 	}
 	
-	@Override
-	public void registerIcons(IIconRegister iconRegister) {
+	//FIXME
+	/*@Override
+	public void registerIcons(IIconCreator iconRegister) {
 		this.itemIcon = iconRegister.registerIcon(this.getIconString());
 	}
 	
 	@Override
 	public IIcon getItemIconForUseDuration(int p_94599_1_) {
 		return this.itemIcon;
-	}
+	}*/
 	
 	@Override
 	public EnumAction getItemUseAction(ItemStack p_77661_1_) {
-		return EnumAction.none;
+		return EnumAction.NONE;
 	}
 	
 	@Override

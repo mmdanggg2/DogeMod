@@ -11,6 +11,7 @@ public class DogeArmour extends ItemArmor {
 			int par3, int par4) {
 		super(par2EnumArmorMaterial, par3, par4);
 	}
+	//TODO WasProblem
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
 		if (stack.getItem() == Doge.dogeHelmet

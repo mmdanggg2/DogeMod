@@ -9,7 +9,7 @@ import net.minecraft.entity.EntityList.EntityEggInfo;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.world.biome.BiomeGenBase;
-import cpw.mods.fml.common.registry.EntityRegistry;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 public class DogeRegisterEntities {
 	public static void register() {
@@ -51,7 +51,7 @@ public class DogeRegisterEntities {
 	
 	public static void addSpawn(Class<? extends EntityLiving> entityClass, int spawnProb, int min, int max, BiomeGenBase[] biomes) {
 		if (spawnProb > 0) {
-			EntityRegistry.addSpawn(entityClass, spawnProb, min, max, EnumCreatureType.creature, biomes);
+			EntityRegistry.addSpawn(entityClass, spawnProb, min, max, EnumCreatureType.CREATURE, biomes);
 		}
 	}
 }

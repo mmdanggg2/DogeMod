@@ -10,7 +10,7 @@ public class DogeBoots extends DogeArmour {
 		
 		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogeBoots");
-		setTextureName(DogeInfo.NAME.toLowerCase() + ":dogeBoots");
+		//FIXME setTextureName(DogeInfo.NAME.toLowerCase() + ":dogeBoots");
 		
 	}
 	

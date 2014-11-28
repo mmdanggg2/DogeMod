@@ -11,6 +11,9 @@ import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 
 public class Dogecoin extends Item {
@@ -19,7 +22,7 @@ public class Dogecoin extends Item {
 		setMaxStackSize(64);
 		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogecoin");
-		setTextureName(DogeInfo.NAME.toLowerCase() + ":dogecoin");
+		//FIXME setTextureName(DogeInfo.NAME.toLowerCase() + ":dogecoin");
 	}
 	
 	@Override
@@ -71,7 +74,7 @@ public class Dogecoin extends Item {
 		            double d0 = rand.nextGaussian() * 0.02D;
 		            double d1 = rand.nextGaussian() * 0.02D;
 		            double d2 = rand.nextGaussian() * 0.02D;
-		            player.worldObj.spawnParticle("smoke",
+		            player.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL,
 		            		activatedEntity.posX + (rand.nextFloat() * activatedEntity.width * 2.0F) - activatedEntity.width,
 		            		activatedEntity.posY + 0.5D + (rand.nextFloat() * activatedEntity.height),
 		            		activatedEntity.posZ + (rand.nextFloat() * activatedEntity.width * 2.0F) - activatedEntity.width,
@@ -83,7 +86,7 @@ public class Dogecoin extends Item {
 	}
 	
 	@Override
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10)
+	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
 		return false;
 	}

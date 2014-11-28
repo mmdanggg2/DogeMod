@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=north": { "model": "doge:miningRig" },
+        "facing=south": { "model": "doge:miningRig", "y": 180 },
+        "facing=west":  { "model": "doge:miningRig", "y": 270 },
+        "facing=east":  { "model": "doge:miningRig", "y": 90 }
+    }
+}

@@ -4,9 +4,10 @@ import mmdanggg2.doge.Doge;
 import mmdanggg2.doge.blocks.tileentities.MiningRigTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
-import cpw.mods.fml.common.network.IGuiHandler;
-import cpw.mods.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.IGuiHandler;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 public class GUIHandler implements IGuiHandler {
 	
@@ -18,7 +19,8 @@ public class GUIHandler implements IGuiHandler {
 	public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
 		switch (id) {
 		case 0:
-			TileEntity te = world.getTileEntity(x, y, z);
+			BlockPos pos = new BlockPos(x, y, z);
+			TileEntity te = world.getTileEntity(pos);
 			if (te != null && te instanceof MiningRigTileEntity) {
 				return new MiningRigGUI(player.inventory, (MiningRigTileEntity) te);
 			}
@@ -31,7 +33,8 @@ public class GUIHandler implements IGuiHandler {
 	public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
 		switch (id) {
 		case 0:
-			TileEntity te = world.getTileEntity(x, y, z);
+			BlockPos pos = new BlockPos(x, y, z);
+			TileEntity te = world.getTileEntity(pos);
 			if (te != null && te instanceof MiningRigTileEntity) {
 				return new MiningRigContainer(player.inventory, (MiningRigTileEntity) te);
 			}

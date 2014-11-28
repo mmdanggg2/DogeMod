@@ -1,0 +1,11 @@
+{
+    "parent": "block/cube",
+    "textures": {
+        "up": "doge:blocks/miningRigTopBackOff",
+        "down": "doge:blocks/miningRigBottom",
+        "south": "doge:blocks/miningRigTopBackOff",
+        "north": "doge:blocks/miningRigFrontOff",
+        "east": "doge:blocks/miningRigSideOff",
+        "west": "doge:blocks/miningRigSideOff"
+    }
+}
