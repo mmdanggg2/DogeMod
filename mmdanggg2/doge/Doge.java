@@ -35,6 +35,7 @@ public class Doge {
 	// The instance of your mod that Forge uses.
 	@Instance(DogeInfo.ID)
 	public static Doge instance;
+	public static Configuration config;
 	
 	// Says where the client and server 'proxy' code is loaded.
 	@SidedProxy(clientSide = DogeInfo.CLIENTPROXY, serverSide = DogeInfo.COMMONPROXY)
@@ -77,7 +78,7 @@ public class Doge {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
+		config = new Configuration(event.getSuggestedConfigurationFile());
 
 		DogeLogger.logInfo("Loading Config");
 		// loading the configuration from its file

@@ -20,7 +20,6 @@ public class DogeLauncher extends ItemBow {
 		setMaxStackSize(1);
 		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogeLauncher");
-		//FIXME setTextureName(DogeInfo.NAME.toLowerCase() + ":dogeLauncher");
 	}
 	
 	@Override
@@ -55,17 +54,6 @@ public class DogeLauncher extends ItemBow {
 		}
 		return par1ItemStack;
 	}
-	
-	//FIXME
-	/*@Override
-	public void registerIcons(IIconCreator iconRegister) {
-		this.itemIcon = iconRegister.registerIcon(this.getIconString());
-	}
-	
-	@Override
-	public IIcon getItemIconForUseDuration(int p_94599_1_) {
-		return this.itemIcon;
-	}*/
 	
 	@Override
 	public EnumAction getItemUseAction(ItemStack p_77661_1_) {

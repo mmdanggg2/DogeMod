@@ -11,7 +11,6 @@ public class DogePickaxe extends ItemPickaxe {
 		
 		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogePickaxe");
-		//FIXME setTextureName(DogeInfo.NAME.toLowerCase() + ":dogePick");
 		
 	}
 }

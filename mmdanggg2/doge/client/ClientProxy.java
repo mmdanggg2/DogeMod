@@ -57,7 +57,7 @@ public class ClientProxy extends CommonProxy {
 	
 	@Override
 	public void regCape() {
-		//FIXME
+		//FIXME Capes
 		//DevCapes capesInstance = DevCapes.getInstance();
 		//capesInstance.registerConfig("http://www.mmdanggg2.co.uk/doge/capeConfig.json");
 	}

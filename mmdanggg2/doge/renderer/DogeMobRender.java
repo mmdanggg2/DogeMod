@@ -3,10 +3,14 @@ package mmdanggg2.doge.renderer;
 import mmdanggg2.doge.DogeInfo;
 import mmdanggg2.doge.entities.DogeMob;
 import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderWolf;
+import net.minecraft.client.renderer.entity.layers.LayerRenderer;
+import net.minecraft.client.renderer.entity.layers.LayerWolfCollar;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.passive.EntityWolf;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -24,34 +28,8 @@ public class DogeMobRender extends RenderWolf {
 	
 	public DogeMobRender(RenderManager par1RenderManager, ModelBase par2ModelBase, float par3) {
 		super(par1RenderManager, par2ModelBase, par3);
+		this.addLayer(new DogeMobRenderLayerCollar(this));
 	}
-	
-	//FIXME
-	/*@Override
-	protected int shouldRenderPass(EntityWolf par1EntityWolf, int par2, float par3)
-	{
-		float f1;
-		
-		if (par2 == 0 && par1EntityWolf.getWolfShaking())
-		{
-			f1 = par1EntityWolf.getBrightness(par3) * par1EntityWolf.getShadingWhileShaking(par3);
-			this.bindTexture(dogeNorm);
-			GL11.glColor3f(f1, f1, f1);
-			return 1;
-		}
-		else if (par2 == 1 && par1EntityWolf.isTamed())
-		{
-			this.bindTexture(dogeCollar);
-			f1 = 1.0F;
-			int j = par1EntityWolf.getCollarColor();
-			GL11.glColor3f(f1 * EntitySheep.fleeceColorTable[j][0], f1 * EntitySheep.fleeceColorTable[j][1], f1 * EntitySheep.fleeceColorTable[j][2]);
-			return 1;
-		}
-		else
-		{
-			return -1;
-		}
-	}*/
 	
 	@Override
 	protected ResourceLocation getEntityTexture(EntityWolf wolf)
@@ -74,5 +52,27 @@ public class DogeMobRender extends RenderWolf {
 		}
 		return returnedTex;
 	}
+	
+	public class DogeMobRenderLayerCollar extends LayerWolfCollar {
+		private final DogeMobRender dogeRenderer;
+		
+		public DogeMobRenderLayerCollar(DogeMobRender dogeRender) {
+			super(dogeRender);
+			this.dogeRenderer = dogeRender;
+		}
+		
+		public void func_177145_a(EntityWolf wolf, float p_177145_2_, float p_177145_3_, float p_177145_4_, float p_177145_5_, float p_177145_6_, float p_177145_7_, float p_177145_8_)
+	    {
+	        if (wolf.isTamed() && !wolf.isInvisible())
+	        {
+	            this.dogeRenderer.bindTexture(DogeMobRender.dogeCollar);
+	            EnumDyeColor enumdyecolor = EnumDyeColor.func_176764_b(wolf.func_175546_cu().func_176765_a());
+	            float[] afloat = EntitySheep.func_175513_a(enumdyecolor);
+	            GlStateManager.color(afloat[0], afloat[1], afloat[2]);
+	            this.dogeRenderer.getMainModel().render(wolf, p_177145_2_, p_177145_3_, p_177145_5_, p_177145_6_, p_177145_7_, p_177145_8_);
+	        }
+	    }
+	}
+
 	
 }

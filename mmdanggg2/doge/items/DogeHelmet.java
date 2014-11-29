@@ -10,7 +10,6 @@ public class DogeHelmet extends DogeArmour {
 		
 		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogeHelmet");
-		//FIXME setTextureName(DogeInfo.NAME.toLowerCase() + ":dogeHelmet");
 		
 	}
 	

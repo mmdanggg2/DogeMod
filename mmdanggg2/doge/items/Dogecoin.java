@@ -22,7 +22,6 @@ public class Dogecoin extends Item {
 		setMaxStackSize(64);
 		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogecoin");
-		//FIXME setTextureName(DogeInfo.NAME.toLowerCase() + ":dogecoin");
 	}
 	
 	@Override

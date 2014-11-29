@@ -11,7 +11,6 @@ public class DogeShovel extends ItemSpade {
 		
 		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogeShovel");
-		//FIXME setTextureName(DogeInfo.NAME.toLowerCase() + ":dogeShovel");
 		
 	}
 	

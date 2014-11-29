@@ -11,7 +11,6 @@ public class DogeHoe extends ItemHoe {
 		
 		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogeHoe");
-		//FIXME setTextureName(DogeInfo.NAME.toLowerCase() + ":dogeHoe");
 		
 	}
 	

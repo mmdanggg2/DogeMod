@@ -10,8 +10,6 @@ public class DogeChestplate extends DogeArmour {
 		
 		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogeChestplate");
-		//FIXME setTextureName(DogeInfo.NAME.toLowerCase() + ":dogeChestplate");
-		
 	}
 	
 	

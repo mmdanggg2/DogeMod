@@ -11,7 +11,6 @@ public class DogeSword extends ItemSword {
 		
 		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogeSword");
-		//FIXME setTextureName(DogeInfo.NAME.toLowerCase() + ":dogeSword");
 		
 	}
 	
