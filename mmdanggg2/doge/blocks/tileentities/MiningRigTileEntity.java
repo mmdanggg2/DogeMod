@@ -7,6 +7,7 @@ import mmdanggg2.doge.DogeInfo;
 import mmdanggg2.doge.blocks.MiningRig;
 import mmdanggg2.doge.items.GPU;
 import mmdanggg2.doge.util.DogeLogger;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -25,6 +26,7 @@ import net.minecraft.util.IChatComponent;
 public class MiningRigTileEntity extends TileEntityLockable implements ISidedInventory, IUpdatePlayerListBox {
 	
 	private ItemStack[] items;
+	private String mrCustomName;
 
 	public MiningRigTileEntity() {
 		items = new ItemStack[5];
@@ -86,11 +88,6 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 	}
 
 	@Override
-	public String getName() {
-		return "MiningRig";
-	}
-
-	@Override
 	public int getInventoryStackLimit() {
 		return 1;
 	}
@@ -113,9 +110,20 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 	}
 
 	@Override
-	public boolean hasCustomName() {
-		return false;
+	public String getName() {
+		return this.hasCustomName() ? this.mrCustomName : "container.furnace";
 	}
+	
+	@Override
+	public boolean hasCustomName()
+    {
+        return this.mrCustomName != null && this.mrCustomName.length() > 0;
+    }
+	
+	public void setCustomInventoryName(String name)
+    {
+        this.mrCustomName = name;
+    }
 
 	@Override
 	public boolean isItemValidForSlot(int i, ItemStack stack) {
@@ -194,7 +202,7 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 			}
 			else {
 				if (isMining()) {
-					DogeLogger.logDebug("Setting meta to False");
+					DogeLogger.logDebug("Setting mining to False");
 					MiningRig.setMining(false, worldObj, pos);
 				}
 			}
@@ -202,7 +210,13 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 	}
 	
 	public boolean isMining() {
-		return false;//(Boolean) getState().getProperties().get("mining");//FIXME
+		Block block = this.worldObj.getBlockState(this.pos).getBlock();
+		if (block == Doge.miningRigOn) {
+			return true;
+		}
+		else {
+		return false;
+		}
 	}
 	
 	private IBlockState getState() {
@@ -214,20 +228,20 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 		int[] inSlots = new int[] { 0, 1, 2, 3 };
 		int[] outSlots = new int[] { 4 };
 		
-		Map<String, Integer> currRotation = MiningRig.getSidesOfCurrentRotation(getState());
-		int front = currRotation.get("front");
-		int right = currRotation.get("right");
-		int back = currRotation.get("back");
-		int left = currRotation.get("left");
-		int top = currRotation.get("top");
-		int bottom = currRotation.get("bottom");
+		Map<String, EnumFacing> currRotation = MiningRig.getSidesOfCurrentRotation(getState());
+		EnumFacing front = currRotation.get("front");
+		EnumFacing right = currRotation.get("right");
+		EnumFacing back = currRotation.get("back");
+		EnumFacing left = currRotation.get("left");
+		EnumFacing top = currRotation.get("top");
+		EnumFacing bottom = currRotation.get("bottom");
 		
-		/*if (side == top || side == back || side == left) {
+		if (side == top || side == back || side == left) {
 			return inSlots;
 		}
 		else if (side == bottom || side == front || side == right) {
 			return outSlots;
-		}*/
+		}
 		return null;
 	}
 	
@@ -238,23 +252,22 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 	
 	@Override
 	public boolean canExtractItem(int slot, ItemStack stack, EnumFacing side) {
-		Map<String, Integer> currRotation = MiningRig.getSidesOfCurrentRotation(getState());
-		int front = currRotation.get("front");
-		int right = currRotation.get("right");
-		int back = currRotation.get("back");
-		int left = currRotation.get("left");
-		int top = currRotation.get("top");
-		int bottom = currRotation.get("bottom");
+		Map<String, EnumFacing> currRotation = MiningRig.getSidesOfCurrentRotation(getState());
+		EnumFacing front = currRotation.get("front");
+		EnumFacing right = currRotation.get("right");
+		EnumFacing back = currRotation.get("back");
+		EnumFacing left = currRotation.get("left");
+		EnumFacing top = currRotation.get("top");
+		EnumFacing bottom = currRotation.get("bottom");
 		
-		//FIXME
-		/*if (side == top || side == back || side == left) {
+		if (side == top || side == back || side == left) {
 			DogeLogger.logDebug("Can't Extract Item");
 			return false;
 		}
 		else if (side == bottom || side == front || side == right) {
 			DogeLogger.logDebug("Can Extract Item");
 			return true;
-		}*/
+		}
 
 		return false;
 	}

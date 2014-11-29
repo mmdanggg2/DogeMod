@@ -5,6 +5,7 @@ import mmdanggg2.doge.DogeInfo;
 import mmdanggg2.doge.util.DogeLogger;
 import mmdanggg2.doge.util.NBTHelper;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -30,7 +31,6 @@ public class GPU extends Item {
 		this.setMaxDamage(20);
 		this.setCreativeTab(Doge.dogeTab);
 		this.setUnlocalizedName("gpu");
-		//FIXME this.setTextureName(DogeInfo.NAME.toLowerCase() + ":gpu");
 		this.coinChance = DogeInfo.gpuChance;
 		this.speedStart = DogeInfo.gpuSpeedStart;
 		this.speedStep = DogeInfo.gpuSpeedStep;
@@ -40,23 +40,22 @@ public class GPU extends Item {
 	@Override
 	public void onCreated(ItemStack stack, World world, EntityPlayer player) {
 		if (!world.isRemote) {
-			if (stack.hasTagCompound()) {
+			if (!stack.hasTagCompound()) {
 				initTags(stack);
 			}
 			stack.setItemDamage(0);
 		}
 	}
 	
-	//FIXME
-	/*@Override
-	public float getDigSpeed(ItemStack stack, Block block, int meta) {
+	@Override
+	public float getDigSpeed(ItemStack stack, IBlockState state) {
 		return NBTHelper.getFloat(stack.getTagCompound(), "speed", speedStart);
 	}
 	
 	@Override
 	public int getHarvestLevel(ItemStack stack, String toolClass) {
 		return 3;
-	}*/
+	}
 	
 	@Override
 	public boolean onBlockDestroyed(ItemStack stack, World world, Block block, BlockPos pos, EntityLivingBase entityLiving) {
@@ -95,7 +94,7 @@ public class GPU extends Item {
 		}
 
 		if (!world.isRemote) {
-			if (stack.hasTagCompound()) {
+			if (!stack.hasTagCompound()) {
 				initTags(stack);
 			}
 			
@@ -113,7 +112,7 @@ public class GPU extends Item {
 							DogeLogger.logDebug("GPU Speed = " + speed);
 							stackTag.setFloat("speed", speed);
 						}
-						stack.damageItem(-1, (EntityLivingBase) entity);
+						stack.attemptDamageItem(-1, world.rand);
 					}
 				}
 				tickCount++;
@@ -137,6 +136,10 @@ public class GPU extends Item {
 	
 	public boolean attemptMine(ItemStack stack, World world, int chance) {
 		boolean mined = false;
+		
+		if (!stack.hasTagCompound()) {
+			initTags(stack);
+		}
 		
 		stack.attemptDamageItem(1, world.rand);
 
