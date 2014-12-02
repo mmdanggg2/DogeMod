@@ -160,7 +160,7 @@ public class GPU extends Item {
 		if (entity instanceof EntityPlayer && world.isRemote) {
 			EntityPlayer player = (EntityPlayer) entity;
 			double x = player.posX;
-			double y = player.posY;
+			double y = player.posY + 1.5D;
 			double z = player.posZ;
 			float yaw = player.rotationYawHead;
 			float pitch = player.rotationPitch;

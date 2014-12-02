@@ -81,7 +81,9 @@ public class Doge {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		config = new Configuration(event.getSuggestedConfigurationFile());
+		if (config == null) {
+			config = new Configuration(event.getSuggestedConfigurationFile());
+		}
 		
 		//TODO use the proper logger!
 		

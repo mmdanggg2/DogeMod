@@ -39,7 +39,7 @@ public class DogeMobRender extends RenderWolf {
 			doge = (DogeMob) wolf;
 		}
 		else {
-			super.getEntityTexture(wolf);
+			return super.getEntityTexture(wolf);
 		}
 
 		ResourceLocation returnedTex = dogeNorm;
@@ -66,7 +66,7 @@ public class DogeMobRender extends RenderWolf {
 	        if (wolf.isTamed() && !wolf.isInvisible())
 	        {
 	            this.dogeRenderer.bindTexture(DogeMobRender.dogeCollar);
-	            EnumDyeColor enumdyecolor = EnumDyeColor.func_176764_b(wolf.func_175546_cu().func_176765_a());
+	            EnumDyeColor enumdyecolor = EnumDyeColor.byMetadata(wolf.getCollarColor().getMetadata());
 	            float[] afloat = EntitySheep.func_175513_a(enumdyecolor);
 	            GlStateManager.color(afloat[0], afloat[1], afloat[2]);
 	            this.dogeRenderer.getMainModel().render(wolf, p_177145_2_, p_177145_3_, p_177145_5_, p_177145_6_, p_177145_7_, p_177145_8_);

@@ -135,10 +135,10 @@ public class DogeMob extends EntityWolf
 	public DogeMob createChild(EntityAgeable par1EntityAgeable)
 	{
 		DogeMob childAnimal = new DogeMob(this.worldObj);
-		String owner = this.func_152113_b();
+		String owner = this.getOwnerId();
 		
 		if (owner != null && owner.trim().length() > 0) {
-			childAnimal.func_152115_b(owner);
+			childAnimal.setOwnerId(owner);
 			childAnimal.setTamed(true);
 		}
 		
@@ -176,7 +176,7 @@ public class DogeMob extends EntityWolf
 		this.setAttackTarget((EntityLivingBase)null);
 		//		this.aiSit.setSitting(true);
 		this.setHealth(200.0F);
-		this.func_152115_b(par1EntityPlayer.getUniqueID().toString());
+		this.setOwnerId(par1EntityPlayer.getUniqueID().toString());
 		this.playTameEffect(true);
 		this.worldObj.setEntityState(this, (byte)7);
 	}

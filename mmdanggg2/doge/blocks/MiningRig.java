@@ -65,12 +65,12 @@ public class MiningRig extends BlockContainer {
 	
 	public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-		return this.getDefaultState().withProperty(FACING, placer.func_174811_aO().getOpposite());
+		return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
     }
 	
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-        world.setBlockState(pos, state.withProperty(FACING, placer.func_174811_aO().getOpposite()), 2);
+        world.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
         
         if (stack.hasDisplayName())
         {
@@ -91,10 +91,10 @@ public class MiningRig extends BlockContainer {
     {
 		if (!world.isRemote)
         {
-            Block block = world.getBlockState(pos.offsetNorth()).getBlock();
-            Block block1 = world.getBlockState(pos.offsetSouth()).getBlock();
-            Block block2 = world.getBlockState(pos.offsetWest()).getBlock();
-            Block block3 = world.getBlockState(pos.offsetEast()).getBlock();
+            Block block = world.getBlockState(pos.north()).getBlock();
+            Block block1 = world.getBlockState(pos.south()).getBlock();
+            Block block2 = world.getBlockState(pos.west()).getBlock();
+            Block block3 = world.getBlockState(pos.east()).getBlock();
             EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
 
             if (enumfacing == EnumFacing.NORTH && block.isFullBlock() && !block1.isFullBlock())
@@ -142,19 +142,19 @@ public class MiningRig extends BlockContainer {
 			
 			EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
 	
-			if (enumfacing == EnumFacing.EAST && world.isAirBlock(pos.offsetEast())) {
+			if (enumfacing == EnumFacing.EAST && world.isAirBlock(pos.east())) {
 				world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x, y + rand.nextFloat(), z + rand.nextFloat(), -0.05D, 0.0D, 0.0D);
 				world.spawnParticle(EnumParticleTypes.REDSTONE, x, y + rand.nextFloat(), z + rand.nextFloat(), 0.0D, 0.0D, 0.0D);
 			}
-			else if (enumfacing == EnumFacing.WEST && world.isAirBlock(pos.offsetWest())) {
+			else if (enumfacing == EnumFacing.WEST && world.isAirBlock(pos.west())) {
 				world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x + facingOffset, y + rand.nextFloat(), z + rand.nextFloat(), 0.05D, 0.0D, 0.0D);
 				world.spawnParticle(EnumParticleTypes.REDSTONE, x + facingOffset, y + rand.nextFloat(), z + rand.nextFloat(), 0.0D, 0.0D, 0.0D);
 			}
-			else if (enumfacing == EnumFacing.SOUTH && world.isAirBlock(pos.offsetSouth())) {
+			else if (enumfacing == EnumFacing.SOUTH && world.isAirBlock(pos.south())) {
 				world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x + rand.nextFloat(), y + rand.nextFloat(), z, 0.0D, 0.0D, -0.05D);
 				world.spawnParticle(EnumParticleTypes.REDSTONE, x + rand.nextFloat(), y + rand.nextFloat(), z, 0.0D, 0.0D, 0.0D);
 			}
-			else if (enumfacing == EnumFacing.NORTH && world.isAirBlock(pos.offsetNorth())) {
+			else if (enumfacing == EnumFacing.NORTH && world.isAirBlock(pos.north())) {
 				world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x + rand.nextFloat(), y + rand.nextFloat(), z + facingOffset, 0.0D, 0.0D, 0.05D);
 				world.spawnParticle(EnumParticleTypes.REDSTONE, x + rand.nextFloat(), y + rand.nextFloat(), z + facingOffset, 0.0D, 0.0D, 0.0D);
 			}

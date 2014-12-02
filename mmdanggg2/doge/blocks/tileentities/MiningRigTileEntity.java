@@ -291,12 +291,6 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 	}
 
 	@Override
-	public void clearInventory() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public IChatComponent getDisplayName() {
 		// TODO Auto-generated method stub
 		return null;
@@ -313,5 +307,11 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 	public String getGuiID() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
+		
 	}
 }
