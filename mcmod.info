@@ -10,7 +10,7 @@
             "mmdanggg2"
         ], 
         "version": "0.5.2", 
-        "modid": "Doge", 
+        "modid": "doge", 
         "dependancies": [
             "Forge"
         ], 
