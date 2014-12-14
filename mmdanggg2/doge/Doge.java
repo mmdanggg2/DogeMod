@@ -83,7 +83,7 @@ public class Doge {
 			config = new Configuration(event.getSuggestedConfigurationFile());
 		}
 		
-		//TODO use the proper logger!
+		DogeLogger.logger = event.getModLog();
 		
 		DogeLogger.logInfo("Loading Config");
 		// loading the configuration from its file
