@@ -23,7 +23,7 @@ import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-//import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -45,8 +45,6 @@ public class Doge {
 	public static CommonProxy proxy;
 
 	//Inits
-	public static int dogeArmourRenderID;
-	
 	public static ToolMaterial dogeToolMat;
 	public static ArmorMaterial dogeArmorMat;
 	
@@ -96,10 +94,8 @@ public class Doge {
 		float tSpd = DogeInfo.toolSpeed;
 		float tDmg = DogeInfo.toolDamage;
 		
-		dogeToolMat = ToolMaterial.EMERALD;//FIXME EnumHelper.addToolMaterial("Doge", 3, tDur, tSpd, tDmg, 30);
-		dogeArmorMat = ArmorMaterial.DIAMOND;//EnumHelper.addArmorMaterial("Doge", 30, new int[] { 5, 10, 8, 5 }, 30);
-		
-		dogeArmourRenderID = proxy.addArmour("DogeArmour");
+		dogeToolMat = EnumHelper.addToolMaterial("Doge", 3, tDur, tSpd, tDmg, 30);
+		dogeArmorMat = EnumHelper.addArmorMaterial("Doge", "doge", 30, new int[]{5, 10, 8, 5}, 30);
 		
 		dogeTab = new DogeCreativeTab("dogeTab");
 
@@ -114,9 +110,6 @@ public class Doge {
 		
 		DogeLogger.logInfo("Registering Recipies");
 		DogeRegisterRecipies.register();
-		
-		//FIXME dogeToolMat.customCraftingMaterial = dogecoin;
-		//dogeArmorMat.customCraftingMaterial = dogecoin;
 	}
 	
 	@EventHandler

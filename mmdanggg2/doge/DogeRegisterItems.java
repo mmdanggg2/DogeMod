@@ -22,9 +22,6 @@ public class DogeRegisterItems {
 		Doge.dogecoin = new Dogecoin();
 		GameRegistry.registerItem(Doge.dogecoin, "dogecoin");
 		
-		Doge.dogeToolMat.customCraftingMaterial = Doge.dogecoin;
-		Doge.dogeArmorMat.customCraftingMaterial = Doge.dogecoin;
-		
 		Doge.dogeLauncher = new DogeLauncher();
 		GameRegistry.registerItem(Doge.dogeLauncher, "dogeLauncher");
 		
@@ -48,16 +45,16 @@ public class DogeRegisterItems {
 		GameRegistry.registerItem(Doge.dogeSword, "dogeSword");
 		
 		// Doge Armour
-		Doge.dogeHelmet = new DogeHelmet(Doge.dogeArmorMat, Doge.dogeArmourRenderID, 0);
+		Doge.dogeHelmet = new DogeHelmet(Doge.dogeArmorMat, 0, 0);
 		GameRegistry.registerItem(Doge.dogeHelmet, "dogeHelmet");
 		
-		Doge.dogeChestplate = new DogeChestplate(Doge.dogeArmorMat, Doge.dogeArmourRenderID, 1);
+		Doge.dogeChestplate = new DogeChestplate(Doge.dogeArmorMat, 0, 1);
 		GameRegistry.registerItem(Doge.dogeChestplate, "dogeChestplate");
 		
-		Doge.dogeLeggings = new DogeLeggings(Doge.dogeArmorMat, Doge.dogeArmourRenderID, 2);
+		Doge.dogeLeggings = new DogeLeggings(Doge.dogeArmorMat, 0, 2);
 		GameRegistry.registerItem(Doge.dogeLeggings, "dogeLeggings");
 		
-		Doge.dogeBoots = new DogeBoots(Doge.dogeArmorMat, Doge.dogeArmourRenderID, 3);
+		Doge.dogeBoots = new DogeBoots(Doge.dogeArmorMat, 0, 3);
 		GameRegistry.registerItem(Doge.dogeBoots, "dogeBoots");
 		
 	}

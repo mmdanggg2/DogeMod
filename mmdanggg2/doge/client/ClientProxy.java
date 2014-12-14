@@ -51,11 +51,6 @@ public class ClientProxy extends CommonProxy {
 	}
 	
 	@Override
-	public int addArmour(String armourName) {
-		return 5;//FIXME RenderingRegistry.addNewArmourRendererPrefix(armourName);
-	}
-	
-	@Override
 	public void regCape() {
 		//FIXME Capes
 		//DevCapes capesInstance = DevCapes.getInstance();

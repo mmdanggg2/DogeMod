@@ -39,5 +39,9 @@ public class DogeRegisterRecipies {
 		GameRegistry.addRecipe(new ItemStack(Doge.dogeLeggings), "###", "# #", "# #", '#', new ItemStack(Doge.dogecoin));
 		
 		GameRegistry.addRecipe(new ItemStack(Doge.dogeBoots), "# #", "# #", '#', new ItemStack(Doge.dogecoin));
+		
+		//Item Repair
+		Doge.dogeToolMat.setRepairItem(new ItemStack(Doge.dogecoin));
+		Doge.dogeArmorMat.customCraftingMaterial = Doge.dogecoin;
 	}
 }
