@@ -16,7 +16,7 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
-//import com.jadarstudios.developercapes.DevCapes;
+import com.jadarstudios.developercapes.DevCapes;
 
 public class ClientProxy extends CommonProxy {
 	
@@ -52,9 +52,8 @@ public class ClientProxy extends CommonProxy {
 	
 	@Override
 	public void regCape() {
-		//FIXME Capes
-		//DevCapes capesInstance = DevCapes.getInstance();
-		//capesInstance.registerConfig("http://www.mmdanggg2.co.uk/doge/capeConfig.json");
+		DevCapes capesInstance = DevCapes.getInstance();
+		capesInstance.registerConfig("http://www.mmdanggg2.co.uk/doge/capeConfig.json");
 	}
 
 }
