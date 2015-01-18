@@ -6,13 +6,13 @@
  */
 package com.jadarstudios.developercapes;
 
-import com.jadarstudios.developercapes.cape.ICape;
-import com.jadarstudios.developercapes.user.User;
-import com.jadarstudios.developercapes.user.UserManager;
-
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import com.jadarstudios.developercapes.cape.ICape;
+import com.jadarstudios.developercapes.user.User;
+import com.jadarstudios.developercapes.user.UserManager;
 
 /**
  * This is not the class you are looking for.

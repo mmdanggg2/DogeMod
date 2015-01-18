@@ -1,9 +1,7 @@
 package mmdanggg2.doge.items;
 
-import mmdanggg2.doge.DogeInfo;
 import mmdanggg2.doge.Doge;
 import mmdanggg2.doge.entities.DogeProjectile;
-import net.minecraft.client.renderer.texture.IIconCreator;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;

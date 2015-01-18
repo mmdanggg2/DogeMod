@@ -1,7 +1,7 @@
 package mmdanggg2.doge.items;
 
-import mmdanggg2.doge.DogeInfo;
 import mmdanggg2.doge.Doge;
+import mmdanggg2.doge.DogeInfo;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;

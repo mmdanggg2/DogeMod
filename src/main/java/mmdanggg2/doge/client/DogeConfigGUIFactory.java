@@ -3,28 +3,19 @@ package mmdanggg2.doge.client;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 import mmdanggg2.doge.Doge;
 import mmdanggg2.doge.DogeInfo;
 import mmdanggg2.doge.util.DogeLogger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.ConfigElement;
-import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.client.IModGuiFactory;
-import net.minecraftforge.fml.client.config.ConfigGuiType;
-import net.minecraftforge.fml.client.config.DummyConfigElement;
-import net.minecraftforge.fml.client.config.GuiConfig;
-import net.minecraftforge.fml.client.config.GuiConfigEntries.IConfigEntry;
-import net.minecraftforge.fml.client.config.IConfigElement;
 import net.minecraftforge.fml.client.config.DummyConfigElement.DummyCategoryElement;
-import net.minecraftforge.fml.client.config.DummyConfigElement.DummyListElement;
-import net.minecraftforge.fml.client.config.GuiConfigEntries.NumberSliderEntry;
+import net.minecraftforge.fml.client.config.GuiConfig;
+import net.minecraftforge.fml.client.config.IConfigElement;
 
 public class DogeConfigGUIFactory implements IModGuiFactory {
 	

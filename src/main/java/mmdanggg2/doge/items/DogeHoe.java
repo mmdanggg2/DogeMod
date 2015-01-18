@@ -1,6 +1,5 @@
 package mmdanggg2.doge.items;
 
-import mmdanggg2.doge.DogeInfo;
 import mmdanggg2.doge.Doge;
 import net.minecraft.item.ItemHoe;
 

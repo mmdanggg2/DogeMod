@@ -2,7 +2,6 @@ package mmdanggg2.doge.entities;
 
 import mmdanggg2.doge.Doge;
 import mmdanggg2.doge.DogeInfo;
-import mmdanggg2.doge.util.DogeLogger;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
@@ -14,7 +13,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;

@@ -1,9 +1,8 @@
 package mmdanggg2.doge.util;
 
-import org.apache.logging.log4j.Logger;
-
 import mmdanggg2.doge.DogeInfo;
-import net.minecraftforge.fml.common.FMLLog;
+
+import org.apache.logging.log4j.Logger;
 
 public class DogeLogger {
 	
