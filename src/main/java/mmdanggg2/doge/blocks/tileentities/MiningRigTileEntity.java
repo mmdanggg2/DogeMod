@@ -190,8 +190,6 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 					}
 				}
 			}
-			
-			IBlockState state = getState();
 
 			if (gpus > 0) {
 				if (!isMining()) {
