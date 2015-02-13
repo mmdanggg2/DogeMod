@@ -19,7 +19,7 @@ apply plugin: 'forge'
 
 version = "0.5.3"
 group= "mmdanggg2.doge" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "doge"
+archivesBaseName = "DogeMod-[1.8]"
 
 minecraft {
     version = "1.8-11.14.0.1289-1.8"
