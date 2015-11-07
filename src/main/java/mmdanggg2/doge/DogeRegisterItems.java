@@ -17,9 +17,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class DogeRegisterItems {
 	
 	public static void register() {
-		Doge.dogeToolMat.customCraftingMaterial = Doge.dogecoin;
-		Doge.dogeArmorMat.customCraftingMaterial = Doge.dogecoin;
-		
 		// Items
 		Doge.dogecoin = new Dogecoin();
 		GameRegistry.registerItem(Doge.dogecoin, "dogecoin");

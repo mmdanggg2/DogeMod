@@ -11,7 +11,6 @@ import mmdanggg2.doge.util.DogeLogger;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.IconFlipped;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -34,7 +33,7 @@ public class MiningRig extends BlockContainer {
 		setBlockName("miningRig");
 		setCreativeTab(Doge.dogeTab);
 	}
-
+	
 	@Override
 	public TileEntity createNewTileEntity(World world, int metadata) {
 		return new MiningRigTileEntity();

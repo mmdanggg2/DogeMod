@@ -22,8 +22,8 @@ group= "mmdanggg2.doge" // http://maven.apache.org/guides/mini/guide-naming-conv
 archivesBaseName = "doge"
 
 minecraft {
-    version = "1.7.10-10.13.0.1180"
-    assetDir = "eclipse/assets"
+    version = "1.7.10-10.13.4.1448-1.7.10"
+    runDir = "eclipse"
 }
 
 dependencies {

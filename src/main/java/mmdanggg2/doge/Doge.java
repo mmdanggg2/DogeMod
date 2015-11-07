@@ -83,18 +83,14 @@ public class Doge {
 			config = new Configuration(event.getSuggestedConfigurationFile());
 		}
 		
-		//TODO use the proper logger!
+		DogeLogger.logger = event.getModLog();
 		
 		DogeLogger.logInfo("Loading Config");
 		// loading the configuration from its file
 		config.load();
 		updateConfig();
 		
-		int tDur = DogeInfo.toolDurability;
-		float tSpd = DogeInfo.toolSpeed;
-		float tDmg = DogeInfo.toolDamage;
-		
-		dogeToolMat = EnumHelper.addToolMaterial("Doge", 3, tDur, tSpd, tDmg, 30);
+		dogeToolMat = EnumHelper.addToolMaterial("Doge", 3, DogeInfo.toolDurability, DogeInfo.toolSpeed, DogeInfo.toolDamage, 30);
 		dogeArmorMat = EnumHelper.addArmorMaterial("Doge", 30, new int[] { 5, 10, 8, 5 }, 30);
 		
 		dogeArmourRenderID = proxy.addArmour("DogeArmour");
@@ -112,9 +108,6 @@ public class Doge {
 		
 		DogeLogger.logInfo("Registering Recipies");
 		DogeRegisterRecipies.register();
-		
-		dogeToolMat.customCraftingMaterial = dogecoin;
-		dogeArmorMat.customCraftingMaterial = dogecoin;
 	}
 	
 	@EventHandler
@@ -134,9 +127,9 @@ public class Doge {
 	
 	public static void updateConfig() {
 		
-		int tDur = DogeInfo.toolDurability = config.get("doge_tools", "ToolDurability", 780, "How many uses the tools have (Default 780)").getInt(780);
-		float tSpd = DogeInfo.toolSpeed = (float) config.get("doge_tools", "ToolSpeed", 20.0F, "How fast the tools mine their respective blocks (Default 20.0)").getDouble(20.0F);
-		float tDmg = DogeInfo.toolDamage = (float) config.get("doge_tools", "ToolDamage", 6.0F, "How much damage the tools do (Default 6.0)").getDouble(6.0F);
+		DogeInfo.toolDurability = config.get("doge_tools", "ToolDurability", 780, "How many uses the tools have (Default 780)").getInt(780);
+		DogeInfo.toolSpeed = (float) config.get("doge_tools", "ToolSpeed", 20.0F, "How fast the tools mine their respective blocks (Default 20.0)").getDouble(20.0F);
+		DogeInfo.toolDamage = (float) config.get("doge_tools", "ToolDamage", 6.0F, "How much damage the tools do (Default 6.0)").getDouble(6.0F);
 		
 		DogeInfo.rigChance = config.get("mining_rig", "RigChance", 5, "How likely a GPU is to get a Dogecoin, lower is more likely. There is a 1 in x chance (Default 5)").getInt(5);
 		DogeInfo.rigSpeed = config.get("mining_rig", "RigSpeed", 100, "How fast the rig uses the GPUs, lower is faster (Default 100)").getInt(100);

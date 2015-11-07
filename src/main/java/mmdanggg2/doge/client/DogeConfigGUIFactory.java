@@ -3,28 +3,18 @@ package mmdanggg2.doge.client;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Set;
-import java.util.regex.Pattern;
-
 import mmdanggg2.doge.Doge;
 import mmdanggg2.doge.DogeInfo;
 import mmdanggg2.doge.util.DogeLogger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.ConfigElement;
-import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import cpw.mods.fml.client.IModGuiFactory;
-import cpw.mods.fml.client.config.ConfigGuiType;
-import cpw.mods.fml.client.config.DummyConfigElement;
 import cpw.mods.fml.client.config.GuiConfig;
-import cpw.mods.fml.client.config.GuiConfigEntries.IConfigEntry;
 import cpw.mods.fml.client.config.IConfigElement;
 import cpw.mods.fml.client.config.DummyConfigElement.DummyCategoryElement;
-import cpw.mods.fml.client.config.DummyConfigElement.DummyListElement;
-import cpw.mods.fml.client.config.GuiConfigEntries.NumberSliderEntry;
 
 public class DogeConfigGUIFactory implements IModGuiFactory {
 	

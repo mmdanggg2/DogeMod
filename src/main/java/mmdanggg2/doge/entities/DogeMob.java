@@ -2,7 +2,6 @@ package mmdanggg2.doge.entities;
 
 import mmdanggg2.doge.Doge;
 import mmdanggg2.doge.DogeInfo;
-import mmdanggg2.doge.util.DogeLogger;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;

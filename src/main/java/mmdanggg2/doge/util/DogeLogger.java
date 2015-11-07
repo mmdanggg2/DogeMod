@@ -1,22 +1,20 @@
 package mmdanggg2.doge.util;
 
+import org.apache.logging.log4j.Logger;
+
 import mmdanggg2.doge.DogeInfo;
-import cpw.mods.fml.common.FMLLog;
 
 public class DogeLogger {
+
+	public static Logger logger;
 	
 	public static void logInfo(String message) {
-		FMLLog.info(adjustMessage(message));
-	}
-	
-	private static String adjustMessage(String message) {
-		message = "[DOGE] " + message;
-		return message;
+		logger.info(message);
 	}
 
 	public static void logDebug(String message) {
 		if (DogeInfo.debug) {
-			FMLLog.info(adjustMessage("[DEBUG] " + message));
+			logger.info("[DEBUG] " + message);
 		}
 	}
 }
