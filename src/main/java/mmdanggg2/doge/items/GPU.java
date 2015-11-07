@@ -137,6 +137,10 @@ public class GPU extends Item {
 			mined = true;
 		}
 		
+		if (stack.stackTagCompound == null) {
+			initTags(stack);
+		}
+		
 		NBTTagCompound stackTag = stack.stackTagCompound;
 		float speed = NBTHelper.getFloat(stackTag, "speed", speedStart);
 		speed = speed + speedStep;
