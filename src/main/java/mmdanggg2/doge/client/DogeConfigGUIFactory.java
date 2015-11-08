@@ -23,7 +23,8 @@ public class DogeConfigGUIFactory implements IModGuiFactory {
 	        super(parent, getConfigElements(), DogeInfo.ID, false, false, GuiConfig.getAbridgedConfigPath(Doge.config.toString()));
 	    }
 	    
-	    private static List<IConfigElement> getConfigElements()
+	    @SuppressWarnings("rawtypes")
+		private static List<IConfigElement> getConfigElements()
         {
             List<IConfigElement> list = new ArrayList<IConfigElement>();
             
@@ -42,7 +43,7 @@ public class DogeConfigGUIFactory implements IModGuiFactory {
             		confEntry.add(new ConfigElement(childCatConf));
             	}
             	
-            	list.add(new DummyCategoryElement(catStr, "doge.config." + catStr, confEntry));
+            	list.add(new DummyCategoryElement<Object>(catStr, "doge.config." + catStr, confEntry));
             }
             
             return list;

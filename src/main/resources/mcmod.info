@@ -9,7 +9,7 @@
         "authors": [
             "mmdanggg2"
         ], 
-        "version": "0.5.2", 
+        "version": "${version}", 
         "modid": "doge", 
         "dependancies": [
             "Forge"
