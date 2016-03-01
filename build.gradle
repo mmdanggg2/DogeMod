@@ -15,7 +15,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 
 version = "0.5.3"
 group= "mmdanggg2.doge" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "DogeMod-[1.8]"
+archivesBaseName = "DogeMod-[1.8.9]"
 
 minecraft {
     version = "1.8.9-11.15.1.1763"
