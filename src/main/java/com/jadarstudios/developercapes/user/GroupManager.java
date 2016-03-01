@@ -77,7 +77,8 @@ public class GroupManager {
             return null;
         }
 
-        ArrayList users = (ArrayList)usersObj;
+        @SuppressWarnings("rawtypes")
+		ArrayList users = (ArrayList)usersObj;
         String capeUrl = (String)capeUrlObj;
 
         group.cape = CapeManager.getInstance().parse(name, capeUrl);

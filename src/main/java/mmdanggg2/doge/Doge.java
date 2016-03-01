@@ -20,10 +20,10 @@ import mmdanggg2.doge.util.DogeLogger;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -110,16 +110,18 @@ public class Doge {
 		
 		DogeLogger.logInfo("Registering Recipies");
 		DogeRegisterRecipies.register();
+		
+		proxy.registerEntityRenderers();
 	}
 	
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		
-		proxy.registerRenderers();
+		proxy.registerItemRenderers();
 		proxy.regCape();
 		new GUIHandler();
 		
-		FMLCommonHandler.instance().bus().register(instance);
+		MinecraftForge.EVENT_BUS.register(instance);
 	}
 	
 	@EventHandler

@@ -63,7 +63,8 @@ public class MiningRig extends BlockContainer {
 	
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-        world.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
+		EnumFacing direction = placer.getHorizontalFacing().getOpposite();
+        world.setBlockState(pos, state.withProperty(FACING, direction), 2);
         
         if (stack.hasDisplayName())
         {
@@ -76,7 +77,7 @@ public class MiningRig extends BlockContainer {
         }
         
 		if (!world.isRemote) {
-			DogeLogger.logDebug("MiningRig Placed, Facing " + FACING.getName());
+			DogeLogger.logDebug("MiningRig Placed, Facing " + direction.getName());
 		}
 	}
 	

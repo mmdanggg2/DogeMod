@@ -102,7 +102,8 @@ public class CapeConfigManager {
         return id;
     }
 
-    public CapeConfig parse(InputStream is) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public CapeConfig parse(InputStream is) {
         if (is == null) {
             throw new NullPointerException("Can not parse a null input stream!");
         }
@@ -130,7 +131,8 @@ public class CapeConfigManager {
         return instance;
     }
     
-    protected void parseGroup(CapeConfig config, String node, Map group) {
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	protected void parseGroup(CapeConfig config, String node, Map group) {
         Group g = GroupManager.getInstance().parse(node, group);
         if (g != null) {
         	config.groups.put(g.name, g);
@@ -153,7 +155,8 @@ public class CapeConfigManager {
         return this.parse(is);
     }
 
-    public static class InvalidCapeConfigIdException extends Exception {
+    @SuppressWarnings("serial")
+	public static class InvalidCapeConfigIdException extends Exception {
         public InvalidCapeConfigIdException() {
             super();
         }

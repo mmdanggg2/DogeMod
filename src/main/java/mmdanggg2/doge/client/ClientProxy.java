@@ -1,5 +1,7 @@
 package mmdanggg2.doge.client;
 
+import com.jadarstudios.developercapes.DevCapes;
+
 import mmdanggg2.doge.CommonProxy;
 import mmdanggg2.doge.Doge;
 import mmdanggg2.doge.DogeInfo;
@@ -9,27 +11,35 @@ import mmdanggg2.doge.renderer.DogeMobRender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelWolf;
 import net.minecraft.client.renderer.ItemModelMesher;
-import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
-
-import com.jadarstudios.developercapes.DevCapes;
 
 public class ClientProxy extends CommonProxy {
 	
 	@Override
-	public void registerRenderers() {
+	public void registerEntityRenderers() {
+		RenderingRegistry.registerEntityRenderingHandler(DogeMob.class, new IRenderFactory<DogeMob>() {
+			@Override
+			public Render<? super DogeMob> createRenderFor(RenderManager manager) {
+				return new DogeMobRender(manager, new ModelWolf(), 0.5f);
+			}
+		});
 		
-		RenderManager rendMan = Minecraft.getMinecraft().getRenderManager();
-		RenderItem rendItem = Minecraft.getMinecraft().getRenderItem();
-		
-		RenderingRegistry.registerEntityRenderingHandler(DogeMob.class, new DogeMobRender(rendMan, new ModelWolf(), 0.5f));
-		
-		RenderingRegistry.registerEntityRenderingHandler(DogeProjectile.class, new RenderSnowball(rendMan, Doge.dogecoin, rendItem));
-		
+		RenderingRegistry.registerEntityRenderingHandler(DogeProjectile.class, new IRenderFactory<DogeProjectile>() {
+			@Override
+			public Render<? super DogeProjectile> createRenderFor(RenderManager manager) {
+				return new RenderSnowball<DogeProjectile>(manager, Doge.dogecoin, Minecraft.getMinecraft().getRenderItem());
+			}
+		});
+	}
+	
+	@Override
+	public void registerItemRenderers() {
 		ItemModelMesher itemMesher = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
 		
 		itemMesher.register(Doge.dogecoin, 0, new ModelResourceLocation(DogeInfo.ID + ":dogecoin", "inventory"));

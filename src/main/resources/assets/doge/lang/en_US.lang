@@ -17,6 +17,6 @@ item.dogeChestplate.name=much chest armor
 item.dogeLeggings.name=very leg defend
 item.dogeBoots.name=wow shoes
 
-entity.dogeMob.name=Shibe
+entity.doge.dogeMob.name=Shibe
 
 itemGroup.dogeTab=Doge Mod

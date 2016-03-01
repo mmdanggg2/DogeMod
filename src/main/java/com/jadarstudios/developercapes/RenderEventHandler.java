@@ -23,7 +23,7 @@ public class RenderEventHandler {
 
     //mmdanggg2: renderPlayerEvent seems to be getting depreciated so this will do for now.
     @SubscribeEvent
-    public void renderPlayer(RenderLivingEvent.Pre event) {
+    public void renderPlayer(RenderLivingEvent.Pre<?> event) {
         if (event.entity instanceof AbstractClientPlayer) {
             AbstractClientPlayer player = (AbstractClientPlayer) event.entity;
 

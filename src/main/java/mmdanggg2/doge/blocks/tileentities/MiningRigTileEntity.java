@@ -17,12 +17,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntityLockable;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
+import net.minecraft.util.ITickable;
 
-public class MiningRigTileEntity extends TileEntityLockable implements ISidedInventory, IUpdatePlayerListBox {
+public class MiningRigTileEntity extends TileEntityLockable implements ISidedInventory, ITickable {
 	
 	private ItemStack[] items;
 	private String mrCustomName;
@@ -102,7 +102,7 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 	}
 
 	@Override
-	public ItemStack getStackInSlotOnClosing(int arg0) {
+	public ItemStack removeStackFromSlot(int arg0) {
 		ItemStack stack = getStackInSlot(arg0);
 		setInventorySlotContents(arg0, null);
 		return stack;
