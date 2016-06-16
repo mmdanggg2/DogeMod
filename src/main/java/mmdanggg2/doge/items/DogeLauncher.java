@@ -1,14 +1,21 @@
 package mmdanggg2.doge.items;
 
+import javax.annotation.Nullable;
+
 import mmdanggg2.doge.Doge;
 import mmdanggg2.doge.entities.DogeProjectile;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
-//import net.minecraft.util.IIcon;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 
 public class DogeLauncher extends ItemBow {
@@ -20,16 +27,54 @@ public class DogeLauncher extends ItemBow {
 		setUnlocalizedName("dogeLauncher");
 	}
 	
-	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+	protected ItemStack findAmmo(EntityPlayer player)
+    {
+        if (this.isArrow(player.getHeldItem(EnumHand.OFF_HAND)))
+        {
+            return player.getHeldItem(EnumHand.OFF_HAND);
+        }
+        else if (this.isArrow(player.getHeldItem(EnumHand.MAIN_HAND)))
+        {
+            return player.getHeldItem(EnumHand.MAIN_HAND);
+        }
+        else
+        {
+            for (int i = 0; i < player.inventory.getSizeInventory(); ++i)
+            {
+                ItemStack itemstack = player.inventory.getStackInSlot(i);
 
-		boolean flag = par3EntityPlayer.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, par1ItemStack) > 0;
+                if (this.isArrow(itemstack))
+                {
+                    return itemstack;
+                }
+            }
+            return null;
+        }
+    }
+
+	@Override
+    protected boolean isArrow(@Nullable ItemStack stack)
+    {
+		if (stack != null &&
+				stack.getItem() instanceof Dogecoin &&
+				stack.stackSize > 0) {
+			return true;
+		} else {
+			return false;
+		}
+    }
+	
+	@Override
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
 		
-		if (flag || par3EntityPlayer.inventory.hasItem(Doge.dogecoin)) {
+		boolean flag = player.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stack) > 0;
+		ItemStack coinStack = findAmmo(player);
+		
+		if (flag || coinStack != null) {
 			
-			DogeProjectile projectile = new DogeProjectile(par2World, par3EntityPlayer);
+			DogeProjectile projectile = new DogeProjectile(world, player);
 			
-			int powerEnchLvl = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, par1ItemStack);
+			int powerEnchLvl = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, stack);
 			
 			if (powerEnchLvl > 0) {
 				projectile.damage = projectile.damage + powerEnchLvl * 2f + 1f;
@@ -38,31 +83,35 @@ public class DogeLauncher extends ItemBow {
 				projectile.dropCoin = false;
 			}
 			else {
-				par3EntityPlayer.inventory.consumeInventoryItem(Doge.dogecoin);
+				--coinStack.stackSize;
+				if (coinStack.stackSize <= 0) {
+					player.inventory.deleteStack(coinStack);
+				}
 			}
 			
-			par2World.playSoundAtEntity(par3EntityPlayer, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+			world.playSound(player, player.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 1.0F, 1.0F / (itemRand.nextFloat() * 1.5F));
 			
-			if (!par2World.isRemote) {
-				par2World.spawnEntityInWorld(projectile);
+			if (!world.isRemote) {
+				world.spawnEntityInWorld(projectile);
 			}
+	        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
 		}
 		else {
-			par2World.playSoundAtEntity(par3EntityPlayer, "note.hat", 0.5F, 1f);
+			world.playSound(player, player.getPosition(), SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, SoundCategory.NEUTRAL, 0.5F, 1f);
+	        return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
 		}
-		return par1ItemStack;
 	}
 	
 	@Override
-	public EnumAction getItemUseAction(ItemStack p_77661_1_) {
+	public EnumAction getItemUseAction(ItemStack stack) {
 		return EnumAction.NONE;
 	}
 	
 	@Override
-	public int getMaxItemUseDuration(ItemStack p_77626_1_) {
+	public int getMaxItemUseDuration(ItemStack stack) {
 		return 0;
 	}
 	
 	@Override
-	public void onPlayerStoppedUsing(ItemStack p_77615_1_, World p_77615_2_, EntityPlayer p_77615_3_, int p_77615_4_) {}
+	public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase enitity, int timeLeft) {}
 }

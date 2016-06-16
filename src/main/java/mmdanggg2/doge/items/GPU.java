@@ -4,7 +4,6 @@ import mmdanggg2.doge.Doge;
 import mmdanggg2.doge.DogeInfo;
 import mmdanggg2.doge.util.DogeLogger;
 import mmdanggg2.doge.util.NBTHelper;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -14,9 +13,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class GPU extends Item {
@@ -48,7 +49,7 @@ public class GPU extends Item {
 	}
 	
 	@Override
-	public float getDigSpeed(ItemStack stack, IBlockState state) {
+	public float getStrVsBlock(ItemStack stack, IBlockState state) {
 		return NBTHelper.getFloat(stack.getTagCompound(), "speed", speedStart);
 	}
 	
@@ -58,7 +59,7 @@ public class GPU extends Item {
 	}
 	
 	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World world, Block block, BlockPos pos, EntityLivingBase entityLiving) {
+	public boolean onBlockDestroyed(ItemStack stack, World world, IBlockState block, BlockPos pos, EntityLivingBase entityLiving) {
 		if (!world.isRemote) {
 			int xPos = pos.getX();
 			int yPos = pos.getY();
@@ -82,8 +83,8 @@ public class GPU extends Item {
 	}
 	
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		return super.onItemRightClick(stack, world, player);
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+		return super.onItemRightClick(stack, world, player, hand);
 	}
 	
 	@Override
@@ -123,7 +124,7 @@ public class GPU extends Item {
 	}
 
 	@Override
-	public boolean canHarvestBlock(Block par1Block) {
+	public boolean canHarvestBlock(IBlockState blockState) {
 		return true;
 	}
 	

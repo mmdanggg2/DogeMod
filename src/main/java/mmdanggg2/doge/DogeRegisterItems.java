@@ -12,6 +12,7 @@ import mmdanggg2.doge.items.DogeShovel;
 import mmdanggg2.doge.items.DogeSword;
 import mmdanggg2.doge.items.Dogecoin;
 import mmdanggg2.doge.items.GPU;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class DogeRegisterItems {
@@ -45,16 +46,16 @@ public class DogeRegisterItems {
 		GameRegistry.registerItem(Doge.dogeSword, "dogeSword");
 		
 		// Doge Armour
-		Doge.dogeHelmet = new DogeHelmet(Doge.dogeArmorMat, 0, 0);
+		Doge.dogeHelmet = new DogeHelmet(Doge.dogeArmorMat, 0, EntityEquipmentSlot.HEAD);
 		GameRegistry.registerItem(Doge.dogeHelmet, "dogeHelmet");
 		
-		Doge.dogeChestplate = new DogeChestplate(Doge.dogeArmorMat, 0, 1);
+		Doge.dogeChestplate = new DogeChestplate(Doge.dogeArmorMat, 0, EntityEquipmentSlot.CHEST);
 		GameRegistry.registerItem(Doge.dogeChestplate, "dogeChestplate");
 		
-		Doge.dogeLeggings = new DogeLeggings(Doge.dogeArmorMat, 0, 2);
+		Doge.dogeLeggings = new DogeLeggings(Doge.dogeArmorMat, 0, EntityEquipmentSlot.LEGS);
 		GameRegistry.registerItem(Doge.dogeLeggings, "dogeLeggings");
 		
-		Doge.dogeBoots = new DogeBoots(Doge.dogeArmorMat, 0, 3);
+		Doge.dogeBoots = new DogeBoots(Doge.dogeArmorMat, 0, EntityEquipmentSlot.FEET);
 		GameRegistry.registerItem(Doge.dogeBoots, "dogeBoots");
 		
 	}

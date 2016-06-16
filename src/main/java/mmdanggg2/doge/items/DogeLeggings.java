@@ -1,11 +1,12 @@
 package mmdanggg2.doge.items;
 
 import mmdanggg2.doge.Doge;
+import net.minecraft.inventory.EntityEquipmentSlot;
 
 public class DogeLeggings extends DogeArmour {
-	
-	public DogeLeggings(ArmorMaterial par2EnumArmorMaterial, int par3, int armourPart) {
-		super(par2EnumArmorMaterial, par3, armourPart);
+
+	public DogeLeggings(ArmorMaterial material, int renderIndex, EntityEquipmentSlot equipmentSlot) {
+		super(material, renderIndex, equipmentSlot);
 		
 		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogeLeggings");

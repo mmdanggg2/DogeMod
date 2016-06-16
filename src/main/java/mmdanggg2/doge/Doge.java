@@ -95,7 +95,7 @@ public class Doge {
 		float tDmg = DogeInfo.toolDamage;
 		
 		dogeToolMat = EnumHelper.addToolMaterial("Doge", 3, tDur, tSpd, tDmg, 30);
-		dogeArmorMat = EnumHelper.addArmorMaterial("Doge", "doge", 30, new int[]{5, 10, 8, 5}, 30);
+		dogeArmorMat = EnumHelper.addArmorMaterial("Doge", "doge", 30, new int[]{5, 10, 8, 5}, 30, null, 4);
 		
 		dogeTab = new DogeCreativeTab("dogeTab");
 
@@ -112,12 +112,12 @@ public class Doge {
 		DogeRegisterRecipies.register();
 		
 		proxy.registerEntityRenderers();
+		proxy.registerItemRenderers();
 	}
 	
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		
-		proxy.registerItemRenderers();
 		proxy.regCape();
 		new GUIHandler();
 		
@@ -170,7 +170,7 @@ public class Doge {
 
 	@SubscribeEvent
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent eventArgs) {
-        if(eventArgs.modID.equals(DogeInfo.ID))
+        if(eventArgs.getModID().equals(DogeInfo.ID))
         	DogeLogger.logInfo("Reloading Config");
             updateConfig();
     }

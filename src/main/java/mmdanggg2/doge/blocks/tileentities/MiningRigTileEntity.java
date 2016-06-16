@@ -19,7 +19,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntityLockable;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.ITickable;
 
 public class MiningRigTileEntity extends TileEntityLockable implements ISidedInventory, ITickable {
@@ -32,7 +32,7 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 	}
 	
 	@Override
-	public void writeToNBT(NBTTagCompound compound) {
+	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		super.writeToNBT(compound);
 		
 		NBTTagList items = new NBTTagList();
@@ -49,6 +49,7 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 		}
 		
 		compound.setTag("Items", items);
+		return compound;
 	}
 	
 	@Override
@@ -271,44 +272,35 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 
 	@Override
 	public int getField(int id) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public void setField(int id, int value) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public int getFieldCount() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public IChatComponent getDisplayName() {
-		// TODO Auto-generated method stub
+	public ITextComponent getDisplayName() {
 		return null;
 	}
 
 	@Override
 	public Container createContainer(InventoryPlayer playerInventory,
 			EntityPlayer playerIn) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String getGuiID() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-		
 	}
 }

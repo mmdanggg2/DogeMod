@@ -5,7 +5,7 @@ import mmdanggg2.doge.entities.DogeProjectile;
 import mmdanggg2.doge.util.DogeLogger;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 public class DogeRegisterEntities {
@@ -20,16 +20,16 @@ public class DogeRegisterEntities {
 		
 		if (DogeInfo.shibeSpawnBiomes.length > 0) {
 			int[] biomes = DogeInfo.shibeSpawnBiomes;
-			BiomeGenBase[] shibeBiomeList = new BiomeGenBase[biomes.length];
+			Biome[] shibeBiomeList = new Biome[biomes.length];
 			for (int i = 0; i < biomes.length; i++) {
 				DogeLogger.logDebug("Adding biome " + biomes[i]);
-				shibeBiomeList[i] = BiomeGenBase.getBiome(biomes[i]);
+				shibeBiomeList[i] = Biome.getBiome(biomes[i]);
 			}
 			addSpawn(DogeMob.class, DogeInfo.shibeSpawnChance, DogeInfo.shibeSpawnMinSize, DogeInfo.shibeSpawnMaxSize, shibeBiomeList);
 		}
 	}
 	
-	public static void addSpawn(Class<? extends EntityLiving> entityClass, int spawnProb, int min, int max, BiomeGenBase[] biomes) {
+	public static void addSpawn(Class<? extends EntityLiving> entityClass, int spawnProb, int min, int max, Biome[] biomes) {
 		if (spawnProb > 0) {
 			EntityRegistry.addSpawn(entityClass, spawnProb, min, max, EnumCreatureType.CREATURE, biomes);
 		}

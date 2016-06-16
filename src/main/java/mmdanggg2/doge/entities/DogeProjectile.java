@@ -9,7 +9,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
 public class DogeProjectile extends EntityThrowable
@@ -46,7 +46,7 @@ public class DogeProjectile extends EntityThrowable
 	 * Called when this EntityThrowable hits a block or entity.
 	 */
 	@Override
-	protected void onImpact(MovingObjectPosition par1MovingObjectPosition)
+	protected void onImpact(RayTraceResult par1MovingObjectPosition)
 	{
 		if (par1MovingObjectPosition.entityHit != null)
 		{

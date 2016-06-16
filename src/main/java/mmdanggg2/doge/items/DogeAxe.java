@@ -5,8 +5,8 @@ import net.minecraft.item.ItemAxe;
 
 public class DogeAxe extends ItemAxe {
 	
-	public DogeAxe(ToolMaterial par2EnumToolMaterial) {
-		super(par2EnumToolMaterial);
+	public DogeAxe(ToolMaterial material) {
+		super(material, material.getDamageVsEntity(), material.getEfficiencyOnProperMaterial());
 		
 		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogeAxe");
