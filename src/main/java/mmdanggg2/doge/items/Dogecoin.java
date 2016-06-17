@@ -24,6 +24,7 @@ public class Dogecoin extends Item {
 		setMaxStackSize(64);
 		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogecoin");
+		setRegistryName("dogecoin");
 	}
 	
 	@Override

@@ -25,6 +25,7 @@ public class DogeLauncher extends ItemBow {
 		setMaxStackSize(1);
 		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogeLauncher");
+		setRegistryName("dogeLauncher");
 	}
 	
 	protected ItemStack findAmmo(EntityPlayer player)

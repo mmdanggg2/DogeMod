@@ -5,12 +5,11 @@ import net.minecraft.item.ItemSpade;
 
 public class DogeShovel extends ItemSpade {
 	
-	public DogeShovel(ToolMaterial par2EnumToolMaterial) {
-		super(par2EnumToolMaterial);
+	public DogeShovel(ToolMaterial toolMaterial) {
+		super(toolMaterial);
 		
 		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogeShovel");
-		
+		setRegistryName("dogeShovel");
 	}
-	
 }

@@ -32,6 +32,7 @@ public class GPU extends Item {
 		this.setMaxDamage(20);
 		this.setCreativeTab(Doge.dogeTab);
 		this.setUnlocalizedName("gpu");
+		this.setRegistryName("gpu");
 		this.coinChance = DogeInfo.gpuChance;
 		this.speedStart = DogeInfo.gpuSpeedStart;
 		this.speedStep = DogeInfo.gpuSpeedStep;

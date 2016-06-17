@@ -5,12 +5,11 @@ import net.minecraft.item.ItemHoe;
 
 public class DogeHoe extends ItemHoe {
 	
-	public DogeHoe(ToolMaterial par2EnumToolMaterial) {
-		super(par2EnumToolMaterial);
+	public DogeHoe(ToolMaterial toolMaterial) {
+		super(toolMaterial);
 		
 		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogeHoe");
-		
+		setRegistryName("dogeHoe");
 	}
-	
 }

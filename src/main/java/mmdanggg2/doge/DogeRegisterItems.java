@@ -21,42 +21,42 @@ public class DogeRegisterItems {
 		
 		// Items
 		Doge.dogecoin = new Dogecoin();
-		GameRegistry.registerItem(Doge.dogecoin, "dogecoin");
+		GameRegistry.register(Doge.dogecoin);
 		
 		Doge.dogeLauncher = new DogeLauncher();
-		GameRegistry.registerItem(Doge.dogeLauncher, "dogeLauncher");
+		GameRegistry.register(Doge.dogeLauncher);
 		
 		Doge.gpu = new GPU();
-		GameRegistry.registerItem(Doge.gpu, "gpu");
+		GameRegistry.register(Doge.gpu);
 		
 		// Doge Tools
 		Doge.dogePickaxe = new DogePickaxe(Doge.dogeToolMat);
-		GameRegistry.registerItem(Doge.dogePickaxe, "dogePickaxe");
+		GameRegistry.register(Doge.dogePickaxe);
 		
 		Doge.dogeAxe = new DogeAxe(Doge.dogeToolMat);
-		GameRegistry.registerItem(Doge.dogeAxe, "dogeAxe");
+		GameRegistry.register(Doge.dogeAxe);
 		
 		Doge.dogeShovel = new DogeShovel(Doge.dogeToolMat);
-		GameRegistry.registerItem(Doge.dogeShovel, "dogeShovel");
+		GameRegistry.register(Doge.dogeShovel);
 		
 		Doge.dogeHoe = new DogeHoe(Doge.dogeToolMat);
-		GameRegistry.registerItem(Doge.dogeHoe, "dogeHoe");
+		GameRegistry.register(Doge.dogeHoe);
 		
 		Doge.dogeSword = new DogeSword(Doge.dogeToolMat);
-		GameRegistry.registerItem(Doge.dogeSword, "dogeSword");
+		GameRegistry.register(Doge.dogeSword);
 		
 		// Doge Armour
 		Doge.dogeHelmet = new DogeHelmet(Doge.dogeArmorMat, 0, EntityEquipmentSlot.HEAD);
-		GameRegistry.registerItem(Doge.dogeHelmet, "dogeHelmet");
+		GameRegistry.register(Doge.dogeHelmet);
 		
 		Doge.dogeChestplate = new DogeChestplate(Doge.dogeArmorMat, 0, EntityEquipmentSlot.CHEST);
-		GameRegistry.registerItem(Doge.dogeChestplate, "dogeChestplate");
+		GameRegistry.register(Doge.dogeChestplate);
 		
 		Doge.dogeLeggings = new DogeLeggings(Doge.dogeArmorMat, 0, EntityEquipmentSlot.LEGS);
-		GameRegistry.registerItem(Doge.dogeLeggings, "dogeLeggings");
+		GameRegistry.register(Doge.dogeLeggings);
 		
 		Doge.dogeBoots = new DogeBoots(Doge.dogeArmorMat, 0, EntityEquipmentSlot.FEET);
-		GameRegistry.registerItem(Doge.dogeBoots, "dogeBoots");
+		GameRegistry.register(Doge.dogeBoots);
 		
 	}
 }

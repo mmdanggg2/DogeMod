@@ -10,9 +10,6 @@ public class DogeChestplate extends DogeArmour {
 		
 		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogeChestplate");
+		setRegistryName("dogeChestplate");
 	}
-	
-	
-	
-	
 }

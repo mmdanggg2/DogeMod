@@ -1,7 +1,6 @@
 {
     "parent": "block/cube",
     "textures": {
-		"particle": "doge:blocks/miningRigFrontOn",
         "up": "doge:blocks/miningRigTopBackOn",
         "down": "doge:blocks/miningRigBottom",
         "south": "doge:blocks/miningRigTopBackOn",

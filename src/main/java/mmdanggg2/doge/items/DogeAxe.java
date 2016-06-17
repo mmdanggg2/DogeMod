@@ -10,7 +10,6 @@ public class DogeAxe extends ItemAxe {
 		
 		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogeAxe");
-		//setTextureName(DogeInfo.NAME.toLowerCase() + ":dogeAxe");
+		setRegistryName("dogeAxe");
 	}
-	
 }

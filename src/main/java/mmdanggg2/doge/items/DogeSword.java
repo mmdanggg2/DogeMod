@@ -5,12 +5,11 @@ import net.minecraft.item.ItemSword;
 
 public class DogeSword extends ItemSword {
 	
-	public DogeSword(ToolMaterial par2EnumToolMaterial) {
-		super(par2EnumToolMaterial);
+	public DogeSword(ToolMaterial toolMaterial) {
+		super(toolMaterial);
 		
 		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogeSword");
-		
+		setRegistryName("dogeSword");
 	}
-	
 }

@@ -5,11 +5,11 @@ import net.minecraft.item.ItemPickaxe;
 
 public class DogePickaxe extends ItemPickaxe {
 	
-	public DogePickaxe(ToolMaterial par2EnumToolMaterial) {
-		super(par2EnumToolMaterial);
+	public DogePickaxe(ToolMaterial toolMaterial) {
+		super(toolMaterial);
 		
 		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogePickaxe");
-		
+		setRegistryName("dogePickaxe");
 	}
 }

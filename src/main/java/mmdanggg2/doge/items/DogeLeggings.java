@@ -10,6 +10,6 @@ public class DogeLeggings extends DogeArmour {
 		
 		setCreativeTab(Doge.dogeTab);
 		setUnlocalizedName("dogeLeggings");
+		setRegistryName("dogeLeggings");
 	}
-	
 }

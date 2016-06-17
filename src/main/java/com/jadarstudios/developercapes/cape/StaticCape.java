@@ -51,7 +51,8 @@ public class StaticCape extends AbstractCape {
         		plrTxtrsF = NetworkPlayerInfo.class.getDeclaredField("field_175157_aFIXME"); //TODO Figure out this new val
             }
         	plrTxtrsF.setAccessible(true);
-        	Map<Type, ResourceLocation> plrTxtrs = (Map<Type, ResourceLocation>) plrTxtrsF.get(npi);
+        	@SuppressWarnings("unchecked")
+			Map<Type, ResourceLocation> plrTxtrs = (Map<Type, ResourceLocation>) plrTxtrsF.get(npi);
         	plrTxtrs.put(Type.CAPE, location);
         	plrTxtrsF.setAccessible(false);
         	
