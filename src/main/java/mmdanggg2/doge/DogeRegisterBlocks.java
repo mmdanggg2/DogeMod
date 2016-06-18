@@ -11,7 +11,6 @@ public class DogeRegisterBlocks {
 	// Blocks
 	public static void register() {
 		Doge.dogeBlock = new DogeBlock(Material.GROUND);
-		//GameRegistry.registerBlock(Doge.dogeBlock, "dogeBlock");
 		GameRegistry.register(Doge.dogeBlock);
 		GameRegistry.register(new ItemBlock(Doge.dogeBlock).setRegistryName(Doge.dogeBlock.getRegistryName()));
 		
