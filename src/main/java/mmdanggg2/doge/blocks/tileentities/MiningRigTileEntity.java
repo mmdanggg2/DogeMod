@@ -19,7 +19,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntityLockable;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.ITickable;
 
 public class MiningRigTileEntity extends TileEntityLockable implements ISidedInventory, ITickable {
@@ -49,6 +48,7 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 		}
 		
 		compound.setTag("Items", items);
+		
 		return compound;
 	}
 	
@@ -111,7 +111,7 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 
 	@Override
 	public String getName() {
-		return this.hasCustomName() ? this.mrCustomName : "container.furnace";
+		return this.hasCustomName() ? this.mrCustomName : "tile.miningRig.name";
 	}
 	
 	@Override
@@ -122,7 +122,7 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 	
 	public void setCustomInventoryName(String name)
     {
-        this.mrCustomName = name;
+        //this.mrCustomName = name;
     }
 
 	@Override
@@ -285,11 +285,6 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 	}
 
 	@Override
-	public ITextComponent getDisplayName() {
-		return null;
-	}
-
-	@Override
 	public Container createContainer(InventoryPlayer playerInventory,
 			EntityPlayer playerIn) {
 		return null;
@@ -297,10 +292,11 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 
 	@Override
 	public String getGuiID() {
-		return null;
+		return "doge:miningRig";
 	}
 
 	@Override
 	public void clear() {
+		
 	}
 }

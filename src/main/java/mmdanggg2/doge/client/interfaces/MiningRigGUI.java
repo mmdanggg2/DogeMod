@@ -14,8 +14,11 @@ import org.lwjgl.opengl.GL11;
 @SideOnly(Side.CLIENT)
 public class MiningRigGUI extends GuiContainer {
 	
+	public MiningRigTileEntity miningRig;
+	
 	public MiningRigGUI(InventoryPlayer invPlayer, MiningRigTileEntity miningRig) {
 		super(new MiningRigContainer(invPlayer, miningRig));
+		this.miningRig = miningRig;
 
 		xSize = 193;
 		ySize = 132;
@@ -33,7 +36,7 @@ public class MiningRigGUI extends GuiContainer {
 	
 	@Override
 	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
-		String name = I18n.format("tile.miningRig.name", new Object[0]);
+		String name = I18n.format(miningRig.getName(), new Object[0]);
 		int len = fontRendererObj.getStringWidth(name);
 		fontRendererObj.drawString(name, (xSize - 18 - len) / 2, 7, 0x404040);
 	}
