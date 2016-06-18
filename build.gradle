@@ -20,10 +20,10 @@ plugins {
 */
 version = "0.5.3"
 group= "mmdanggg2.doge" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "DogeMod-[1.8.9]"
+archivesBaseName = "DogeMod-[1.9.4]"
 
 minecraft {
-    version = "1.9.4-12.17.0.1963"
+    version = "1.9.4-12.17.0.1965"
     runDir = "run"
     
     // the mappings can be changed at any time, and must be in the following format.
