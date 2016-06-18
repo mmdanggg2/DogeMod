@@ -93,6 +93,7 @@ public class DogeLauncher extends ItemBow {
 			world.playSound(player, player.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 1.0F, 1.0F / (itemRand.nextFloat() * 1.5F));
 			
 			if (!world.isRemote) {
+				projectile.setHeadingFromThrower(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 1.0F);
 				world.spawnEntityInWorld(projectile);
 			}
 	        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
