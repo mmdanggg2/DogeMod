@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Random;
 
 import mmdanggg2.doge.Doge;
+import mmdanggg2.doge.DogeInfo;
 import mmdanggg2.doge.blocks.tileentities.MiningRigTileEntity;
 import mmdanggg2.doge.util.DogeLogger;
 import net.minecraft.block.Block;
@@ -12,6 +13,7 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -25,30 +27,32 @@ import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class MiningRig extends BlockContainer {
 
     public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
-    private final boolean isOn;
+    public static final PropertyBool MINING = PropertyBool.create("on");
     private static boolean isChangingBlock;
 	
 	public MiningRig(Material material, boolean on) {
 		super(material);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
-		
-		this.isOn = on;
+        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(MINING, on));
+        
 		setHardness(2.0f);
 		setSoundType(SoundType.METAL);
-		setUnlocalizedName("miningRig");
+		setUnlocalizedName("mining_rig");
 		if (!on){
 			setCreativeTab(Doge.dogeTab);
-			setRegistryName("miningRig");
+			setRegistryName(new ResourceLocation(DogeInfo.ID, "mining_rig"));
 		}
 		else {
-			setRegistryName("miningRigOn");
+			setRegistryName(new ResourceLocation(DogeInfo.ID, "mining_rig_on"));
 		}
 	}
 
@@ -58,16 +62,10 @@ public class MiningRig extends BlockContainer {
 	}
 	
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		FMLNetworkHandler.openGui(player, Doge.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
 		return true;
 	}
-	
-	@Override
-	public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-    {
-		return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
-    }
 	
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
@@ -90,42 +88,34 @@ public class MiningRig extends BlockContainer {
 	}
 	
 	@Override
-	public void onBlockAdded(World world, BlockPos pos, IBlockState state)
+	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
-		if (!world.isRemote)
+		if (!worldIn.isRemote)
         {
-            BlockPos blkposN = pos.north();
-            IBlockState blkstN = world.getBlockState(blkposN);
-            Block blkN = blkstN.getBlock();
-            BlockPos blkposS = pos.south();
-            IBlockState blkstS = world.getBlockState(blkposS);
-            Block blkS = blkstS.getBlock();
-            BlockPos blkposW = pos.west();
-            IBlockState blkstW = world.getBlockState(blkposW);
-            Block blkW = blkstW.getBlock();
-            BlockPos blkposE = pos.east();
-            IBlockState blkstE = world.getBlockState(blkposE);
-            Block blkE = blkstE.getBlock();
-            EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
+            IBlockState iblockstate = worldIn.getBlockState(pos.north());
+            IBlockState iblockstate1 = worldIn.getBlockState(pos.south());
+            IBlockState iblockstate2 = worldIn.getBlockState(pos.west());
+            IBlockState iblockstate3 = worldIn.getBlockState(pos.east());
+            EnumFacing enumfacing = state.getValue(FACING);
 
-            if (enumfacing == EnumFacing.NORTH && blkN.isSideSolid(blkstN, world, blkposN, EnumFacing.SOUTH) && !blkS.isSideSolid(blkstS, world, blkposS, EnumFacing.NORTH))
+            if (enumfacing == EnumFacing.NORTH && iblockstate.isFullBlock() && !iblockstate1.isFullBlock())
             {
                 enumfacing = EnumFacing.SOUTH;
             }
-            else if (enumfacing == EnumFacing.SOUTH && blkS.isSideSolid(blkstS, world, blkposS, EnumFacing.NORTH) && !blkN.isSideSolid(blkstN, world, blkposN, EnumFacing.SOUTH))
+            else if (enumfacing == EnumFacing.SOUTH && iblockstate1.isFullBlock() && !iblockstate.isFullBlock())
             {
                 enumfacing = EnumFacing.NORTH;
             }
-            else if (enumfacing == EnumFacing.WEST && blkW.isSideSolid(blkstW, world, blkposW, EnumFacing.EAST) && !blkE.isSideSolid(blkstE, world, blkposE, EnumFacing.WEST))
+            else if (enumfacing == EnumFacing.WEST && iblockstate2.isFullBlock() && !iblockstate3.isFullBlock())
             {
                 enumfacing = EnumFacing.EAST;
             }
-            else if (enumfacing == EnumFacing.EAST && blkE.isSideSolid(blkstE, world, blkposE, EnumFacing.WEST) && !blkW.isSideSolid(blkstW, world, blkposW, EnumFacing.EAST))
+            else if (enumfacing == EnumFacing.EAST && iblockstate3.isFullBlock() && !iblockstate2.isFullBlock())
             {
                 enumfacing = EnumFacing.WEST;
             }
 
-            world.setBlockState(pos, state.withProperty(FACING, enumfacing), 2);
+            worldIn.setBlockState(pos, state.withProperty(FACING, enumfacing), 2);
         }
     }
 	
@@ -142,16 +132,17 @@ public class MiningRig extends BlockContainer {
 		
 		super.breakBlock(world, pos, state);
 	}
-	
+
+    @SideOnly(Side.CLIENT)
 	@Override
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
-		if (this.isOn) {
+		if (state.getValue(MINING)) {
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();
 			float facingOffset = 1.05F;
 			
-			EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
+			EnumFacing enumfacing = state.getValue(FACING);
 	
 			if (enumfacing == EnumFacing.EAST && world.isAirBlock(pos.east())) {
 				world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x, y + rand.nextFloat(), z + rand.nextFloat(), -0.05D, 0.0D, 0.0D);
@@ -232,26 +223,27 @@ public class MiningRig extends BlockContainer {
 	@Override
 	protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] {FACING});
+        return new BlockStateContainer(this, new IProperty[] {FACING, MINING});
     }
 	
 	@Override
 	public IBlockState getStateFromMeta(int meta)
     {
-        EnumFacing enumfacing = EnumFacing.getFront(meta);
+        boolean isMining = (meta | 8) > 0;
+        EnumFacing enumfacing = EnumFacing.getFront(meta|7);
 
         if (enumfacing.getAxis() == EnumFacing.Axis.Y)
         {
             enumfacing = EnumFacing.NORTH;
         }
 
-        return this.getDefaultState().withProperty(FACING, enumfacing);
+        return this.getDefaultState().withProperty(FACING, enumfacing).withProperty(MINING, isMining);
     }
 	
 	@Override
 	public int getMetaFromState(IBlockState state)
     {
-        return ((EnumFacing)state.getValue(FACING)).getIndex();
+        return state.getValue(FACING).getIndex() & (state.getValue(MINING) ? 8 : 0);
     }
 	
 	@Override

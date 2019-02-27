@@ -10,6 +10,10 @@ public class CommonProxy {
 	public void registerItemRenderers() {
 		// ditto
 	}
+	public void registerBlockRenderers() {
+		// ditto
+		
+	}
 	
 	public void regCape() {}
 

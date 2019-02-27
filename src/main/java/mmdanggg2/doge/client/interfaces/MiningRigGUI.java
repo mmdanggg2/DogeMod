@@ -24,10 +24,10 @@ public class MiningRigGUI extends GuiContainer {
 		ySize = 132;
 	}
 	
-	private static final ResourceLocation texture = new ResourceLocation("doge", "textures/gui/miningRigGUI.png");
+	private static final ResourceLocation texture = new ResourceLocation("doge", "textures/gui/mining_rig_gui.png");
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float arg0, int arg1, int arg2) {
+	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 		GL11.glColor4f(1, 1, 1, 1);
 		
 		Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
@@ -35,10 +35,10 @@ public class MiningRigGUI extends GuiContainer {
 	}
 	
 	@Override
-	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
+	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		String name = I18n.format(miningRig.getName(), new Object[0]);
-		int len = fontRendererObj.getStringWidth(name);
-		fontRendererObj.drawString(name, (xSize - 18 - len) / 2, 7, 0x404040);
+		int len = fontRenderer.getStringWidth(name);
+		fontRenderer.drawString(name, (xSize - 18 - len) / 2, 7, 0x404040);
 	}
 	
 	@Override

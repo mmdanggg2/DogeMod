@@ -9,7 +9,7 @@ public class DogeChestplate extends DogeArmour {
 		super(material, renderIndex, equipmentSlot);
 		
 		setCreativeTab(Doge.dogeTab);
-		setUnlocalizedName("dogeChestplate");
-		setRegistryName("dogeChestplate");
+		setUnlocalizedName("doge_chestplate");
+		setRegistryName("doge_chestplate");
 	}
 }

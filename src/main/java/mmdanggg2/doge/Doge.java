@@ -17,12 +17,15 @@ import mmdanggg2.doge.items.DogeSword;
 import mmdanggg2.doge.items.Dogecoin;
 import mmdanggg2.doge.items.GPU;
 import mmdanggg2.doge.util.DogeLogger;
+import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -32,6 +35,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.EntityEntry;
 
 @Mod(modid = DogeInfo.ID, name = DogeInfo.NAME, version = DogeInfo.VER, guiFactory = "mmdanggg2.doge.client.DogeConfigGUIFactory")
 public class Doge {
@@ -97,22 +101,34 @@ public class Doge {
 		dogeToolMat = EnumHelper.addToolMaterial("Doge", 3, tDur, tSpd, tDmg, 30);
 		dogeArmorMat = EnumHelper.addArmorMaterial("Doge", "doge", 30, new int[]{5, 10, 8, 5}, 30, null, 4);
 		
-		dogeTab = new DogeCreativeTab("dogeTab");
+		dogeTab = new DogeCreativeTab("doge_tab");
 
-		DogeLogger.logInfo("Registering Items");
-		DogeRegisterItems.register();
+		MinecraftForge.EVENT_BUS.register(instance);
 		
+		//DogeLogger.logInfo("Registering Recipes");
+		//DogeRegisterRecipes.register();
+		
+	}
+	
+	@SubscribeEvent
+	public void registerBlocks(RegistryEvent.Register<Block> event) {
 		DogeLogger.logInfo("Registering Blocks");
-		DogeRegisterBlocks.register();
-		
-		DogeLogger.logInfo("Registering Entities");
-		DogeRegisterEntities.register();
-		
-		DogeLogger.logInfo("Registering Recipies");
-		DogeRegisterRecipies.register();
-		
-		proxy.registerEntityRenderers();
+		DogeRegisterBlocks.register(event.getRegistry());
+		proxy.registerBlockRenderers();
+	}
+	
+	@SubscribeEvent
+	public void registerItems(RegistryEvent.Register<Item> event) {
+		DogeLogger.logInfo("Registering Items");
+		DogeRegisterItems.register(event.getRegistry());
 		proxy.registerItemRenderers();
+	}
+	
+	@SubscribeEvent
+	public void registerEntities(RegistryEvent.Register<EntityEntry> event) {
+		DogeLogger.logInfo("Registering Entities");
+		DogeRegisterEntities.register(event.getRegistry());
+		proxy.registerEntityRenderers();
 	}
 	
 	@EventHandler
@@ -121,7 +137,6 @@ public class Doge {
 		proxy.regCape();
 		new GUIHandler();
 		
-		MinecraftForge.EVENT_BUS.register(instance);
 	}
 	
 	@EventHandler

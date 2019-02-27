@@ -13,50 +13,57 @@ import mmdanggg2.doge.items.DogeSword;
 import mmdanggg2.doge.items.Dogecoin;
 import mmdanggg2.doge.items.GPU;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.registries.IForgeRegistry;
 
 public class DogeRegisterItems {
 	
-	public static void register() {
+	public static void register(IForgeRegistry<Item> itemReg) {
 		
 		// Items
 		Doge.dogecoin = new Dogecoin();
-		GameRegistry.register(Doge.dogecoin);
+		itemReg.register(Doge.dogecoin);
 		
 		Doge.dogeLauncher = new DogeLauncher();
-		GameRegistry.register(Doge.dogeLauncher);
+		itemReg.register(Doge.dogeLauncher);
 		
 		Doge.gpu = new GPU();
-		GameRegistry.register(Doge.gpu);
+		itemReg.register(Doge.gpu);
 		
 		// Doge Tools
 		Doge.dogePickaxe = new DogePickaxe(Doge.dogeToolMat);
-		GameRegistry.register(Doge.dogePickaxe);
+		itemReg.register(Doge.dogePickaxe);
 		
 		Doge.dogeAxe = new DogeAxe(Doge.dogeToolMat);
-		GameRegistry.register(Doge.dogeAxe);
+		itemReg.register(Doge.dogeAxe);
 		
 		Doge.dogeShovel = new DogeShovel(Doge.dogeToolMat);
-		GameRegistry.register(Doge.dogeShovel);
+		itemReg.register(Doge.dogeShovel);
 		
 		Doge.dogeHoe = new DogeHoe(Doge.dogeToolMat);
-		GameRegistry.register(Doge.dogeHoe);
+		itemReg.register(Doge.dogeHoe);
 		
 		Doge.dogeSword = new DogeSword(Doge.dogeToolMat);
-		GameRegistry.register(Doge.dogeSword);
+		itemReg.register(Doge.dogeSword);
 		
 		// Doge Armour
 		Doge.dogeHelmet = new DogeHelmet(Doge.dogeArmorMat, 0, EntityEquipmentSlot.HEAD);
-		GameRegistry.register(Doge.dogeHelmet);
+		itemReg.register(Doge.dogeHelmet);
 		
 		Doge.dogeChestplate = new DogeChestplate(Doge.dogeArmorMat, 0, EntityEquipmentSlot.CHEST);
-		GameRegistry.register(Doge.dogeChestplate);
+		itemReg.register(Doge.dogeChestplate);
 		
 		Doge.dogeLeggings = new DogeLeggings(Doge.dogeArmorMat, 0, EntityEquipmentSlot.LEGS);
-		GameRegistry.register(Doge.dogeLeggings);
+		itemReg.register(Doge.dogeLeggings);
 		
 		Doge.dogeBoots = new DogeBoots(Doge.dogeArmorMat, 0, EntityEquipmentSlot.FEET);
-		GameRegistry.register(Doge.dogeBoots);
+		itemReg.register(Doge.dogeBoots);
 		
+		// Block Items
+		itemReg.register(new ItemBlock(Doge.dogeBlock).setRegistryName(Doge.dogeBlock.getRegistryName()));
+		itemReg.register(new ItemBlock(Doge.miningRig).setRegistryName(Doge.miningRig.getRegistryName()));
+		itemReg.register(new ItemBlock(Doge.miningRigOn).setRegistryName(Doge.miningRigOn.getRegistryName()));
 	}
 }

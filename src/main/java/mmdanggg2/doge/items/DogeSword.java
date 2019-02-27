@@ -9,7 +9,7 @@ public class DogeSword extends ItemSword {
 		super(toolMaterial);
 		
 		setCreativeTab(Doge.dogeTab);
-		setUnlocalizedName("dogeSword");
-		setRegistryName("dogeSword");
+		setUnlocalizedName("doge_sword");
+		setRegistryName("doge_sword");
 	}
 }

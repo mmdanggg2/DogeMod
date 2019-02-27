@@ -9,7 +9,7 @@ public class DogeHoe extends ItemHoe {
 		super(toolMaterial);
 		
 		setCreativeTab(Doge.dogeTab);
-		setUnlocalizedName("dogeHoe");
-		setRegistryName("dogeHoe");
+		setUnlocalizedName("doge_hoe");
+		setRegistryName("doge_hoe");
 	}
 }

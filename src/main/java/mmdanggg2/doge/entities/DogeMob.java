@@ -88,23 +88,23 @@ public class DogeMob extends EntityWolf
 	 * Called when a player interacts with a mob. e.g. gets milk from a cow, gets into the saddle on a pig.
 	 */
 	@Override
-	public boolean processInteract(EntityPlayer par1EntityPlayer, EnumHand hand, ItemStack itemstack)
+	public boolean processInteract(EntityPlayer par1EntityPlayer, EnumHand hand)
 	{
-		//ItemStack itemstack = par1EntityPlayer.inventory.getCurrentItem();
+		ItemStack itemstack = par1EntityPlayer.inventory.getCurrentItem();
 		
 		if (itemstack != null && itemstack.getItem() == Doge.dogecoin && !this.isAngry() && !this.isTamed())
 		{
 			if (!par1EntityPlayer.capabilities.isCreativeMode)
 			{
-				--itemstack.stackSize;
+				itemstack.shrink(1);
 			}
 			
-			if (itemstack.stackSize <= 0)
+			if (itemstack.isEmpty())
 			{
 				par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
 			}
 			
-			if (!this.worldObj.isRemote)
+			if (this.isServerWorld())
 			{
 				makeTamed(par1EntityPlayer);
 				this.aiSit.setSitting(true);
@@ -115,7 +115,7 @@ public class DogeMob extends EntityWolf
 		
 		if (itemstack != null && itemstack.getItem() == Items.BONE && !this.isAngry()) { return false; }
 		
-		return super.processInteract(par1EntityPlayer, hand, itemstack);
+		return super.processInteract(par1EntityPlayer, hand);
 	}
 	
 	@Override
@@ -165,7 +165,7 @@ public class DogeMob extends EntityWolf
 	@Override
 	public DogeMob createChild(EntityAgeable par1EntityAgeable)
 	{
-		DogeMob childAnimal = new DogeMob(this.worldObj);
+		DogeMob childAnimal = new DogeMob(this.world);
 		UUID owner = this.getOwnerId();
 		
 		if (owner != null) {
@@ -197,19 +197,30 @@ public class DogeMob extends EntityWolf
 		else
 		{
 			DogeMob doge = (DogeMob)animal;
-			return !doge.isTamed() ? false : (doge.isSitting() ? false : this.isInLove() && doge.isInLove());
+            if (!doge.isTamed())
+            {
+                return false;
+            }
+            else if (doge.isSitting())
+            {
+                return false;
+            }
+            else
+            {
+                return this.isInLove() && doge.isInLove();
+            }
 		}
 	}
 	
 	public void makeTamed(EntityPlayer player) {
 		this.setTamed(true);
-		this.navigator.clearPathEntity();
+		this.navigator.clearPath();
 		this.setAttackTarget((EntityLivingBase)null);
 		//		this.aiSit.setSitting(true);
 		this.setHealth(200.0F);
 		this.setOwnerId(player.getUniqueID());
 		this.playTameEffect(true);
-		this.worldObj.setEntityState(this, (byte)7);
+		this.world.setEntityState(this, (byte)7);
 	}
 
 	@Override

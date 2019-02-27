@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "doge:items/dogeLeggings"
+        "layer0": "doge:items/doge_axe"
     }
 }

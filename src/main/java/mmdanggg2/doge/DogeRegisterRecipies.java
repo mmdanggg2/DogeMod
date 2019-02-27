@@ -3,16 +3,17 @@ package mmdanggg2.doge;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class DogeRegisterRecipies {
 	public static void register() {
 		// Recipes
-		GameRegistry.addRecipe(new ItemStack(Doge.dogecoin, 1), " G ", "GDG", " G ", 'D', new ItemStack(Items.DIAMOND), 'G', new ItemStack(Items.GOLD_INGOT));
+		//GameRegistry.addShapedRecipe(new ResourceLocation(DogeInfo.ID, "")., new ResourceLocation(""), new ItemStack(Doge.dogecoin, 1), " G ", "GDG", " G ", 'D', new ItemStack(Items.DIAMOND), 'G', new ItemStack(Items.GOLD_INGOT));
 		
-		GameRegistry.addRecipe(new ItemStack(Doge.dogeBlock), "###", "###", "###", '#', new ItemStack(Doge.dogecoin));
+		//GameRegistry.addRecipe(new ItemStack(Doge.dogeBlock), "###", "###", "###", '#', new ItemStack(Doge.dogecoin));
 		
-		GameRegistry.addRecipe(new ItemStack(Doge.dogeLauncher, 1), " D ", "DD ", " BD", 'D', new ItemStack(Doge.dogecoin), 'B', new ItemStack(Blocks.STONE_BUTTON));
+		/*GameRegistry.addRecipe(new ItemStack(Doge.dogeLauncher, 1), " D ", "DD ", " BD", 'D', new ItemStack(Doge.dogecoin), 'B', new ItemStack(Blocks.STONE_BUTTON));
 		
 		GameRegistry.addShapelessRecipe(new ItemStack(Doge.dogecoin, 9), new ItemStack(Doge.dogeBlock));
 		
@@ -39,9 +40,9 @@ public class DogeRegisterRecipies {
 		GameRegistry.addRecipe(new ItemStack(Doge.dogeLeggings), "###", "# #", "# #", '#', new ItemStack(Doge.dogecoin));
 		
 		GameRegistry.addRecipe(new ItemStack(Doge.dogeBoots), "# #", "# #", '#', new ItemStack(Doge.dogecoin));
-		
+		*/
 		//Item Repair
 		Doge.dogeToolMat.setRepairItem(new ItemStack(Doge.dogecoin));
-		Doge.dogeArmorMat.customCraftingMaterial = Doge.dogecoin;
+		Doge.dogeArmorMat.setRepairItem(new ItemStack(Doge.dogecoin));
 	}
 }

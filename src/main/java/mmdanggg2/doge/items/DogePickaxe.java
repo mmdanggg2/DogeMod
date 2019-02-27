@@ -9,7 +9,7 @@ public class DogePickaxe extends ItemPickaxe {
 		super(toolMaterial);
 		
 		setCreativeTab(Doge.dogeTab);
-		setUnlocalizedName("dogePickaxe");
-		setRegistryName("dogePickaxe");
+		setUnlocalizedName("doge_pickaxe");
+		setRegistryName("doge_pickaxe");
 	}
 }

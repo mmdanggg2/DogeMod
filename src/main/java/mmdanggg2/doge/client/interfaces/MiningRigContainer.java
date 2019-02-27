@@ -33,8 +33,8 @@ public class MiningRigContainer extends Container {
 	}
 	
 	@Override
-	public boolean canInteractWith(EntityPlayer arg0) {
-		return miningRig.isUseableByPlayer(arg0);
+	public boolean canInteractWith(EntityPlayer playerIn) {
+		return miningRig.isUsableByPlayer(playerIn);
 	}
 	
 	@Override
@@ -54,14 +54,14 @@ public class MiningRigContainer extends Container {
 				return null;
 			}
 			
-			if (stack.stackSize == 0) {
+			if (stack.isEmpty()) {
 				slot.putStack(null);
 			}
 			else {
 				slot.onSlotChanged();
 			}
 			
-			slot.onPickupFromSlot(player, stack);
+			slot.onTake(player, stack);
 			
 			return result;
 		}

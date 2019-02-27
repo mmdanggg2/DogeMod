@@ -3,6 +3,7 @@ package mmdanggg2.doge.creativetab;
 import mmdanggg2.doge.Doge;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 public class DogeCreativeTab extends CreativeTabs {
 	
@@ -11,8 +12,8 @@ public class DogeCreativeTab extends CreativeTabs {
 	}
 	
 	@Override
-	public Item getTabIconItem() {
-		return Doge.dogecoin;
+	public ItemStack getTabIconItem() {
+		return new ItemStack(Doge.dogecoin);
 	}
 	
 }

@@ -22,8 +22,8 @@ public class DogeMobRender extends RenderWolf {
 	private static final ResourceLocation dogeAngry = new ResourceLocation(DogeInfo.NAME.toLowerCase(), "textures/entity/doge/doge_angry.png");
 	private static final ResourceLocation dogeCollar = new ResourceLocation(DogeInfo.NAME.toLowerCase(), "textures/entity/doge/doge_collar.png");
 	
-	public DogeMobRender(RenderManager par1RenderManager, ModelBase par2ModelBase, float par3) {
-		super(par1RenderManager, par2ModelBase, par3);
+	public DogeMobRender(RenderManager renderMan) {
+		super(renderMan);
 		this.addLayer(new DogeMobRenderLayerCollar(this));
 	}
 	
@@ -57,15 +57,15 @@ public class DogeMobRender extends RenderWolf {
 			this.dogeRenderer = dogeRender;
 		}
 		
-		public void func_177145_a(EntityWolf wolf, float p_177145_2_, float p_177145_3_, float p_177145_4_, float p_177145_5_, float p_177145_6_, float p_177145_7_, float p_177145_8_)
+		@Override
+		public void doRenderLayer(EntityWolf wolf, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
 	    {
 	        if (wolf.isTamed() && !wolf.isInvisible())
 	        {
 	            this.dogeRenderer.bindTexture(DogeMobRender.dogeCollar);
-	            EnumDyeColor enumdyecolor = EnumDyeColor.byMetadata(wolf.getCollarColor().getMetadata());
-	            float[] afloat = EntitySheep.getDyeRgb(enumdyecolor);
+	            float[] afloat = wolf.getCollarColor().getColorComponentValues();
 	            GlStateManager.color(afloat[0], afloat[1], afloat[2]);
-	            this.dogeRenderer.getMainModel().render(wolf, p_177145_2_, p_177145_3_, p_177145_5_, p_177145_6_, p_177145_7_, p_177145_8_);
+	            this.dogeRenderer.getMainModel().render(wolf, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 	        }
 	    }
 	}

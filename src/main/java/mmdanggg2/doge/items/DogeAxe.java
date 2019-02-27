@@ -6,10 +6,10 @@ import net.minecraft.item.ItemAxe;
 public class DogeAxe extends ItemAxe {
 	
 	public DogeAxe(ToolMaterial material) {
-		super(material, material.getDamageVsEntity(), material.getEfficiencyOnProperMaterial());
+		super(material, material.getAttackDamage(), -3.0f);//TODO check attack speed
 		
 		setCreativeTab(Doge.dogeTab);
-		setUnlocalizedName("dogeAxe");
-		setRegistryName("dogeAxe");
+		setUnlocalizedName("doge_axe");
+		setRegistryName("doge_axe");
 	}
 }

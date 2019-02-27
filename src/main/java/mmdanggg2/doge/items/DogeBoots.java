@@ -9,7 +9,7 @@ public class DogeBoots extends DogeArmour {
 		super(material, renderIndex, equipmentSlot);
 		
 		setCreativeTab(Doge.dogeTab);
-		setUnlocalizedName("dogeBoots");
-		setRegistryName("dogeBoots");
+		setUnlocalizedName("doge_boots");
+		setRegistryName("doge_boots");
 	}
 }

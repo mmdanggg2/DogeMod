@@ -13,6 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,34 +21,21 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntityLockable;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.NonNullList;
 
 public class MiningRigTileEntity extends TileEntityLockable implements ISidedInventory, ITickable {
 	
-	private ItemStack[] items;
+	private NonNullList<ItemStack> items = NonNullList.<ItemStack>withSize(5, ItemStack.EMPTY);
 	private String mrCustomName;
 
 	public MiningRigTileEntity() {
-		items = new ItemStack[5];
 	}
 	
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		super.writeToNBT(compound);
 		
-		NBTTagList items = new NBTTagList();
-		
-		for (int i = 0; i < getSizeInventory(); i++) {
-			ItemStack stack = getStackInSlot(i);
-			
-			if (stack != null) {
-				NBTTagCompound item = new NBTTagCompound();
-				item.setByte("Slot", (byte) i);
-				stack.writeToNBT(item);
-				items.appendTag(item);
-			}
-		}
-		
-		compound.setTag("Items", items);
+        ItemStackHelper.saveAllItems(compound, this.items);
 		
 		return compound;
 	}
@@ -56,16 +44,7 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 	public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
 		
-		NBTTagList items = compound.getTagList("Items", 10);
-		
-		for (int i = 0; i < items.tagCount(); i++) {
-			NBTTagCompound item = items.getCompoundTagAt(i);
-			int slot = item.getByte("Slot");
-			
-			if (slot >= 0 && slot < getSizeInventory()) {
-				setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(item));
-			}
-		}
+		ItemStackHelper.loadAllItems(compound, items);
 	}
 
 	@Override
@@ -76,7 +55,7 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 		ItemStack stack = getStackInSlot(slot);
 		
 		if (stack != null) {
-			if (stack.stackSize <= count) {
+			if (stack.getCount() <= count) {
 				setInventorySlotContents(slot, null);
 			}
 			else {
@@ -94,12 +73,12 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 
 	@Override
 	public int getSizeInventory() {
-		return items.length;
+		return items.size();
 	}
 
 	@Override
 	public ItemStack getStackInSlot(int i) {
-		return items[i];
+		return items.get(i);
 	}
 
 	@Override
@@ -111,7 +90,7 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 
 	@Override
 	public String getName() {
-		return this.hasCustomName() ? this.mrCustomName : "tile.miningRig.name";
+		return this.hasCustomName() ? this.mrCustomName : "tile.mining_rig.name";
 	}
 	
 	@Override
@@ -140,7 +119,7 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer player) {
+	public boolean isUsableByPlayer(EntityPlayer player) {
 		return player.getDistanceSq(pos.getX() + .5, pos.getY() + .5, pos.getZ() + .5) <= 64;
 	}
 
@@ -149,17 +128,17 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 
 	@Override
 	public void setInventorySlotContents(int i, ItemStack stack) {
-		items[i] = stack;
+		items.set(i, stack);
 		
-		if (stack != null && stack.stackSize > getInventoryStackLimit() && i != 4) {
-			stack.stackSize = getInventoryStackLimit();
+		if (stack != null && stack.getCount() > getInventoryStackLimit() && i != 4) {
+			stack.setCount(getInventoryStackLimit());
 		}
 		
 	}
 	
 	@Override
 	public void update() {
-		if (!worldObj.isRemote) {
+		if (!world.isRemote) {
 			int gpus = 0;
 			
 			for (int i = 0; i < getSizeInventory() - 1; i++) {
@@ -168,9 +147,9 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 					gpus++;
 					GPU gpu = (GPU) gpuStack.getItem();
 					ItemStack dogeStack = getStackInSlot(4); 
-					if (dogeStack == null || (dogeStack.getItem() == Doge.dogecoin && dogeStack.stackSize < 64)) {
-						if (worldObj.rand.nextInt(DogeInfo.rigSpeed) == 0) {
-							boolean mined = gpu.attemptMine(gpuStack, worldObj, DogeInfo.rigChance);
+					if (dogeStack == null || (dogeStack.getItem() == Doge.dogecoin && dogeStack.getCount() < dogeStack.getMaxStackSize())) {
+						if (world.rand.nextInt(DogeInfo.rigSpeed) == 0) {
+							boolean mined = gpu.attemptMine(gpuStack, world, DogeInfo.rigChance);
 							DogeLogger.logDebug("stack dmg = " + gpuStack.getItemDamage() + "; mined = " + mined);
 							if (mined) {
 								if (dogeStack == null) {
@@ -178,8 +157,8 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 									dogeStack = new ItemStack(Doge.dogecoin, 1);
 								}
 								else {
-									dogeStack.stackSize++;
-									DogeLogger.logDebug("coin stack size = " + dogeStack.stackSize);
+									dogeStack.grow(1);
+									DogeLogger.logDebug("coin stack size = " + dogeStack.getCount());
 								}
 								setInventorySlotContents(4, dogeStack);
 							}
@@ -195,20 +174,20 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 			if (gpus > 0) {
 				if (!isMining()) {
 					DogeLogger.logDebug("Setting mining to True");
-					MiningRig.setMining(true, worldObj, pos);
+					MiningRig.setMining(true, world, pos);
 				}
 			}
 			else {
 				if (isMining()) {
 					DogeLogger.logDebug("Setting mining to False");
-					MiningRig.setMining(false, worldObj, pos);
+					MiningRig.setMining(false, world, pos);
 				}
 			}
 		}
 	}
 	
 	public boolean isMining() {
-		Block block = this.worldObj.getBlockState(this.pos).getBlock();
+		Block block = this.world.getBlockState(this.pos).getBlock();
 		if (block == Doge.miningRigOn) {
 			return true;
 		}
@@ -218,7 +197,7 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 	}
 	
 	private IBlockState getState() {
-		return worldObj.getBlockState(pos);
+		return world.getBlockState(pos);
 	}
 	
 	@Override
@@ -297,6 +276,19 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 
 	@Override
 	public void clear() {
-		
+		items.clear();
+	}
+
+	@Override
+	public boolean isEmpty() {
+		for (ItemStack itemstack : this.items)
+        {
+            if (!itemstack.isEmpty())
+            {
+                return false;
+            }
+        }
+
+        return true;
 	}
 }

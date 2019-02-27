@@ -66,14 +66,14 @@ public class DogeProjectile extends EntityThrowable
 		//            this.worldObj.spawnParticle("snowballpoof", this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
 		//        }
 		
-		if (!this.worldObj.isRemote)
+		if (!this.world.isRemote)
 		{
 			if (dropCoin)
 			{
-				EntityItem coin = new EntityItem(this.worldObj);
-				coin.setEntityItemStack(new ItemStack(Doge.dogecoin, 1));
+				EntityItem coin = new EntityItem(this.world);
+				coin.setItem(new ItemStack(Doge.dogecoin, 1));
 				coin.setPosition(this.posX, this.posY, this.posZ);
-				this.worldObj.spawnEntityInWorld(coin);
+				this.world.spawnEntity(coin);
 			}
 			setDead();
 		}

@@ -9,7 +9,7 @@ public class DogeShovel extends ItemSpade {
 		super(toolMaterial);
 		
 		setCreativeTab(Doge.dogeTab);
-		setUnlocalizedName("dogeShovel");
-		setRegistryName("dogeShovel");
+		setUnlocalizedName("doge_shovel");
+		setRegistryName("doge_shovel");
 	}
 }

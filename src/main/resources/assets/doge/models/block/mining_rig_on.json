@@ -1,0 +1,12 @@
+{
+    "parent": "block/cube",
+    "textures": {
+        "particle": "doge:blocks/mining_rig_front_on",
+        "up": "doge:blocks/mining_rig_top_back_on",
+        "down": "doge:blocks/mining_rig_bottom",
+        "south": "doge:blocks/mining_rig_top_back_on",
+        "north": "doge:blocks/mining_rig_front_on",
+        "east": "doge:blocks/mining_rig_side_on",
+        "west": "doge:blocks/mining_rig_side_on"
+    }
+}

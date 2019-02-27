@@ -9,7 +9,7 @@ public class DogeHelmet extends DogeArmour {
 		super(material, renderIndex, equipmentSlot);
 		
 		setCreativeTab(Doge.dogeTab);
-		setUnlocalizedName("dogeHelmet");
-		setRegistryName("dogeHelmet");
+		setUnlocalizedName("doge_helmet");
+		setRegistryName("doge_helmet");
 	}
 }

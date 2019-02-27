@@ -1,5 +1,7 @@
 package mmdanggg2.doge.items;
 
+import javax.annotation.Nullable;
+
 import mmdanggg2.doge.Doge;
 import mmdanggg2.doge.DogeInfo;
 import mmdanggg2.doge.util.DogeLogger;
@@ -50,12 +52,12 @@ public class GPU extends Item {
 	}
 	
 	@Override
-	public float getStrVsBlock(ItemStack stack, IBlockState state) {
+	public float getDestroySpeed(ItemStack stack, IBlockState state) {
 		return NBTHelper.getFloat(stack.getTagCompound(), "speed", speedStart);
 	}
 	
 	@Override
-	public int getHarvestLevel(ItemStack stack, String toolClass) {
+	public int getHarvestLevel(ItemStack stack, String toolClass, @Nullable EntityPlayer player, @Nullable IBlockState blockState) {
 		return 3;
 	}
 	
@@ -70,22 +72,22 @@ public class GPU extends Item {
 			
 			if (mined) {
 				EntityItem coin = new EntityItem(world);
-				coin.setEntityItemStack(new ItemStack(Doge.dogecoin, 1));
+				coin.setItem(new ItemStack(Doge.dogecoin, 1));
 				coin.setPosition(xPos + .5, yPos + .5, zPos + .5);
-				world.spawnEntityInWorld(coin);
+				world.spawnEntity(coin);
 			}
 
 			if (stack.getItemDamage() > stack.getMaxDamage()) {
 				world.createExplosion(entityLiving, xPos, yPos, zPos, 2f, true);
-				stack.stackSize = 0;
+				stack.setCount(0);
 			}
 		}
 		return super.onBlockDestroyed(stack, world, block, pos, entityLiving);
 	}
 	
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
-		return super.onItemRightClick(stack, world, player, hand);
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+		return super.onItemRightClick(world, player, hand);
 	}
 	
 	@Override
@@ -114,7 +116,7 @@ public class GPU extends Item {
 							DogeLogger.logDebug("GPU Speed = " + speed);
 							stackTag.setFloat("speed", speed);
 						}
-						stack.attemptDamageItem(-1, world.rand);
+						stack.attemptDamageItem(-1, world.rand, null);
 					}
 				}
 				tickCount++;
@@ -143,7 +145,7 @@ public class GPU extends Item {
 			initTags(stack);
 		}
 		
-		stack.attemptDamageItem(1, world.rand);
+		stack.attemptDamageItem(1, world.rand, null);
 
 		if (world.rand.nextInt(chance) == 0) {
 			mined = true;
@@ -171,7 +173,7 @@ public class GPU extends Item {
 			double offsetZ;
 			double offsetY;
 			
-			if (Minecraft.getMinecraft().thePlayer == player && Minecraft.getMinecraft().gameSettings.thirdPersonView == 0) {
+			if (Minecraft.getMinecraft().player == player && Minecraft.getMinecraft().gameSettings.thirdPersonView == 0) {
 				yaw += 60;
 				pitch += 30;
 				depth = 0.3f;

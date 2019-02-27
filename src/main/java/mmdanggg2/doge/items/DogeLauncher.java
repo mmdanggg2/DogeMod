@@ -24,8 +24,8 @@ public class DogeLauncher extends ItemBow {
 		super();
 		setMaxStackSize(1);
 		setCreativeTab(Doge.dogeTab);
-		setUnlocalizedName("dogeLauncher");
-		setRegistryName("dogeLauncher");
+		setUnlocalizedName("doge_launcher");
+		setRegistryName("doge_launcher");
 	}
 	
 	protected ItemStack findAmmo(EntityPlayer player)
@@ -49,7 +49,7 @@ public class DogeLauncher extends ItemBow {
                     return itemstack;
                 }
             }
-            return null;
+            return ItemStack.EMPTY;
         }
     }
 
@@ -57,8 +57,7 @@ public class DogeLauncher extends ItemBow {
     protected boolean isArrow(@Nullable ItemStack stack)
     {
 		if (stack != null &&
-				stack.getItem() instanceof Dogecoin &&
-				stack.stackSize > 0) {
+				stack.getItem() instanceof Dogecoin && !stack.isEmpty()) {
 			return true;
 		} else {
 			return false;
@@ -66,8 +65,9 @@ public class DogeLauncher extends ItemBow {
     }
 	
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
-		
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+
+        ItemStack stack = player.getHeldItem(hand);
 		boolean flag = player.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stack) > 0;
 		ItemStack coinStack = findAmmo(player);
 		
@@ -84,8 +84,8 @@ public class DogeLauncher extends ItemBow {
 				projectile.dropCoin = false;
 			}
 			else {
-				--coinStack.stackSize;
-				if (coinStack.stackSize <= 0) {
+				coinStack.shrink(1);
+				if (coinStack.isEmpty()) {
 					player.inventory.deleteStack(coinStack);
 				}
 			}
@@ -93,8 +93,8 @@ public class DogeLauncher extends ItemBow {
 			world.playSound(player, player.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 1.0F, 1.0F / (itemRand.nextFloat() * 1.5F));
 			
 			if (!world.isRemote) {
-				projectile.setHeadingFromThrower(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 1.0F);
-				world.spawnEntityInWorld(projectile);
+				projectile.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 1.0F);
+				world.spawnEntity(projectile);
 			}
 	        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
 		}

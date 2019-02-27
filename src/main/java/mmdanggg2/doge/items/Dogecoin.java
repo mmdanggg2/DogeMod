@@ -53,30 +53,31 @@ public class Dogecoin extends Item {
 				DogeLogger.logDebug("WE HAVE A MATCH!!");
 				if (!player.capabilities.isCreativeMode)
 				{
-					--par1ItemStack.stackSize;
+					par1ItemStack.shrink(1);
 				}
-				if (!player.worldObj.isRemote) {
-				DogeMob newDoge = new DogeMob(activatedEntity.worldObj);
-				newDoge.setLocationAndAngles(
-						activatedEntity.posX,
-						activatedEntity.posY,
-						activatedEntity.posZ,
-						activatedEntity.rotationYaw,
-						activatedEntity.rotationPitch);
-				activatedEntity.setDead();
-				player.worldObj.spawnEntityInWorld(newDoge);
-				newDoge.makeTamed(player);
+				if (player.isServerWorld()) {
+					World spawnWorld = activatedEntity.getEntityWorld();
+					DogeMob newDoge = new DogeMob(spawnWorld);
+					newDoge.setLocationAndAngles(
+							activatedEntity.posX,
+							activatedEntity.posY,
+							activatedEntity.posZ,
+							activatedEntity.rotationYaw,
+							activatedEntity.rotationPitch);
+					activatedEntity.setDead();
+					spawnWorld.spawnEntity(newDoge);
+					newDoge.makeTamed(player);
 				}
 				return true;
 			}
 			else {
-				Random rand = player.worldObj.rand;
+				Random rand = player.getRNG();
 				for (int i = 0; i < 7; ++i)
 		        {
 		            double d0 = rand.nextGaussian() * 0.02D;
 		            double d1 = rand.nextGaussian() * 0.02D;
 		            double d2 = rand.nextGaussian() * 0.02D;
-		            player.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL,
+		            player.getEntityWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL,
 		            		activatedEntity.posX + (rand.nextFloat() * activatedEntity.width * 2.0F) - activatedEntity.width,
 		            		activatedEntity.posY + 0.5D + (rand.nextFloat() * activatedEntity.height),
 		            		activatedEntity.posZ + (rand.nextFloat() * activatedEntity.width * 2.0F) - activatedEntity.width,
@@ -88,7 +89,7 @@ public class Dogecoin extends Item {
 	}
 	
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ)
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
 		return EnumActionResult.PASS;
 	}

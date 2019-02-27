@@ -1,9 +1,11 @@
 package mmdanggg2.doge.blocks;
 
 import mmdanggg2.doge.Doge;
+import mmdanggg2.doge.DogeInfo;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.util.ResourceLocation;
 
 public class DogeBlock extends Block {
 	
@@ -12,8 +14,8 @@ public class DogeBlock extends Block {
 		
 		setHardness(1.0f);
 		setSoundType(SoundType.METAL);
-		setUnlocalizedName("dogeBlock");
-		setRegistryName("dogeBlock");
+		setRegistryName(new ResourceLocation(DogeInfo.ID, "doge_block"));
+		setUnlocalizedName("doge_block");
 		setCreativeTab(Doge.dogeTab);
 	}
 	
