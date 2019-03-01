@@ -1,0 +1,19 @@
+{ 
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "AAA",
+    "AAA"  ],
+  "key": {
+    "A": [
+      {
+        "item": "doge:dogecoin",
+        "data": 0
+      }
+    ]
+  },
+  "result": {
+    "item": "doge:doge_block",
+    "data": 0
+  }
+}

@@ -75,8 +75,6 @@ public class Doge {
 	public static GPU gpu;
 	
 	public static MiningRig miningRig;
-
-	public static MiningRig miningRigOn;
 	
 	// Creative Tab
 	public static CreativeTabs dogeTab;

@@ -92,7 +92,7 @@ public class DogeMob extends EntityWolf
 	{
 		ItemStack itemstack = par1EntityPlayer.inventory.getCurrentItem();
 		
-		if (itemstack != null && itemstack.getItem() == Doge.dogecoin && !this.isAngry() && !this.isTamed())
+		if (!itemstack.isEmpty() && itemstack.getItem() == Doge.dogecoin && !this.isAngry() && !this.isTamed())
 		{
 			if (!par1EntityPlayer.capabilities.isCreativeMode)
 			{
@@ -101,7 +101,7 @@ public class DogeMob extends EntityWolf
 			
 			if (itemstack.isEmpty())
 			{
-				par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
+				par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, ItemStack.EMPTY);
 			}
 			
 			if (this.isServerWorld())
@@ -113,7 +113,7 @@ public class DogeMob extends EntityWolf
 			return true;
 		}
 		
-		if (itemstack != null && itemstack.getItem() == Items.BONE && !this.isAngry()) { return false; }
+		if (!itemstack.isEmpty() && itemstack.getItem() == Items.BONE && !this.isAngry()) { return false; }
 		
 		return super.processInteract(par1EntityPlayer, hand);
 	}

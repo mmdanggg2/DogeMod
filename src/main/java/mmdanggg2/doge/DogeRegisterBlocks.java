@@ -16,11 +16,8 @@ public class DogeRegisterBlocks {
 		Doge.dogeBlock = new DogeBlock(Material.GROUND);
 		blockReg.register(Doge.dogeBlock);
 		
-		Doge.miningRig = new MiningRig(Material.IRON, false);
+		Doge.miningRig = new MiningRig(Material.IRON);
 		blockReg.register(Doge.miningRig);
 		GameRegistry.registerTileEntity(MiningRigTileEntity.class, new ResourceLocation(DogeInfo.ID, "mining_rig_tile_entity"));
-		
-		Doge.miningRigOn = new MiningRig(Material.IRON, true);
-		blockReg.register(Doge.miningRigOn);
 	}
 }

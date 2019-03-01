@@ -31,7 +31,7 @@ public class Dogecoin extends Item {
 	public boolean itemInteractionForEntity(ItemStack par1ItemStack, EntityPlayer player, EntityLivingBase activatedEntity, EnumHand hand) {
 		if (activatedEntity != null) {
 			String entClassStr = activatedEntity.getClass().getSimpleName();
-			DogeLogger.logDebug("Clicked on class: " + entClassStr);
+			DogeLogger.logDebug("Coin clicked on class: " + entClassStr);
 			Boolean match = false;
 			for (String str : DogeInfo.dogecoinConvertList) {
 				//DogeLogger.logDebug("Checking: " + str + " == " + entClassStr);
@@ -55,7 +55,7 @@ public class Dogecoin extends Item {
 				{
 					par1ItemStack.shrink(1);
 				}
-				if (player.isServerWorld()) {
+				if (activatedEntity.isServerWorld()) {
 					World spawnWorld = activatedEntity.getEntityWorld();
 					DogeMob newDoge = new DogeMob(spawnWorld);
 					newDoge.setLocationAndAngles(

@@ -37,23 +37,18 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class MiningRig extends BlockContainer {
 
     public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
-    public static final PropertyBool MINING = PropertyBool.create("on");
+    public static final PropertyBool MINING = PropertyBool.create("mining");
     private static boolean isChangingBlock;
 	
-	public MiningRig(Material material, boolean on) {
+	public MiningRig(Material material) {
 		super(material);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(MINING, on));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(MINING, false));
         
 		setHardness(2.0f);
 		setSoundType(SoundType.METAL);
 		setUnlocalizedName("mining_rig");
-		if (!on){
-			setCreativeTab(Doge.dogeTab);
-			setRegistryName(new ResourceLocation(DogeInfo.ID, "mining_rig"));
-		}
-		else {
-			setRegistryName(new ResourceLocation(DogeInfo.ID, "mining_rig_on"));
-		}
+		setCreativeTab(Doge.dogeTab);
+		setRegistryName(new ResourceLocation(DogeInfo.ID, "mining_rig"));
 	}
 
 	@Override
@@ -200,16 +195,7 @@ public class MiningRig extends BlockContainer {
         
         isChangingBlock = true;
         
-        if (mining)
-        {
-            world.setBlockState(pos, Doge.miningRigOn.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
-            world.setBlockState(pos, Doge.miningRigOn.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
-        }
-        else
-        {
-            world.setBlockState(pos, Doge.miningRig.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
-            world.setBlockState(pos, Doge.miningRig.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
-        }
+        world.setBlockState(pos, Doge.miningRig.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)).withProperty(MINING, mining), 3);
         
         isChangingBlock = false;
 
@@ -229,8 +215,8 @@ public class MiningRig extends BlockContainer {
 	@Override
 	public IBlockState getStateFromMeta(int meta)
     {
-        boolean isMining = (meta | 8) > 0;
-        EnumFacing enumfacing = EnumFacing.getFront(meta|7);
+        boolean isMining = (meta & 8) > 0;
+        EnumFacing enumfacing = EnumFacing.getFront(meta & 7);
 
         if (enumfacing.getAxis() == EnumFacing.Axis.Y)
         {
@@ -243,7 +229,7 @@ public class MiningRig extends BlockContainer {
 	@Override
 	public int getMetaFromState(IBlockState state)
     {
-        return state.getValue(FACING).getIndex() & (state.getValue(MINING) ? 8 : 0);
+        return state.getValue(FACING).getIndex() | (state.getValue(MINING) ? 8 : 0);
     }
 	
 	@Override

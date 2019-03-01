@@ -57,7 +57,6 @@ public class ClientProxy extends CommonProxy {
 	public void registerBlockRenderers() {
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(Doge.dogeBlock), 0, new ModelResourceLocation(Doge.dogeBlock.getRegistryName(), "inventory"));
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(Doge.miningRig), 0, new ModelResourceLocation(Doge.miningRig.getRegistryName(), "inventory"));
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(Doge.miningRigOn), 0, new ModelResourceLocation(Doge.miningRigOn.getRegistryName(), "inventory"));
 	}
 	
 	@Override

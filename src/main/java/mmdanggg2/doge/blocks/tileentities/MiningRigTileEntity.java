@@ -2,6 +2,8 @@ package mmdanggg2.doge.blocks.tileentities;
 
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+
 import mmdanggg2.doge.Doge;
 import mmdanggg2.doge.DogeInfo;
 import mmdanggg2.doge.blocks.MiningRig;
@@ -54,9 +56,9 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 	public ItemStack decrStackSize(int slot, int count) {
 		ItemStack stack = getStackInSlot(slot);
 		
-		if (stack != null) {
+		if (!stack.isEmpty()) {
 			if (stack.getCount() <= count) {
-				setInventorySlotContents(slot, null);
+				setInventorySlotContents(slot, ItemStack.EMPTY);
 			}
 			else {
 				stack = stack.splitStack(count);
@@ -68,7 +70,7 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 
 	@Override
 	public int getInventoryStackLimit() {
-		return 1;
+		return 64;
 	}
 
 	@Override
@@ -84,7 +86,7 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 	@Override
 	public ItemStack removeStackFromSlot(int arg0) {
 		ItemStack stack = getStackInSlot(arg0);
-		setInventorySlotContents(arg0, null);
+		setInventorySlotContents(arg0, ItemStack.EMPTY);
 		return stack;
 	}
 
@@ -130,7 +132,7 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 	public void setInventorySlotContents(int i, ItemStack stack) {
 		items.set(i, stack);
 		
-		if (stack != null && stack.getCount() > getInventoryStackLimit() && i != 4) {
+		if (stack.getCount() > getInventoryStackLimit()) {
 			stack.setCount(getInventoryStackLimit());
 		}
 		
@@ -139,61 +141,61 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 	@Override
 	public void update() {
 		if (!world.isRemote) {
-			int gpus = 0;
 			
-			for (int i = 0; i < getSizeInventory() - 1; i++) {
-				ItemStack gpuStack = getStackInSlot(i);
-				if (gpuStack != null && gpuStack.getItem() instanceof GPU) {
-					gpus++;
-					GPU gpu = (GPU) gpuStack.getItem();
-					ItemStack dogeStack = getStackInSlot(4); 
-					if (dogeStack == null || (dogeStack.getItem() == Doge.dogecoin && dogeStack.getCount() < dogeStack.getMaxStackSize())) {
-						if (world.rand.nextInt(DogeInfo.rigSpeed) == 0) {
-							boolean mined = gpu.attemptMine(gpuStack, world, DogeInfo.rigChance);
-							DogeLogger.logDebug("stack dmg = " + gpuStack.getItemDamage() + "; mined = " + mined);
-							if (mined) {
-								if (dogeStack == null) {
-									DogeLogger.logDebug("new coin stack!");
-									dogeStack = new ItemStack(Doge.dogecoin, 1);
-								}
-								else {
-									dogeStack.grow(1);
-									DogeLogger.logDebug("coin stack size = " + dogeStack.getCount());
-								}
-								setInventorySlotContents(4, dogeStack);
+			for (ItemStack gpuStack : getGPUs()) {
+				GPU gpu = (GPU) gpuStack.getItem();
+				ItemStack dogeStack = getStackInSlot(4); 
+				if (dogeStack.isEmpty() || (dogeStack.getItem() == Doge.dogecoin && dogeStack.getCount() < dogeStack.getMaxStackSize())) {
+					if (world.rand.nextInt(DogeInfo.rigSpeed) == 0) {
+						boolean mined = gpu.attemptMine(gpuStack, world, DogeInfo.rigChance);
+						DogeLogger.logDebug("GPU dmg = " + gpuStack.getItemDamage() + "; mined = " + mined);
+						if (mined) {
+							if (dogeStack.isEmpty()) {
+								DogeLogger.logDebug("New coin stack!");
+								dogeStack = new ItemStack(Doge.dogecoin, 1);
 							}
-							if (gpuStack.getItemDamage() >= gpuStack.getMaxDamage()) {
-								DogeLogger.logDebug("setting stack to null");
-								setInventorySlotContents(i, null);
+							else {
+								dogeStack.grow(1);
+								DogeLogger.logDebug("Coin stack size = " + dogeStack.getCount());
 							}
+							setInventorySlotContents(4, dogeStack);
+						}
+						if (gpuStack.getItemDamage() >= gpuStack.getMaxDamage()) {
+							DogeLogger.logDebug("Setting GPU stack to empty");
+							gpuStack.setCount(0);
+							//setInventorySlotContents(i, ItemStack.EMPTY);
 						}
 					}
 				}
 			}
 
-			if (gpus > 0) {
-				if (!isMining()) {
-					DogeLogger.logDebug("Setting mining to True");
+			if (isMining()) {
+				if (!getState().getValue(MiningRig.MINING)) {
+					DogeLogger.logDebug("Setting mining state to True");
 					MiningRig.setMining(true, world, pos);
 				}
 			}
 			else {
-				if (isMining()) {
-					DogeLogger.logDebug("Setting mining to False");
+				if (getState().getValue(MiningRig.MINING)) {
+					DogeLogger.logDebug("Setting mining state to False");
 					MiningRig.setMining(false, world, pos);
 				}
 			}
 		}
 	}
 	
+	private NonNullList<ItemStack> getGPUs() {
+		NonNullList<ItemStack> gpus = NonNullList.<ItemStack>create();
+		for (ItemStack gpuStack : items) {
+			if (!gpuStack.isEmpty() && gpuStack.getItem() instanceof GPU) {
+				gpus.add(gpuStack);
+			}
+		}
+		return gpus;
+	}
+	
 	public boolean isMining() {
-		Block block = this.world.getBlockState(this.pos).getBlock();
-		if (block == Doge.miningRigOn) {
-			return true;
-		}
-		else {
-		return false;
-		}
+		return getGPUs().size() > 0;
 	}
 	
 	private IBlockState getState() {
@@ -271,7 +273,7 @@ public class MiningRigTileEntity extends TileEntityLockable implements ISidedInv
 
 	@Override
 	public String getGuiID() {
-		return "doge:miningRig";
+		return "doge:mining_rig";
 	}
 
 	@Override

@@ -47,15 +47,15 @@ public class MiningRigContainer extends Container {
 			
 			if (i >= 36) {
 				if (!mergeItemStack(stack, 0, 36, false)) {
-					return null;
+					return ItemStack.EMPTY;
 				}
 			}
 			else if (stack.getItem() != Doge.gpu || !mergeItemStack(stack, 36, 36 + miningRig.getSizeInventory() - 1, false)) {
-				return null;
+				return ItemStack.EMPTY;
 			}
 			
 			if (stack.isEmpty()) {
-				slot.putStack(null);
+				slot.putStack(ItemStack.EMPTY);
 			}
 			else {
 				slot.onSlotChanged();
@@ -65,7 +65,7 @@ public class MiningRigContainer extends Container {
 			
 			return result;
 		}
-		return null;
+		return ItemStack.EMPTY;
 	}
 	
 }

@@ -1,8 +1,12 @@
 {
     "variants": {
-        "facing=north": { "model": "doge:mining_rig" },
-        "facing=south": { "model": "doge:mining_rig", "y": 180 },
-        "facing=west":  { "model": "doge:mining_rig", "y": 270 },
-        "facing=east":  { "model": "doge:mining_rig", "y": 90 }
+        "facing=north,mining=false": { "model": "doge:mining_rig" },
+        "facing=south,mining=false": { "model": "doge:mining_rig", "y": 180 },
+        "facing=west,mining=false":  { "model": "doge:mining_rig", "y": 270 },
+        "facing=east,mining=false":  { "model": "doge:mining_rig", "y": 90 },
+        "facing=north,mining=true": { "model": "doge:mining_rig_on" },
+        "facing=south,mining=true": { "model": "doge:mining_rig_on", "y": 180 },
+        "facing=west,mining=true":  { "model": "doge:mining_rig_on", "y": 270 },
+        "facing=east,mining=true":  { "model": "doge:mining_rig_on", "y": 90 }
     }
 }

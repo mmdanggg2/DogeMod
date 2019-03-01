@@ -64,6 +64,5 @@ public class DogeRegisterItems {
 		// Block Items
 		itemReg.register(new ItemBlock(Doge.dogeBlock).setRegistryName(Doge.dogeBlock.getRegistryName()));
 		itemReg.register(new ItemBlock(Doge.miningRig).setRegistryName(Doge.miningRig.getRegistryName()));
-		itemReg.register(new ItemBlock(Doge.miningRigOn).setRegistryName(Doge.miningRigOn.getRegistryName()));
 	}
 }
