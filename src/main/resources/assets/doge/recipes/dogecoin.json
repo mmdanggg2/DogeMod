@@ -1,5 +1,6 @@
 { 
   "type": "minecraft:crafting_shaped",
+  "group": "dogecoin",
   "pattern": [
     " G ",
     "GDG",
@@ -7,19 +8,16 @@
   "key": {
     "G": [
       {
-        "item": "minecraft:gold_ingot",
-        "data": 0
+        "item": "minecraft:gold_ingot"
       }
     ],
     "D": [
       {
-        "item": "minecraft:diamond",
-        "data": 0
+        "item": "minecraft:diamond"
       }
     ]
   },
   "result": {
-    "item": "doge:dogecoin",
-    "data": 0
+    "item": "doge:dogecoin"
   }
 }

@@ -7,13 +7,11 @@
   "key": {
     "A": [
       {
-        "item": "doge:dogecoin",
-        "data": 0
+        "item": "doge:dogecoin"
       }
     ]
   },
   "result": {
-    "item": "doge:doge_block",
-    "data": 0
+    "item": "doge:doge_block"
   }
 }

@@ -51,12 +51,13 @@ public class ClientProxy extends CommonProxy {
 		ModelLoader.setCustomModelResourceLocation(Doge.dogeChestplate, 0, new ModelResourceLocation(Doge.dogeChestplate.getRegistryName(), "inventory"));
 		ModelLoader.setCustomModelResourceLocation(Doge.dogeLeggings, 0, new ModelResourceLocation(Doge.dogeLeggings.getRegistryName(), "inventory"));
 		ModelLoader.setCustomModelResourceLocation(Doge.dogeBoots, 0, new ModelResourceLocation(Doge.dogeBoots.getRegistryName(), "inventory"));
+		
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(Doge.dogeBlock), 0, new ModelResourceLocation(Doge.dogeBlock.getRegistryName(), "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(Doge.miningRig), 0, new ModelResourceLocation(Doge.miningRig.getRegistryName(), "inventory"));
 	}
 	
 	@Override
 	public void registerBlockRenderers() {
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(Doge.dogeBlock), 0, new ModelResourceLocation(Doge.dogeBlock.getRegistryName(), "inventory"));
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(Doge.miningRig), 0, new ModelResourceLocation(Doge.miningRig.getRegistryName(), "inventory"));
 	}
 	
 	@Override

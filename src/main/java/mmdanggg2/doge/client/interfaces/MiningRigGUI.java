@@ -25,12 +25,22 @@ public class MiningRigGUI extends GuiContainer {
 	}
 	
 	private static final ResourceLocation texture = new ResourceLocation("doge", "textures/gui/mining_rig_gui.png");
-
+	
+	/**
+     * Draws the screen and all the components in it.
+     */
+    public void drawScreen(int mouseX, int mouseY, float partialTicks)
+    {
+        this.drawDefaultBackground();
+        super.drawScreen(mouseX, mouseY, partialTicks);
+        this.renderHoveredToolTip(mouseX, mouseY);
+    }
+    
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 		GL11.glColor4f(1, 1, 1, 1);
 		
-		Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
+		this.mc.getTextureManager().bindTexture(texture);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 	}
 	

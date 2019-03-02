@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "dogecoin",
+  "pattern": [
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "doge:doge_block"
+    }
+  },
+  "result": {
+    "item": "doge:dogecoin",
+    "count": 9
+  }
+}

@@ -1,0 +1,42 @@
+{ 
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CDC",
+    "GIG",
+    "RPR"  ],
+  "key": {
+    "R": [
+      {
+        "item": "minecraft:redstone"
+      }
+    ],
+    "G": [
+      {
+        "item": "minecraft:gold_ingot"
+      }
+    ],
+    "P": [
+      {
+        "item": "minecraft:iron_pickaxe"
+      }
+    ],
+    "I": [
+      {
+        "item": "minecraft:iron_block"
+      }
+    ],
+    "C": [
+      {
+        "item": "minecraft:comparator"
+      }
+    ],
+    "D": [
+      {
+        "item": "doge:dogecoin"
+      }
+    ]
+  },
+  "result": {
+    "item": "doge:mining_rig"
+  }
+}

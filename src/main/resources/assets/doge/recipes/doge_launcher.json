@@ -1,0 +1,22 @@
+{ 
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " D ",
+    "DD ",
+    " BD"  ],
+  "key": {
+    "D": [
+      {
+        "item": "doge:dogecoin"
+      }
+    ],
+    "B": [
+      {
+        "item": "minecraft:stone_button"
+      }
+    ]
+  },
+  "result": {
+    "item": "doge:doge_launcher"
+  }
+}

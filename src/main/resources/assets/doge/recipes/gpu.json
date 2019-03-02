@@ -1,0 +1,37 @@
+{ 
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RBR",
+    "CGC",
+    "III"  ],
+  "key": {
+    "R": [
+      {
+        "item": "minecraft:redstone"
+      }
+    ],
+    "G": [
+      {
+        "item": "minecraft:gold_ingot"
+      }
+    ],
+    "B": [
+      {
+        "item": "minecraft:redstone_block"
+      }
+    ],
+    "C": [
+      {
+        "item": "minecraft:comparator"
+      }
+    ],
+    "I": [
+      {
+        "item": "minecraft:iron_ingot"
+      }
+    ]
+  },
+  "result": {
+    "item": "doge:gpu"
+  }
+}

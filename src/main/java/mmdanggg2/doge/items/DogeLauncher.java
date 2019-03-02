@@ -4,7 +4,12 @@ import javax.annotation.Nullable;
 
 import mmdanggg2.doge.Doge;
 import mmdanggg2.doge.entities.DogeProjectile;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentArrowDamage;
+import net.minecraft.enchantment.EnchantmentArrowFire;
+import net.minecraft.enchantment.EnchantmentArrowInfinite;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
@@ -71,7 +76,7 @@ public class DogeLauncher extends ItemBow {
 		boolean flag = player.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stack) > 0;
 		ItemStack coinStack = findAmmo(player);
 		
-		if (flag || coinStack != null) {
+		if (flag || !coinStack.isEmpty()) {
 			
 			DogeProjectile projectile = new DogeProjectile(world, player);
 			
@@ -80,6 +85,10 @@ public class DogeLauncher extends ItemBow {
 			if (powerEnchLvl > 0) {
 				projectile.damage = projectile.damage + powerEnchLvl * 2f + 1f;
 			}
+            if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FLAME, stack) > 0)
+            {
+                projectile.setFire(100);
+            }
 			if (flag) {
 				projectile.dropCoin = false;
 			}
@@ -93,7 +102,7 @@ public class DogeLauncher extends ItemBow {
 			world.playSound(player, player.getPosition(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 1.0F, 1.0F / (itemRand.nextFloat() * 1.5F));
 			
 			if (!world.isRemote) {
-				projectile.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 1.0F);
+				projectile.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 2F, 1.0F);
 				world.spawnEntity(projectile);
 			}
 	        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
@@ -116,4 +125,14 @@ public class DogeLauncher extends ItemBow {
 	
 	@Override
 	public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase enitity, int timeLeft) {}
+
+	@Override
+	public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+		Class<? extends Enchantment> enchClass = enchantment.getClass();
+		if (enchClass == EnchantmentArrowDamage.class || enchClass == EnchantmentArrowInfinite.class || enchClass == EnchantmentArrowFire.class) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
