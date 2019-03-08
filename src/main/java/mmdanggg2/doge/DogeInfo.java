@@ -4,7 +4,7 @@ public class DogeInfo {
 	
 	public static final String ID = "doge";
 	public static final String NAME = "Doge";
-	public static final String VER = "0.5.3";
+	public static final String VER = "0.6.0";
 	public static final String CLIENTPROXY = "mmdanggg2.doge.client.ClientProxy";
 	public static final String COMMONPROXY = "mmdanggg2.doge.CommonProxy";
 

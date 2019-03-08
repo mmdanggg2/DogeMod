@@ -55,7 +55,6 @@ public class DogeConfigGUIFactory implements IModGuiFactory {
 
 	@Override
 	public Set<RuntimeOptionCategoryElement> runtimeGuiCategories() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -66,7 +65,6 @@ public class DogeConfigGUIFactory implements IModGuiFactory {
 
 	@Override
 	public GuiScreen createConfigGui(GuiScreen parentScreen) {
-		// TODO Auto-generated method stub
 		return new DogeConfigGUI(parentScreen);
 	}
 

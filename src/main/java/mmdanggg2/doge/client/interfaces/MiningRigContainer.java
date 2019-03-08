@@ -39,33 +39,37 @@ public class MiningRigContainer extends Container {
 	
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int i) {
+		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = getSlot(i);
 		
 		if (slot != null && slot.getHasStack()) {
-			ItemStack stack = slot.getStack();
-			ItemStack result = stack.copy();
+			ItemStack slotStack = slot.getStack();
+			itemstack = slotStack.copy();
 			
 			if (i >= 36) {
-				if (!mergeItemStack(stack, 0, 36, false)) {
+				if (!mergeItemStack(slotStack, 0, 35, false)) {
 					return ItemStack.EMPTY;
 				}
 			}
-			else if (stack.getItem() != Doge.gpu || !mergeItemStack(stack, 36, 36 + miningRig.getSizeInventory() - 1, false)) {
+			else if (slotStack.getItem() != Doge.gpu || !mergeItemStack(slotStack, 36, 36 + miningRig.getSizeInventory() - 1, false)) {
 				return ItemStack.EMPTY;
 			}
 			
-			if (stack.isEmpty()) {
+			if (slotStack.isEmpty()) {
 				slot.putStack(ItemStack.EMPTY);
 			}
 			else {
 				slot.onSlotChanged();
 			}
 			
-			slot.onTake(player, stack);
+			if (slotStack.getCount() == itemstack.getCount())
+			{
+				return ItemStack.EMPTY;
+			}
 			
-			return result;
+			slot.onTake(player, slotStack);
 		}
-		return ItemStack.EMPTY;
+		return itemstack;
 	}
 	
 }

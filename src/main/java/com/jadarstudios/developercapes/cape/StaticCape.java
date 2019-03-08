@@ -48,7 +48,7 @@ public class StaticCape extends AbstractCape {
         		plrTxtrsF = NetworkPlayerInfo.class.getDeclaredField("playerTextures");
         	}
         	catch(NoSuchFieldException e) {
-        		plrTxtrsF = NetworkPlayerInfo.class.getDeclaredField("field_175157_aFIXME"); //TODO Figure out this new val
+        		plrTxtrsF = NetworkPlayerInfo.class.getDeclaredField("field_187107_a");
             }
         	plrTxtrsF.setAccessible(true);
         	@SuppressWarnings("unchecked")
