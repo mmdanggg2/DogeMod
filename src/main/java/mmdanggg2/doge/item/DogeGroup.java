@@ -18,7 +18,7 @@ public class DogeGroup extends ItemGroup {
 	
 	@Override
 	public ItemStack createIcon() {
-		return new ItemStack(DogeItems.dogecoin);
+		return new ItemStack(DogeItems.DOGECOIN.get());
 	}
 	
 }

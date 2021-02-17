@@ -18,7 +18,6 @@ import net.minecraft.world.World;
 public class Dogecoin extends Item {
 	public Dogecoin() {
 		super(new Item.Properties().maxStackSize(64).group(DogeGroup.dogeGroup));
-		setRegistryName("dogecoin");
 	}
 	
 	@Override
@@ -27,7 +26,7 @@ public class Dogecoin extends Item {
 			String entClassStr = activatedEntity.getClass().getSimpleName();
 			DogeLogger.logDebug("Coin clicked on class: " + entClassStr);
 			Boolean match = false;
-			for (String str : DogeConfig.ServerConfig.dogecoinConvertList) {
+			for (String str : DogeConfig.dogecoinConvertList) {
 				//DogeLogger.logDebug("Checking: " + str + " == " + entClassStr);
 				if (entClassStr.equals(str)) {
 					//DogeLogger.logDebug("Class match! " + str);

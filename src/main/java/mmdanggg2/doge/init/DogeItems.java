@@ -1,50 +1,53 @@
 package mmdanggg2.doge.init;
 
 import mmdanggg2.doge.Doge;
-import mmdanggg2.doge.block.DogeBlock;
-import mmdanggg2.doge.block.MiningRig;
+import mmdanggg2.doge.config.DogeConfig;
 import mmdanggg2.doge.item.DogeArmour;
+import mmdanggg2.doge.item.DogeGroup;
 import mmdanggg2.doge.item.DogeLauncher;
 import mmdanggg2.doge.item.Dogecoin;
 import mmdanggg2.doge.item.GPU;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.HoeItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemTier;
+import net.minecraft.item.Items;
 import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.ShovelItem;
 import net.minecraft.item.SwordItem;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ObjectHolder;
 
-@ObjectHolder(Doge.ID)
 public class DogeItems {
 	
-	public static final DeferredRegister<Item> ITEMS = new DeferredRegister<Item>(ForgeRegistries.ITEMS, Doge.ID);
+	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Doge.ID);
 	
 	// Tools
-	public static final PickaxeItem doge_pickaxe = null;
-	public static final AxeItem doge_axe = null;
-	public static final ShovelItem doge_shovel = null;
-	public static final HoeItem doge_hoe = null;
-	public static final SwordItem doge_sword = null;
+	public static final RegistryObject<PickaxeItem> DOGE_PICKAXE = ITEMS.register("doge_pickaxe", ()-> new PickaxeItem(ItemTier.DIAMOND, DogeConfig.toolDamage, DogeConfig.toolSpeed, new Item.Properties().group(DogeGroup.dogeGroup)));
+	public static final RegistryObject<AxeItem> DOGE_AXE = ITEMS.register("doge_axe", ()-> new AxeItem(ItemTier.DIAMOND, DogeConfig.toolDamage, DogeConfig.toolSpeed, new Item.Properties().group(DogeGroup.dogeGroup)));
+	public static final RegistryObject<ShovelItem> DOGE_SHOVEL = ITEMS.register("doge_shovel", ()-> new ShovelItem(ItemTier.DIAMOND, DogeConfig.toolDamage, DogeConfig.toolSpeed, new Item.Properties().group(DogeGroup.dogeGroup)));
+	public static final RegistryObject<HoeItem> DOGE_HOE = ITEMS.register("doge_hoe", ()-> new HoeItem(ItemTier.DIAMOND, DogeConfig.toolDamage, DogeConfig.toolSpeed, new Item.Properties().group(DogeGroup.dogeGroup)));
+	public static final RegistryObject<SwordItem> DOGE_SWORD = ITEMS.register("doge_sword", ()-> new SwordItem(ItemTier.DIAMOND, DogeConfig.toolDamage, DogeConfig.toolSpeed, new Item.Properties().group(DogeGroup.dogeGroup)));
 
 	// Doge Armour
-	public static final DogeArmour doge_helmet = null;
-	public static final DogeArmour doge_chestplate = null;
-	public static final DogeArmour doge_leggings = null;
-	public static final DogeArmour doge_boots = null;
+	public static final RegistryObject<DogeArmour> DOGE_HELMET = ITEMS.register("doge_helmet", ()-> new DogeArmour(EquipmentSlotType.HEAD));
+	public static final RegistryObject<DogeArmour> DOGE_CHESTPLATE = ITEMS.register("doge_chestplate", ()-> new DogeArmour(EquipmentSlotType.CHEST));
+	public static final RegistryObject<DogeArmour> DOGE_LEGGINGS = ITEMS.register("doge_leggings", ()-> new DogeArmour(EquipmentSlotType.LEGS));
+	public static final RegistryObject<DogeArmour> DOGE_BOOTS = ITEMS.register("doge_boots", ()-> new DogeArmour(EquipmentSlotType.FEET));
 
 	// Other
-	public static final Dogecoin dogecoin = null;
+	public static final RegistryObject<Dogecoin> DOGECOIN = ITEMS.register("dogecoin", ()-> new Dogecoin());
 
-	public static final DogeLauncher doge_launcher = null;
+	public static final RegistryObject<DogeLauncher> DOGE_LAUNCHER = ITEMS.register("doge_launcher", ()-> new DogeLauncher());
 	
-	public static final GPU gpu = null;
+	public static final RegistryObject<GPU> GPU = ITEMS.register("gpu", ()-> new GPU());
 	
 	//Blocks
-	public static final BlockItem doge_block = null;
+	public static final RegistryObject<BlockItem> DOGE_BLOCK = ITEMS.register(DogeBlocks.DOGE_BLOCK.getId().getPath(), ()-> new BlockItem(DogeBlocks.DOGE_BLOCK.get(), new Item.Properties().group(DogeGroup.dogeGroup)));
 	
-	public static final BlockItem mining_rig = null;
+	//public static final RegistryObject<BlockItem> MINING_RIG = ITEMS.register(DogeBlocks.MINING_RIG.getId().getPath(), ()-> new BlockItem(DogeBlocks.MINING_RIG.get(), new Item.Properties().group(DogeGroup.dogeGroup)));
 }

@@ -45,8 +45,6 @@ public class MiningRig extends ContainerBlock {
 	public MiningRig() {
 		super(Block.Properties.create(Material.IRON, MaterialColor.GRAY).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).sound(SoundType.METAL));
 		//this.setDefaultState(this.stateContainer.getBaseState().withProperty(FACING, Direction.NORTH).withProperty(MINING, false));
-		
-		setRegistryName("mining_rig");
 	}
 
 	@Override

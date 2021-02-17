@@ -4,6 +4,7 @@ import javax.annotation.Nullable;
 
 import mmdanggg2.doge.Doge;
 import mmdanggg2.doge.DogeInfo;
+import mmdanggg2.doge.config.DogeConfig;
 import mmdanggg2.doge.util.DogeLogger;
 import mmdanggg2.doge.util.NBTHelper;
 import net.minecraft.block.state.IBlockState;
@@ -25,20 +26,16 @@ import net.minecraft.world.World;
 public class GPU extends Item {
 
 	private int coinChance;
-	private float speedStart;
-	private float speedStep;
+	private double speedStart;
+	private double speedStep;
 	private int coolRate;
 	
 	public GPU() {
-		this.maxStackSize = 1;
-		this.setMaxDamage(20);
-		this.setCreativeTab(DogeGroup.dogeGroup);
-		this.setUnlocalizedName("gpu");
-		this.setRegistryName("gpu");
-		this.coinChance = DogeInfo.gpuChance;
-		this.speedStart = DogeInfo.gpuSpeedStart;
-		this.speedStep = DogeInfo.gpuSpeedStep;
-		this.coolRate = DogeInfo.gpuCoolRate;
+		super(new Item.Properties().group(DogeGroup.dogeGroup).maxStackSize(1).maxDamage(20));
+		this.coinChance = DogeConfig.gpuChance;
+		this.speedStart = DogeConfig.gpuSpeedStart;
+		this.speedStep = DogeConfig.gpuSpeedStep;
+		this.coolRate = DogeConfig.gpuCoolRate;
 	}
 	
 	@Override

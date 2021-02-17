@@ -26,7 +26,6 @@ public class DogeLauncher extends BowItem {
 	
 	public DogeLauncher() {
 		super(new Item.Properties().group(DogeGroup.dogeGroup).maxStackSize(1));
-		setRegistryName("doge_launcher");
 	}
 	
 	protected ItemStack findAmmo(PlayerEntity player)
