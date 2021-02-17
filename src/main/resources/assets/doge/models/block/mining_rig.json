@@ -1,12 +1,12 @@
 {
     "parent": "block/cube",
     "textures": {
-        "particle": "doge:blocks/mining_rig_front_off",
-        "up": "doge:blocks/mining_rig_top_back_off",
-        "down": "doge:blocks/mining_rig_bottom",
-        "south": "doge:blocks/mining_rig_top_back_off",
-        "north": "doge:blocks/mining_rig_front_off",
-        "east": "doge:blocks/mining_rig_side_off",
-        "west": "doge:blocks/mining_rig_side_off"
+        "particle": "doge:block/mining_rig_front_off",
+        "up": "doge:block/mining_rig_top_back_off",
+        "down": "doge:block/mining_rig_bottom",
+        "south": "doge:block/mining_rig_top_back_off",
+        "north": "doge:block/mining_rig_front_off",
+        "east": "doge:block/mining_rig_side_off",
+        "west": "doge:block/mining_rig_side_off"
     }
 }

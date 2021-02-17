@@ -3,69 +3,66 @@ package mmdanggg2.doge.entities;
 import java.util.UUID;
 
 import mmdanggg2.doge.Doge;
-import mmdanggg2.doge.DogeInfo;
+import mmdanggg2.doge.init.DogeItems;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.entity.passive.EntityWolf;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.AgeableEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.CreatureAttribute;
+import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.WolfEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Items;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemFood;
+import net.minecraft.item.Food;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class DogeMob extends EntityWolf
+public class DogeMob extends WolfEntity
 {
-    private static final DataParameter<Float> DATA_HEALTH_ID = EntityDataManager.<Float>createKey(DogeMob.class, DataSerializers.FLOAT);
     private static final DataParameter<Boolean> BEGGING = EntityDataManager.<Boolean>createKey(DogeMob.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Integer> COLLAR_COLOR = EntityDataManager.<Integer>createKey(DogeMob.class, DataSerializers.VARINT);
-	public DogeMob(World par1World)
+	public DogeMob(EntityType<? extends WolfEntity> type, World world)
 	{
-		super(par1World);
-		
+		super(type, world);
 	}
-	
-	@Override
-    protected void updateAITasks()
-    {
-        this.dataManager.set(DATA_HEALTH_ID, Float.valueOf(this.getHealth()));
-    }
     
     @Override
-    protected void entityInit()
+    protected void registerData()
     {
-        super.entityInit();
-        this.dataManager.register(DATA_HEALTH_ID, Float.valueOf(this.getHealth()));
-        this.dataManager.register(BEGGING, Boolean.valueOf(false));
-        this.dataManager.register(COLLAR_COLOR, Integer.valueOf(EnumDyeColor.RED.getDyeDamage()));
+        super.registerData();
+        this.dataManager.set(BEGGING, Boolean.valueOf(false));
+        this.dataManager.register(COLLAR_COLOR, Integer.valueOf(DyeColor.RED.getId()));
     }
 	
 	@Override
-	protected void applyEntityAttributes()
+	protected AttributeModifierMap.MutableAttribute applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.35D);
+		this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.35D);
 		
 		if (this.isTamed())
 		{
-			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(200.0D);
+			this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(200.0D);
+			this.setHealth(200.0f);
 		}
 		else
 		{
-			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
+			this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(50.0D);
 		}
 	}
 	
@@ -76,48 +73,50 @@ public class DogeMob extends EntityWolf
 		
 		if (par1)
 		{
-			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(200.0D);
+			this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(200.0D);
 		}
 		else
 		{
-			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
+			this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(50.0D);
 		}
 	}
 	
 	/**
 	 * Called when a player interacts with a mob. e.g. gets milk from a cow, gets into the saddle on a pig.
+	 * 
 	 */
 	@Override
-	public boolean processInteract(EntityPlayer par1EntityPlayer, EnumHand hand)
+	public ActionResultType func_230254_b_(PlayerEntity player, Hand hand)
 	{
-		ItemStack itemstack = par1EntityPlayer.inventory.getCurrentItem();
+		ItemStack itemstack = player.inventory.getCurrentItem();
 		
-		if (!itemstack.isEmpty() && itemstack.getItem() == Doge.dogecoin && !this.isAngry() && !this.isTamed())
+		if (!itemstack.isEmpty() && itemstack.getItem() == DogeItems.dogecoin && !this.func_233678_J__() && !this.isTamed())
 		{
-			if (!par1EntityPlayer.capabilities.isCreativeMode)
+			if (!player.abilities.isCreativeMode)
 			{
 				itemstack.shrink(1);
 			}
 			
 			if (itemstack.isEmpty())
 			{
-				par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, ItemStack.EMPTY);
+				player.inventory.setInventorySlotContents(player.inventory.currentItem, ItemStack.EMPTY);
 			}
 			
 			if (this.isServerWorld())
 			{
-				makeTamed(par1EntityPlayer);
+				makeTamed(player);
 				this.aiSit.setSitting(true);
 			}
 			
-			return true;
+			return ActionResultType.SUCCESS;
 		}
 		
-		if (!itemstack.isEmpty() && itemstack.getItem() == Items.BONE && !this.isAngry()) { return false; }
+		if (!itemstack.isEmpty() && itemstack.getItem() == Items.BONE && !this.func_233678_J__()) { return ActionResultType.FAIL; }
 		
-		return super.processInteract(par1EntityPlayer, hand);
+		return super.func_230254_b_(player, hand);
 	}
 	
+	/*
 	@Override
     protected SoundEvent getAmbientSound()
     {
@@ -129,7 +128,7 @@ public class DogeMob extends EntityWolf
 	public float getTailRotation()
 	{
 		return this.isAngry() ? 1.5393804F : (this.isTamed() ? (0.75F - (200.0F - ((Float)this.dataManager.get(DATA_HEALTH_ID)).floatValue()) * 0.003F) * (float)Math.PI : ((float)Math.PI / 5F));
-	}
+	}*/
 	
 	/**
 	 * Checks if the parameter is an item which this animal can be fed to breed it (wheat, carrots or seeds depending on
@@ -138,7 +137,7 @@ public class DogeMob extends EntityWolf
 	@Override
 	public boolean isBreedingItem(ItemStack par1ItemStack)
 	{
-		return par1ItemStack == null ? false : (!(par1ItemStack.getItem() instanceof ItemFood) ? false : ((ItemFood) par1ItemStack.getItem()).isWolfsFavoriteMeat());
+		return par1ItemStack == null ? false : (!(par1ItemStack.getItem() instanceof Food) ? false : ((ItemFood) par1ItemStack.getItem()).isWolfsFavoriteMeat());
 	}
 	
 	/**
@@ -147,7 +146,7 @@ public class DogeMob extends EntityWolf
 	@Override
 	protected Item getDropItem()
 	{
-		return Doge.dogecoin;
+		return DogeItems.dogecoin;
 	}
 	
 	/**
@@ -163,9 +162,9 @@ public class DogeMob extends EntityWolf
 	 * This function is used when two same-species animals in 'love mode' breed to generate the new baby animal.
 	 */
 	@Override
-	public DogeMob createChild(EntityAgeable par1EntityAgeable)
+	public DogeMob func_241840_a(ServerWorld sWorld, AgeableEntity par1EntityAgeable)
 	{
-		DogeMob childAnimal = new DogeMob(this.world);
+		DogeMob childAnimal = new DogeMob((EntityType<DogeMob>)EntityType.byKey("dogeMob").get(), this.world);
 		UUID owner = this.getOwnerId();
 		
 		if (owner != null) {
@@ -180,7 +179,7 @@ public class DogeMob extends EntityWolf
 	 * Returns true if the mob is currently able to mate with the specified mob.
 	 */
 	@Override
-	public boolean canMateWith(EntityAnimal animal)
+	public boolean canMateWith(AnimalEntity animal)
 	{
 		if (animal == this)
 		{
@@ -212,10 +211,10 @@ public class DogeMob extends EntityWolf
 		}
 	}
 	
-	public void makeTamed(EntityPlayer player) {
+	public void makeTamed(PlayerEntity player) {
 		this.setTamed(true);
 		this.navigator.clearPath();
-		this.setAttackTarget((EntityLivingBase)null);
+		this.setAttackTarget((LivingEntity)null);
 		//		this.aiSit.setSitting(true);
 		this.setHealth(200.0F);
 		this.setOwnerId(player.getUniqueID());

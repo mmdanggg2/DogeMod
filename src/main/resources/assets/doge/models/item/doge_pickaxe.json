@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "doge:items/doge_pickaxe"
+        "layer0": "doge:item/doge_pickaxe"
     }
 }

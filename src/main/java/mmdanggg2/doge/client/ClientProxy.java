@@ -4,9 +4,9 @@ import com.jadarstudios.developercapes.DevCapes;
 
 import mmdanggg2.doge.CommonProxy;
 import mmdanggg2.doge.Doge;
+import mmdanggg2.doge.client.renderer.DogeMobRender;
 import mmdanggg2.doge.entities.DogeMob;
 import mmdanggg2.doge.entities.DogeProjectile;
-import mmdanggg2.doge.renderer.DogeMobRender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelWolf;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;

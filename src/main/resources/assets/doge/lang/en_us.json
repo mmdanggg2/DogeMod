@@ -1,0 +1,23 @@
+{
+    "block.doge.doge_block": "Doge Block",
+    "block.doge.mining_rig": "Mining Rig",
+    
+    "item.doge.dogecoin": "Dogecoin",
+    "item.doge.doge_launcher": "Doge Launcher",
+    "item.doge.gpu": "GPU",
+    
+    "item.doge.doge_pickaxe": "such mine",
+    "item.doge.doge_axe": "many chop",
+    "item.doge.doge_shovel": "much dig",
+    "item.doge.doge_hoe": "very farm",
+    "item.doge.doge_sword": "wow attack",
+    
+    "item.doge.doge_helmet": "many protect face",
+    "item.doge.doge_chestplate": "much chest armor",
+    "item.doge.doge_leggings": "very leg defend",
+    "item.doge.doge_boots": "wow shoes",
+    
+    "entity.doge.doge_mob": "Shiba",
+    
+    "itemGroup.doge_tab": "Doge Mod"
+}

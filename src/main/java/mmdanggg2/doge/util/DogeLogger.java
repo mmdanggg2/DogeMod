@@ -1,19 +1,21 @@
 package mmdanggg2.doge.util;
 
-import mmdanggg2.doge.DogeInfo;
+import mmdanggg2.doge.Doge;
+import mmdanggg2.doge.config.DogeConfig;
 
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class DogeLogger {
 	
-	public static Logger logger;
+	public final static Logger logger = LogManager.getLogger(Doge.ID);
 	
 	public static void logInfo(String message) {
 		logger.info(message);
 	}
 
 	public static void logDebug(String message) {
-		if (DogeInfo.debug) {
+		if (DogeConfig.ServerConfig.debug) {
 			logger.info("[DEBUG] " + message);
 		}
 	}

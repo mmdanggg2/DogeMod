@@ -1,0 +1,23 @@
+{
+    "block.doge.doge_block": "Bloque de Doge",
+    "block.doge.mining_rig": "Equipo de Perforación Minera",
+    
+    "item.doge.dogecoin": "Dogecoin",
+    "item.doge.doge_launcher": "Disparador Doge",
+    "item.doge.gpu": "GPU",
+    
+    "item.doge.doge_pickaxe": "vaya mineria",
+    "item.doge.doge_axe": "mucha tala",
+    "item.doge.doge_shovel": "mucha escavacion",
+    "item.doge.doge_hoe": "muy granja",
+    "item.doge.doge_sword": "ataque muy guau",
+    
+    "item.doge.doge_helmet": "cara proteccion",
+    "item.doge.doge_chestplate": "pecho mucha proteccion",
+    "item.doge.doge_leggings": "pies mucha defensa",
+    "item.doge.doge_boots": "zapatos guau",
+    
+    "entity.doge.doge_mob": "Doge",
+    
+    "itemGroup.doge_tab": "Mod de Doge"
+}

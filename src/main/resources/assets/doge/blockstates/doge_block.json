@@ -1,5 +1,5 @@
 {
     "variants": {
-        "normal": { "model": "doge:doge_block" }
+        "": { "model": "doge:block/doge_block" }
     }
 }
