@@ -46,4 +46,26 @@ public class NBTHelper {
 		}
 		return def;
 	}
+	
+	/**
+	 * @param tagComp
+	 *            The NBTTagCompund to use
+	 * @param tag
+	 *            The name of the tag to get
+	 * @param def
+	 *            The default value of the tag if it doesn't exist
+	 * @return The value in the tag or the default if it didn't exist
+	 */
+	public static double getDouble(CompoundNBT tagComp, String tag, double def) {
+		if (tagComp != null) {
+			if (tagComp.contains(tag)) {
+				return tagComp.getInt(tag);
+			}
+			else {
+				tagComp.putDouble(tag, def);
+				return def;
+			}
+		}
+		return def;
+	}
 }

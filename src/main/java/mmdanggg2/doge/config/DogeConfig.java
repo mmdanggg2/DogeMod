@@ -32,8 +32,8 @@ public class DogeConfig {
 	public static int rigSpeed;
 	
 	public static int gpuChance;
-	public static double gpuSpeedStart;
-	public static double gpuSpeedStep;
+	public static float gpuSpeedStart;
+	public static float gpuSpeedStep;
 	public static int gpuCoolRate;
 	
 	public static List<? extends String> dogecoinConvertList;
@@ -62,8 +62,8 @@ public class DogeConfig {
 		rigSpeed = SERVER.rigSpeed.get();
 		
 		gpuChance = SERVER.gpuChance.get();
-		gpuSpeedStart = SERVER.gpuSpeedStart.get();
-		gpuSpeedStep = SERVER.gpuSpeedStep.get();
+		gpuSpeedStart = SERVER.gpuSpeedStart.get().floatValue();
+		gpuSpeedStep = SERVER.gpuSpeedStep.get().floatValue();
 		gpuCoolRate = SERVER.gpuCoolRate.get();
 		
 		dogecoinConvertList = SERVER.dogecoinConvertList.get();

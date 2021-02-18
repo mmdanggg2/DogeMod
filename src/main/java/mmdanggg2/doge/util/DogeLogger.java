@@ -15,7 +15,7 @@ public class DogeLogger {
 	}
 
 	public static void logDebug(String message) {
-		if (DogeConfig.ServerConfig.debug) {
+		if (DogeConfig.debug) {
 			logger.info("[DEBUG] " + message);
 		}
 	}
