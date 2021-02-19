@@ -28,17 +28,8 @@ import net.minecraftforge.registries.IForgeRegistry;
 @EventBusSubscriber(modid = Doge.ID, bus = EventBusSubscriber.Bus.MOD)
 public class DogeRegister {
 	
-	/*/ Tile entities
-	@SubscribeEvent
-	public static void onRegisterTileEntities(RegistryEvent.Register<TileEntityType> event) {
-		DogeLogger.logInfo("Registering Tile entities");
-
-		IForgeRegistry<TileEntityType> tileEntityReg = event.getRegistry();
-		
-		tileEntityReg.register(MiningRigTileEntity.class, new ResourceLocation(Doge.ID, "mining_rig_tile_entity"));
-	}
 	
-	// Entities
+	/*/ Entities
 	@SubscribeEvent
 	public static void onRegisterEntities(RegistryEvent.Register<EntityType> event) {
 		DogeLogger.logInfo("Registering Entities");

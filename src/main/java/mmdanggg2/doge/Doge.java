@@ -2,7 +2,9 @@ package mmdanggg2.doge;
 
 import mmdanggg2.doge.config.DogeConfig;
 import mmdanggg2.doge.init.DogeBlocks;
+import mmdanggg2.doge.init.DogeContainerTypes;
 import mmdanggg2.doge.init.DogeItems;
+import mmdanggg2.doge.init.DogeTileEntityTypes;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -22,6 +24,8 @@ public class Doge {
 		
 		DogeItems.ITEMS.register(jModContext.getModEventBus());
 		DogeBlocks.BLOCKS.register(jModContext.getModEventBus());
+		DogeTileEntityTypes.TILE_ENTITY_TYPES.register(jModContext.getModEventBus());
+		DogeContainerTypes.CONTAINERS.register(jModContext.getModEventBus());
 		
 		//DogeLogger.logInfo("Registering Recipes");
 		//DogeRegisterRecipes.register();

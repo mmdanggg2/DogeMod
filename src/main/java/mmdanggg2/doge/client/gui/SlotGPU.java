@@ -1,8 +1,9 @@
 package mmdanggg2.doge.client.gui;
 
 import mmdanggg2.doge.Doge;
+import mmdanggg2.doge.init.DogeItems;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 
 public class SlotGPU extends Slot {
@@ -20,7 +21,7 @@ public class SlotGPU extends Slot {
 			return false;
 		}
 		else {
-			return stack.getItem() == Doge.gpu;
+			return stack.getItem() == DogeItems.DOGECOIN.get();
 		}
 	}
 	

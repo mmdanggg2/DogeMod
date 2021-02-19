@@ -49,5 +49,5 @@ public class DogeItems {
 	//Blocks
 	public static final RegistryObject<BlockItem> DOGE_BLOCK = ITEMS.register(DogeBlocks.DOGE_BLOCK.getId().getPath(), ()-> new BlockItem(DogeBlocks.DOGE_BLOCK.get(), new Item.Properties().group(DogeGroup.dogeGroup)));
 	
-	//public static final RegistryObject<BlockItem> MINING_RIG = ITEMS.register(DogeBlocks.MINING_RIG.getId().getPath(), ()-> new BlockItem(DogeBlocks.MINING_RIG.get(), new Item.Properties().group(DogeGroup.dogeGroup)));
+	public static final RegistryObject<BlockItem> MINING_RIG = ITEMS.register(DogeBlocks.MINING_RIG.getId().getPath(), ()-> new BlockItem(DogeBlocks.MINING_RIG.get(), new Item.Properties().group(DogeGroup.dogeGroup)));
 }

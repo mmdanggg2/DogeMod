@@ -1,6 +1,7 @@
 package mmdanggg2.doge.client.gui;
 
 import mmdanggg2.doge.Doge;
+import mmdanggg2.doge.container.MiningRigContainer;
 import mmdanggg2.doge.tileentitiy.MiningRigTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;

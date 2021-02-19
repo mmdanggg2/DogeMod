@@ -10,6 +10,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.lwjgl.opengl.GL11;
 
+import mmdanggg2.doge.container.MiningRigContainer;
 import mmdanggg2.doge.tileentitiy.MiningRigTileEntity;
 
 @SideOnly(Side.CLIENT)

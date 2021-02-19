@@ -17,5 +17,5 @@ public class DogeBlocks {
 	
 	public static final RegistryObject<Block> DOGE_BLOCK = BLOCKS.register("doge_block", ()-> new Block(Block.Properties.create(Material.IRON, MaterialColor.GOLD).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).sound(SoundType.METAL)));
 	
-	//public static final RegistryObject<MiningRig> MINING_RIG = BLOCKS.register("mining_rig", ()-> new MiningRig());
+	public static final RegistryObject<MiningRig> MINING_RIG = BLOCKS.register("mining_rig", ()-> new MiningRig());
 }
