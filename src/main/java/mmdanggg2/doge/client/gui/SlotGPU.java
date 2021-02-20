@@ -21,7 +21,7 @@ public class SlotGPU extends Slot {
 			return false;
 		}
 		else {
-			return stack.getItem() == DogeItems.DOGECOIN.get();
+			return stack.getItem() == DogeItems.GPU.get();
 		}
 	}
 	
