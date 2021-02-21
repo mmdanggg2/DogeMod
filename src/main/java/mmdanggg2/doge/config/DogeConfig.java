@@ -141,7 +141,7 @@ public class DogeConfig {
 			builder.pop();
 			
 			builder.push("debug");
-			debug = builder.comment("Show debug output in log (Default false)").define("debug", false);
+			debug = builder.comment("Show debug output in log").define("debug", false);
 			builder.pop();
 		}
 

@@ -27,6 +27,10 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.wrapper.SidedInvWrapper;
 
 public class MiningRigTileEntity extends LockableTileEntity implements ISidedInventory, ITickableTileEntity {
 	
@@ -272,9 +276,26 @@ public class MiningRigTileEntity extends LockableTileEntity implements ISidedInv
 		return new MiningRigContainer(id, player, this);
 	}
 
+	LazyOptional<? extends net.minecraftforge.items.IItemHandler>[] handlers = 
+			SidedInvWrapper.create(this, Direction.UP, Direction.DOWN, Direction.NORTH);
+	
+	@Override
+	public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
+		if (!this.removed && side != null && cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+			if (side == Direction.UP)
+				return handlers[0].cast();
+			else if (side == Direction.DOWN)
+				return handlers[1].cast();
+			else
+				return handlers[2].cast();
+		}
+		return super.getCapability(cap, side);
+	}
+
 	@Override
 	public void remove() {
 		super.remove();
-		
+		for (int x = 0; x < handlers.length; x++)
+			handlers[x].invalidate();
 	}
 }
