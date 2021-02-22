@@ -42,7 +42,7 @@ public class DogeConfig {
 	public static int shibaSpawnChance;
 	public static int shibaSpawnMinSize;
 	public static int shibaSpawnMaxSize;
-	public static double shibaAtkDamage;
+	public static float shibaAtkDamage;
 
 	public static boolean debug;
 	
@@ -72,7 +72,7 @@ public class DogeConfig {
 		shibaSpawnChance = SERVER.shibaSpawnChance.get();
 		shibaSpawnMinSize = SERVER.shibaSpawnMinSize.get();
 		shibaSpawnMaxSize = SERVER.shibaSpawnMaxSize.get();
-		shibaAtkDamage = SERVER.shibaAtkDamage.get();
+		shibaAtkDamage = SERVER.shibaAtkDamage.get().floatValue();
 
 		debug = SERVER.debug.get();
 	}
@@ -96,7 +96,7 @@ public class DogeConfig {
 		public final IntValue shibaSpawnChance;
 		public final IntValue shibaSpawnMinSize;
 		public final IntValue shibaSpawnMaxSize;
-		public final IntValue shibaAtkDamage;
+		public final DoubleValue shibaAtkDamage;
 
 		public final BooleanValue debug;
 
@@ -121,15 +121,15 @@ public class DogeConfig {
 			
 			builder.push("dogecoin");
 			dogecoinConvertList = builder.comment("This is a list of Java classes that are able to be converted into Shiba's by a coin").defineList("dogecoinConvertList", List.of(
-					"EntityPig",
-					"EntityWolf",
-					"EntityChicken",
-					"EntityCow",
-					"EntityOcelot",
-					"EntitySheep",
-					"EntitySquid",
-					"EntityCreeper",
-					"EntitySnowman"), x->true);
+					"PigEntity",
+					"WolfEntity",
+					"ChickenEntity",
+					"CowEntity",
+					"OcelotEntity",
+					"SheepEntity",
+					"SquidEntity",
+					"CreeperEntity",
+					"SnowmanEntity"), x->true);
 			builder.pop();
 			
 			builder.push("shiba");
@@ -137,7 +137,7 @@ public class DogeConfig {
 			shibaSpawnChance = builder.comment("How likely the shibas spawn in the biomes, lower is less likely").defineInRange("shibaSpawnChance", 4, 0, Integer.MAX_VALUE);
 			shibaSpawnMinSize = builder.comment("Minimum amount of shibas that spawn when they do").defineInRange("shibaSpawnMinSize", 1, 0, Integer.MAX_VALUE);
 			shibaSpawnMaxSize = builder.comment("Maximum amount of shibas that spawn when they do").defineInRange("shibaSpawnMaxSize", 6, 0, Integer.MAX_VALUE);
-			shibaAtkDamage = builder.comment("Amount of damage a shiba will do when tame, halved when wild").defineInRange("shibaAtkDamage", 8, 0, Integer.MAX_VALUE);
+			shibaAtkDamage = builder.comment("Amount of damage a shiba will do when tame, halved when wild").defineInRange("shibaAtkDamage", 8, 0, Float.MAX_VALUE);
 			builder.pop();
 			
 			builder.push("debug");

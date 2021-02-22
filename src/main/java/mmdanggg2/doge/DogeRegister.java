@@ -35,54 +35,6 @@ import net.minecraftforge.registries.IForgeRegistry;
 @EventBusSubscriber(modid = Doge.ID, bus = EventBusSubscriber.Bus.MOD)
 public class DogeRegister {
 	
-	@SubscribeEvent
-	public static void onFMLClientSetupEvent(final FMLClientSetupEvent event) {
-
-		// Register Entity Renderers
-		//RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.WILD_BOAR.get(), WildBoarRenderer::new);
-		//LOGGER.debug("Registered Entity Renderers");
-
-		// Register ContainerType Screens
-		// ScreenManager.registerFactory is not safe to call during parallel mod loading so we queue it to run later
-		event.enqueueWork(() -> {
-			ScreenManager.registerFactory(DogeContainerTypes.MINING_RIG.get(), MiningRigScreen::new);
-			DogeLogger.logDebug("Registered ContainerType Screens");
-		});
-
-	}
-	/*/ Entities
-	@SubscribeEvent
-	public static void onRegisterEntities(RegistryEvent.Register<EntityType> event) {
-		DogeLogger.logInfo("Registering Entities");
-		
-		IForgeRegistry<EntityType> entityRegistry = event.getRegistry();
-		
-		entityReg.register(EntityEntryBuilder.create()
-				.entity(DogeProjectile.class)
-				.name("doge_projectile")
-				.id(new ResourceLocation(Doge.ID, "doge_projectile"), ++entityID)
-				.tracker(128, 1, true)
-				.build() );
-		
-		// Mobs
-		EntityType.Builder<DogeMob> dMobBuilder = EntityType.Builder.create(EntityClassification.CREATURE)
-				.entity(DogeMob.class)
-				.name("doge_mob")
-				.id(new ResourceLocation(Doge.ID, "doge_mob"), ++entityID)
-				.tracker(128, 1, true)
-				.egg(0xeaeae9, 0xc99a03);
-		
-		if (DogeInfo.shibeSpawnBiomes.length > 0) {
-			int[] biomes = DogeInfo.shibeSpawnBiomes;
-			for (int i = 0; i < biomes.length; i++) {
-				DogeLogger.logDebug("Adding doge spawn biome " + biomes[i]);
-				dMobBuilder.spawn(EnumCreatureType.CREATURE, DogeInfo.shibeSpawnChance, DogeInfo.shibeSpawnMinSize, DogeInfo.shibeSpawnMaxSize, Biome.getBiome(biomes[i]));
-			}
-		}
-		entityReg.register(dMobBuilder.build());
-		
-	}
-	
 	/*TODO Recipies
 	public static void onRegisterRecipies() {
 		//Item Repair

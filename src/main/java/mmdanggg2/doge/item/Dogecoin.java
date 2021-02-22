@@ -3,7 +3,8 @@ package mmdanggg2.doge.item;
 import java.util.Random;
 
 import mmdanggg2.doge.config.DogeConfig;
-import mmdanggg2.doge.entities.DogeMob;
+import mmdanggg2.doge.entities.ShibaEntity;
+import mmdanggg2.doge.init.DogeEntityTypes;
 import mmdanggg2.doge.util.DogeLogger;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.TameableEntity;
@@ -50,7 +51,7 @@ public class Dogecoin extends Item {
 				}
 				if (activatedEntity.isServerWorld()) {
 					World spawnWorld = activatedEntity.getEntityWorld();
-					DogeMob newDoge = new DogeMob(spawnWorld);
+					ShibaEntity newDoge = DogeEntityTypes.SHIBA.get().create(spawnWorld);
 					newDoge.setLocationAndAngles(
 							activatedEntity.getPosX(),
 							activatedEntity.getPosY(),
@@ -65,17 +66,16 @@ public class Dogecoin extends Item {
 			}
 			else {
 				Random rand = player.getRNG();
-				for (int i = 0; i < 7; ++i)
-		        {
-		            double d0 = rand.nextGaussian() * 0.02D;
-		            double d1 = rand.nextGaussian() * 0.02D;
-		            double d2 = rand.nextGaussian() * 0.02D;
-		            player.getEntityWorld().addParticle(ParticleTypes.SMOKE,
-		            		activatedEntity.getPosX() + (rand.nextFloat() * activatedEntity.getWidth() * 2.0F) - activatedEntity.getWidth(),
-		            		activatedEntity.getPosY() + 0.5D + (rand.nextFloat() * activatedEntity.getHeight()),
-		            		activatedEntity.getPosZ() + (rand.nextFloat() * activatedEntity.getWidth() * 2.0F) - activatedEntity.getWidth(),
-		            		d0, d1, d2);
-		        }
+				for (int i = 0; i < 7; ++i) {
+					double d0 = rand.nextGaussian() * 0.02D;
+					double d1 = rand.nextGaussian() * 0.02D;
+					double d2 = rand.nextGaussian() * 0.02D;
+					player.getEntityWorld().addParticle(ParticleTypes.SMOKE,
+							activatedEntity.getPosX() + (rand.nextFloat() * activatedEntity.getWidth() * 2.0F) - activatedEntity.getWidth(),
+							activatedEntity.getPosY() + 0.5D + (rand.nextFloat() * activatedEntity.getHeight()),
+							activatedEntity.getPosZ() + (rand.nextFloat() * activatedEntity.getWidth() * 2.0F) - activatedEntity.getWidth(),
+							d0, d1, d2);
+				}
 			}
 		}
 		return ActionResultType.PASS;
