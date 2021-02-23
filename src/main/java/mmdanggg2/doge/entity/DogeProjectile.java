@@ -1,4 +1,4 @@
-package mmdanggg2.doge.entities;
+package mmdanggg2.doge.entity;
 
 import mmdanggg2.doge.Doge;
 import mmdanggg2.doge.config.DogeConfig;

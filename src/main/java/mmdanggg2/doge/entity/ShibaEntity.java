@@ -1,11 +1,13 @@
-package mmdanggg2.doge.entities;
+package mmdanggg2.doge.entity;
 
 import java.util.UUID;
 
 import mmdanggg2.doge.Doge;
 import mmdanggg2.doge.config.DogeConfig;
+import mmdanggg2.doge.entity.ai.DogeBegGoal;
 import mmdanggg2.doge.init.DogeEntityTypes;
 import mmdanggg2.doge.init.DogeItems;
+import mmdanggg2.doge.util.DogeLogger;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.AgeableEntity;
@@ -13,9 +15,28 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.goal.BegGoal;
+import net.minecraft.entity.ai.goal.BreedGoal;
+import net.minecraft.entity.ai.goal.FollowOwnerGoal;
+import net.minecraft.entity.ai.goal.HurtByTargetGoal;
+import net.minecraft.entity.ai.goal.LeapAtTargetGoal;
+import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.ai.goal.LookRandomlyGoal;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
+import net.minecraft.entity.ai.goal.NonTamedTargetGoal;
+import net.minecraft.entity.ai.goal.OwnerHurtByTargetGoal;
+import net.minecraft.entity.ai.goal.OwnerHurtTargetGoal;
+import net.minecraft.entity.ai.goal.ResetAngerGoal;
+import net.minecraft.entity.ai.goal.SitGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
+import net.minecraft.entity.monster.AbstractSkeletonEntity;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.TurtleEntity;
 import net.minecraft.entity.passive.WolfEntity;
+import net.minecraft.entity.passive.horse.LlamaEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.item.DyeColor;
@@ -54,12 +75,36 @@ public class ShibaEntity extends WolfEntity
 	}
 	
 	@Override
+	protected void registerGoals() {
+		this.goalSelector.addGoal(1, new SwimGoal(this));
+		this.goalSelector.addGoal(2, new SitGoal(this));
+		//this.goalSelector.addGoal(3, new WolfEntity.AvoidEntityGoal(this, LlamaEntity.class, 24.0F, 1.5D, 1.5D));
+		this.goalSelector.addGoal(4, new LeapAtTargetGoal(this, 0.4F));
+		this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.0D, true));
+		this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
+		this.goalSelector.addGoal(7, new BreedGoal(this, 1.0D));
+		this.goalSelector.addGoal(8, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
+		this.goalSelector.addGoal(9, new DogeBegGoal(this, 8.0F));
+		this.goalSelector.addGoal(10, new LookAtGoal(this, PlayerEntity.class, 8.0F));
+		this.goalSelector.addGoal(10, new LookRandomlyGoal(this));
+		this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
+		this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
+		this.targetSelector.addGoal(3, (new HurtByTargetGoal(this)).setCallsForHelp());
+		this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, 10, true, false, this::func_233680_b_));
+		this.targetSelector.addGoal(5, new NonTamedTargetGoal<>(this, AnimalEntity.class, false, TARGET_ENTITIES));
+		this.targetSelector.addGoal(6, new NonTamedTargetGoal<>(this, TurtleEntity.class, false, TurtleEntity.TARGET_DRY_BABY));
+		this.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(this, AbstractSkeletonEntity.class, false));
+		this.targetSelector.addGoal(8, new ResetAngerGoal<>(this, true));
+	}
+	
+	@Override
 	public void setTamed(boolean tamed)
 	{
 		super.setTamed(tamed);
 		if (tamed) {
 			getAttribute(Attributes.MAX_HEALTH).setBaseValue(200.0D);
 			getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(DogeConfig.shibaAtkDamage);
+			this.setHealth(200.0F);
 		} else {
 			getAttribute(Attributes.MAX_HEALTH).setBaseValue(50.0D);
 			getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(DogeConfig.shibaAtkDamage/2);
@@ -71,7 +116,6 @@ public class ShibaEntity extends WolfEntity
 			super.setTamedBy(player);
 			this.navigator.clearPath();
 			this.setAttackTarget(null);
-			this.setHealth(200.0F);
 			this.world.setEntityState(this, (byte)7);
 		}
 	}
@@ -144,6 +188,15 @@ public class ShibaEntity extends WolfEntity
 		}
 		
 		return childAnimal;
+	}
+	
+	@Override
+	public float getTailRotation() {
+		if (isTamed()) {
+			return (getHealth() / getMaxHealth()) * 2.5f;
+		} else {
+			return super.getTailRotation();
+		}
 	}
 	
 	/**

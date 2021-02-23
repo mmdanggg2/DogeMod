@@ -4,7 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 
 import mmdanggg2.doge.Doge;
-import mmdanggg2.doge.entities.ShibaEntity;
+import mmdanggg2.doge.entity.ShibaEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.WolfRenderer;

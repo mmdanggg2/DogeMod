@@ -3,8 +3,8 @@ package mmdanggg2.doge.client;
 import mmdanggg2.doge.Doge;
 import mmdanggg2.doge.client.gui.MiningRigScreen;
 import mmdanggg2.doge.client.renderer.ShibaRender;
-import mmdanggg2.doge.entities.ShibaEntity;
-import mmdanggg2.doge.entities.DogeProjectile;
+import mmdanggg2.doge.entity.DogeProjectile;
+import mmdanggg2.doge.entity.ShibaEntity;
 import mmdanggg2.doge.init.DogeContainerTypes;
 import mmdanggg2.doge.init.DogeEntityTypes;
 import mmdanggg2.doge.util.DogeLogger;
@@ -27,7 +27,7 @@ public class ClientDogeModEvent {
 	@SubscribeEvent
 	public static void onFMLClientSetupEvent(final FMLClientSetupEvent event) {
 		RenderingRegistry.registerEntityRenderingHandler(DogeEntityTypes.SHIBA.get(), ShibaRender::new);
-		
+
 		RenderingRegistry.registerEntityRenderingHandler(DogeEntityTypes.DOGECOIN.get(), new IRenderFactory<DogeProjectile>() {
 			@Override
 			public EntityRenderer<? super DogeProjectile> createRenderFor(EntityRendererManager manager) {
@@ -41,8 +41,7 @@ public class ClientDogeModEvent {
 			ScreenManager.registerFactory(DogeContainerTypes.MINING_RIG.get(), MiningRigScreen::new);
 			DogeLogger.logDebug("Registered ContainerType Screens");
 			
-
-            GlobalEntityTypeAttributes.put(DogeEntityTypes.SHIBA.get(), ShibaEntity.getCustomAttributes().create());
+			GlobalEntityTypeAttributes.put(DogeEntityTypes.SHIBA.get(), ShibaEntity.getCustomAttributes().create());
 		});
 		
 		//DevCapes capesInstance = DevCapes.getInstance();

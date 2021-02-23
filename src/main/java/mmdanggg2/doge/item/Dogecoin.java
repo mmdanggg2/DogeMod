@@ -3,7 +3,7 @@ package mmdanggg2.doge.item;
 import java.util.Random;
 
 import mmdanggg2.doge.config.DogeConfig;
-import mmdanggg2.doge.entities.ShibaEntity;
+import mmdanggg2.doge.entity.ShibaEntity;
 import mmdanggg2.doge.init.DogeEntityTypes;
 import mmdanggg2.doge.util.DogeLogger;
 import net.minecraft.entity.LivingEntity;

@@ -1,8 +1,8 @@
 package mmdanggg2.doge.init;
 
 import mmdanggg2.doge.Doge;
-import mmdanggg2.doge.entities.ShibaEntity;
-import mmdanggg2.doge.entities.DogeProjectile;
+import mmdanggg2.doge.entity.DogeProjectile;
+import mmdanggg2.doge.entity.ShibaEntity;
 import mmdanggg2.doge.item.Dogecoin;
 import mmdanggg2.doge.tileentitiy.MiningRigTileEntity;
 import net.minecraft.entity.EntityClassification;

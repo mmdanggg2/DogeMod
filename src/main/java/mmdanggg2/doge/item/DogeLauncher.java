@@ -4,7 +4,7 @@ import java.util.function.Predicate;
 
 import javax.annotation.Nullable;
 
-import mmdanggg2.doge.entities.DogeProjectile;
+import mmdanggg2.doge.entity.DogeProjectile;
 import mmdanggg2.doge.init.DogeEntityTypes;
 import mmdanggg2.doge.init.DogeItems;
 import net.minecraft.enchantment.Enchantment;
