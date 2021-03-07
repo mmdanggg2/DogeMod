@@ -150,6 +150,7 @@ public class GPU extends Item {
 		return mined;
 	}
 	
+	@SuppressWarnings("resource")
 	private void randomDisplayTick(ItemStack stack, World world, Entity entity) {
 		if (entity instanceof PlayerEntity && world.isRemote) {
 			PlayerEntity player = (PlayerEntity) entity;

@@ -1,6 +1,7 @@
 package mmdanggg2.doge.client;
 
 import mmdanggg2.doge.Doge;
+import mmdanggg2.doge.cape.DevCapes;
 import mmdanggg2.doge.client.gui.MiningRigScreen;
 import mmdanggg2.doge.client.renderer.ShibaRender;
 import mmdanggg2.doge.entity.DogeProjectile;
@@ -44,8 +45,8 @@ public class ClientDogeModEvent {
 			GlobalEntityTypeAttributes.put(DogeEntityTypes.SHIBA.get(), ShibaEntity.getCustomAttributes().create());
 		});
 		
-		//DevCapes capesInstance = DevCapes.getInstance();
-		//capesInstance.registerConfig("http://www.mmdanggg2.co.uk/doge/capeConfig.json");
+		DevCapes capesInstance = DevCapes.getInstance();
+		capesInstance.registerConfig("http://www.mmdanggg2.co.uk/doge/capeConfig.json");
 	}
 
 }

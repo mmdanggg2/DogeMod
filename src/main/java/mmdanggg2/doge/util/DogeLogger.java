@@ -1,10 +1,10 @@
 package mmdanggg2.doge.util;
 
-import mmdanggg2.doge.Doge;
-import mmdanggg2.doge.config.DogeConfig;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import mmdanggg2.doge.Doge;
+import mmdanggg2.doge.config.DogeConfig;
 
 public class DogeLogger {
 	

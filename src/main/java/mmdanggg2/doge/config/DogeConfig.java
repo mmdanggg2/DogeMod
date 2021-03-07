@@ -1,5 +1,6 @@
 package mmdanggg2.doge.config;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -120,7 +121,7 @@ public class DogeConfig {
 			builder.pop();
 			
 			builder.push("dogecoin");
-			dogecoinConvertList = builder.comment("This is a list of Java classes that are able to be converted into Shiba's by a coin").defineList("dogecoinConvertList", List.of(
+			dogecoinConvertList = builder.comment("This is a list of Java classes that are able to be converted into Shiba's by a coin").defineList("dogecoinConvertList", Arrays.asList(
 					"PigEntity",
 					"WolfEntity",
 					"ChickenEntity",
@@ -133,7 +134,7 @@ public class DogeConfig {
 			builder.pop();
 			
 			builder.push("shiba");
-			shibaSpawnBiomes = builder.comment("This is a list of biome id's that shibas can spawn in").defineList("shibaSpawnBiomes", List.of(1, 4), x->true);
+			shibaSpawnBiomes = builder.comment("This is a list of biome id's that shibas can spawn in").defineList("shibaSpawnBiomes", Arrays.asList(1, 4), x->true);
 			shibaSpawnChance = builder.comment("How likely the shibas spawn in the biomes, lower is less likely").defineInRange("shibaSpawnChance", 4, 0, Integer.MAX_VALUE);
 			shibaSpawnMinSize = builder.comment("Minimum amount of shibas that spawn when they do").defineInRange("shibaSpawnMinSize", 1, 0, Integer.MAX_VALUE);
 			shibaSpawnMaxSize = builder.comment("Maximum amount of shibas that spawn when they do").defineInRange("shibaSpawnMaxSize", 6, 0, Integer.MAX_VALUE);
