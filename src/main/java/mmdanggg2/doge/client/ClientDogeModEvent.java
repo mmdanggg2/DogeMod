@@ -41,8 +41,6 @@ public class ClientDogeModEvent {
 		event.enqueueWork(() -> {
 			ScreenManager.registerFactory(DogeContainerTypes.MINING_RIG.get(), MiningRigScreen::new);
 			DogeLogger.logDebug("Registered ContainerType Screens");
-			
-			GlobalEntityTypeAttributes.put(DogeEntityTypes.SHIBA.get(), ShibaEntity.getCustomAttributes().create());
 		});
 		
 		DevCapes capesInstance = DevCapes.getInstance();

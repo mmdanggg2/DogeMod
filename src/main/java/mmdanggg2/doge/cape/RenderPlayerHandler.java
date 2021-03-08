@@ -21,7 +21,7 @@ public class RenderPlayerHandler {
 		if (event.getEntity() instanceof AbstractClientPlayerEntity) {
 			AbstractClientPlayerEntity player = (AbstractClientPlayerEntity) event.getEntity();
 			
-			DogeCape cape = DevCapes.getInstance().users.get(player.getGameProfile().getName());
+			DogeCape cape = DevCapes.getInstance().getCape(player.getGameProfile().getName());
 			if (cape == null)
 				return;
 			

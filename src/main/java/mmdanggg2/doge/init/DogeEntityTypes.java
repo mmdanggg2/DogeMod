@@ -16,12 +16,12 @@ public class DogeEntityTypes {
 	
 	public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, Doge.ID);
 	
-	public static final String DOGECOIN_NAME = "dogecoin";
+	private static final String DOGECOIN_NAME = "dogecoin";
 	public static final RegistryObject<EntityType<DogeProjectile>> DOGECOIN = ENTITY_TYPES.register(DOGECOIN_NAME, ()-> 
 		EntityType.Builder.<DogeProjectile>create(DogeProjectile::new, EntityClassification.MISC).size(0.25f, 0.25f).build(DOGECOIN_NAME));
 
-	public static final String SHIBA_NAME = "shiba";
-	public static final RegistryObject<EntityType<ShibaEntity>> SHIBA = ENTITY_TYPES.register(SHIBA_NAME, ()-> 
-	EntityType.Builder.<ShibaEntity>create(ShibaEntity::new, EntityClassification.CREATURE).size(EntityType.WOLF.getWidth(), EntityType.WOLF.getHeight()).build(SHIBA_NAME));;
+	private static final String SHIBA_NAME = "shiba";
+	protected static final EntityType<ShibaEntity> SHIBA_PRE_INIT_TYPE = EntityType.Builder.<ShibaEntity>create(ShibaEntity::new, EntityClassification.CREATURE).size(EntityType.WOLF.getWidth(), EntityType.WOLF.getHeight()).build(SHIBA_NAME);
+	public static final RegistryObject<EntityType<ShibaEntity>> SHIBA = ENTITY_TYPES.register(SHIBA_NAME, ()-> SHIBA_PRE_INIT_TYPE);
 
 }

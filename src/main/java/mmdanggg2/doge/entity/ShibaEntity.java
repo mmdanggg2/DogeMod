@@ -55,12 +55,14 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 public class ShibaEntity extends WolfEntity
 {
-	public ShibaEntity(EntityType<? extends WolfEntity> type, World world)
+	public ShibaEntity(EntityType<? extends ShibaEntity> type, World world)
 	{
 		super(type, world);
 		setTamed(false);
@@ -191,6 +193,7 @@ public class ShibaEntity extends WolfEntity
 	}
 	
 	@Override
+	@OnlyIn(Dist.CLIENT)
 	public float getTailRotation() {
 		if (isTamed()) {
 			return (getHealth() / getMaxHealth()) * 2.5f;

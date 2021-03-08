@@ -33,12 +33,4 @@ public class Doge {
 		//DogeRegisterRecipes.register();
 		
 	}
-	
-	/*@EventHandler
-	public void init(FMLInitializationEvent event) {
-		
-		proxy.regCape();
-		new GUIHandler();
-		
-	}*/
 }

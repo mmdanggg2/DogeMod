@@ -15,6 +15,8 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Nullable;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
@@ -28,7 +30,7 @@ import net.minecraftforge.common.MinecraftForge;
 public class DevCapes {
 	private static DevCapes instance;
 	
-	public HashMap<String, DogeCape> users = new HashMap<String, DogeCape>();
+	private HashMap<String, DogeCape> users = new HashMap<String, DogeCape>();
 	
 	protected DevCapes() {
 		MinecraftForge.EVENT_BUS.register(new RenderPlayerHandler());
@@ -124,5 +126,9 @@ public class DevCapes {
 			is.close();
 		} catch (IOException ignored) {
 		}
+	}
+	
+	public @Nullable DogeCape getCape(String username) {
+		return users.get(username);
 	}
 }

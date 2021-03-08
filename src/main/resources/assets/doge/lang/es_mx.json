@@ -17,7 +17,9 @@
     "item.doge.doge_leggings": "pies mucha defensa",
     "item.doge.doge_boots": "zapatos guau",
     
-    "entity.doge.shiba": "Doge",
+    "item.doge.shiba_egg": "Generar Shiba",
+    
+    "entity.doge.shiba": "Shiba",
     
     "itemGroup.doge_tab": "Mod de Doge"
 }

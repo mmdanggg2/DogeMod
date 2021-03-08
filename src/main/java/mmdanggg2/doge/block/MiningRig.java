@@ -144,16 +144,16 @@ public class MiningRig extends ContainerBlock {
 			
 			Direction enumfacing = state.get(FACING);
 			
-			if (enumfacing == Direction.EAST && world.isAirBlock(pos.east())) {
+			if (enumfacing == Direction.EAST && world.isAirBlock(pos.west())) {
 				world.addParticle(ParticleTypes.SMOKE, x, y + rand.nextFloat(), z + rand.nextFloat(), -0.05D, 0.0D, 0.0D);
 				world.addParticle(RedstoneParticleData.REDSTONE_DUST, x, y + rand.nextFloat(), z + rand.nextFloat(), 0.0D, 0.0D, 0.0D);
-			} else if (enumfacing == Direction.WEST && world.isAirBlock(pos.west())) {
+			} else if (enumfacing == Direction.WEST && world.isAirBlock(pos.east())) {
 				world.addParticle(ParticleTypes.SMOKE, x + facingOffset, y + rand.nextFloat(), z + rand.nextFloat(), 0.05D, 0.0D, 0.0D);
 				world.addParticle(RedstoneParticleData.REDSTONE_DUST, x + facingOffset, y + rand.nextFloat(), z + rand.nextFloat(), 0.0D, 0.0D, 0.0D);
-			} else if (enumfacing == Direction.SOUTH && world.isAirBlock(pos.south())) {
+			} else if (enumfacing == Direction.SOUTH && world.isAirBlock(pos.north())) {
 				world.addParticle(ParticleTypes.SMOKE, x + rand.nextFloat(), y + rand.nextFloat(), z, 0.0D, 0.0D, -0.05D);
 				world.addParticle(RedstoneParticleData.REDSTONE_DUST, x + rand.nextFloat(), y + rand.nextFloat(), z, 0.0D, 0.0D, 0.0D);
-			} else if (enumfacing == Direction.NORTH && world.isAirBlock(pos.north())) {
+			} else if (enumfacing == Direction.NORTH && world.isAirBlock(pos.south())) {
 				world.addParticle(ParticleTypes.SMOKE, x + rand.nextFloat(), y + rand.nextFloat(), z + facingOffset, 0.0D, 0.0D, 0.05D);
 				world.addParticle(RedstoneParticleData.REDSTONE_DUST, x + rand.nextFloat(), y + rand.nextFloat(), z + facingOffset, 0.0D, 0.0D, 0.0D);
 			}
