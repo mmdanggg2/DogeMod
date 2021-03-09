@@ -1,11 +1,15 @@
 package mmdanggg2.doge.config;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang3.tuple.Pair;
 
 import mmdanggg2.doge.Doge;
+import mmdanggg2.doge.util.DogeLogger;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.ResourceLocationException;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
@@ -39,7 +43,7 @@ public class DogeConfig {
 	
 	public static List<? extends String> dogecoinConvertList;
 
-	public static List<? extends Integer> shibaSpawnBiomes;
+	public static List<ResourceLocation> shibaSpawnBiomes;
 	public static int shibaSpawnChance;
 	public static int shibaSpawnMinSize;
 	public static int shibaSpawnMaxSize;
@@ -68,13 +72,24 @@ public class DogeConfig {
 		gpuCoolRate = SERVER.gpuCoolRate.get();
 		
 		dogecoinConvertList = SERVER.dogecoinConvertList.get();
-
-		shibaSpawnBiomes = SERVER.shibaSpawnBiomes.get();
+		
+		shibaSpawnBiomes = new ArrayList<>();
+		List<? extends String> shibaSpawnBiomeStrings = SERVER.shibaSpawnBiomes.get();
+		if (shibaSpawnBiomeStrings != null) {
+			for (String biomeStr : shibaSpawnBiomeStrings) {
+				try {
+					ResourceLocation biomeRL = new ResourceLocation(biomeStr);
+					shibaSpawnBiomes.add(biomeRL);
+				} catch (ResourceLocationException e) {
+					DogeLogger.logger.error("Invalid shibaSpawnBiome entry", e);
+				}
+			}
+		}
 		shibaSpawnChance = SERVER.shibaSpawnChance.get();
 		shibaSpawnMinSize = SERVER.shibaSpawnMinSize.get();
 		shibaSpawnMaxSize = SERVER.shibaSpawnMaxSize.get();
 		shibaAtkDamage = SERVER.shibaAtkDamage.get().floatValue();
-
+		
 		debug = SERVER.debug.get();
 	}
 
@@ -93,7 +108,7 @@ public class DogeConfig {
 		
 		public final ConfigValue<List<? extends String>> dogecoinConvertList;
 
-		public final ConfigValue<List<? extends Integer>> shibaSpawnBiomes;
+		public final ConfigValue<List<? extends String>> shibaSpawnBiomes;
 		public final IntValue shibaSpawnChance;
 		public final IntValue shibaSpawnMinSize;
 		public final IntValue shibaSpawnMaxSize;
@@ -134,7 +149,7 @@ public class DogeConfig {
 			builder.pop();
 			
 			builder.push("shiba");
-			shibaSpawnBiomes = builder.comment("This is a list of biome id's that shibas can spawn in").defineList("shibaSpawnBiomes", Arrays.asList(1, 4), x->true);
+			shibaSpawnBiomes = builder.comment("This is a list of biome id's that shibas can spawn in").defineList("shibaSpawnBiomes", Arrays.asList("minecraft:forest", "minecraft:taiga", "wooded_hills", "taiga_hills", "dark_forest"), x->true);
 			shibaSpawnChance = builder.comment("How likely the shibas spawn in the biomes, lower is less likely").defineInRange("shibaSpawnChance", 4, 0, Integer.MAX_VALUE);
 			shibaSpawnMinSize = builder.comment("Minimum amount of shibas that spawn when they do").defineInRange("shibaSpawnMinSize", 1, 0, Integer.MAX_VALUE);
 			shibaSpawnMaxSize = builder.comment("Maximum amount of shibas that spawn when they do").defineInRange("shibaSpawnMaxSize", 6, 0, Integer.MAX_VALUE);
