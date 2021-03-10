@@ -5,7 +5,6 @@ import mmdanggg2.doge.cape.DevCapes;
 import mmdanggg2.doge.client.gui.MiningRigScreen;
 import mmdanggg2.doge.client.renderer.ShibaRender;
 import mmdanggg2.doge.entity.DogeProjectile;
-import mmdanggg2.doge.entity.ShibaEntity;
 import mmdanggg2.doge.init.DogeContainerTypes;
 import mmdanggg2.doge.init.DogeEntityTypes;
 import mmdanggg2.doge.util.DogeLogger;
@@ -14,7 +13,6 @@ import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
-import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
@@ -43,8 +41,10 @@ public class ClientDogeModEvent {
 			DogeLogger.logDebug("Registered ContainerType Screens");
 		});
 		
-		DevCapes capesInstance = DevCapes.getInstance();
-		capesInstance.registerConfig("http://www.mmdanggg2.co.uk/doge/capeConfig.json");
+		new Thread(()-> {
+			DevCapes capesInstance = DevCapes.getInstance();
+			capesInstance.registerConfig("http://www.mmdanggg2.co.uk/doge/capeConfig.json");
+		}, "DogeCapeRegistration").start();
 	}
 
 }
