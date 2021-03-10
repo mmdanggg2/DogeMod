@@ -1,23 +1,18 @@
 package mmdanggg2.doge.entity;
 
-import mmdanggg2.doge.Doge;
-import mmdanggg2.doge.config.DogeConfig;
 import mmdanggg2.doge.init.DogeEntityTypes;
 import mmdanggg2.doge.init.DogeItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
-import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.IPacket;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -25,7 +20,7 @@ public class DogeProjectile extends ProjectileItemEntity
 {
 	
 	public boolean dropCoin = true;
-	public float damage;
+	public float damage = 12.0f;
 	
 	public DogeProjectile(EntityType<? extends DogeProjectile> entType, World world)
 	{
@@ -36,7 +31,6 @@ public class DogeProjectile extends ProjectileItemEntity
 	{
 		super(DogeEntityTypes.DOGECOIN.get(), thrower, world);
 		this.setMotion(this.getMotion().mul(1.5, 1.5, 1.5));
-		damage = DogeConfig.toolDamage * 2.0F;
 	}
 	
 	public DogeProjectile(double x, double y, double z, World world)

@@ -16,11 +16,4 @@ public class DogeModEventHandler {
 			GlobalEntityTypeAttributes.put(DogeEntityTypes.SHIBA.get(), ShibaEntity.getCustomAttributes().create());
 		});
 	}
-	
-	/*TODO Recipies
-	public static void onRegisterRecipies() {
-		//Item Repair
-		Doge.dogeToolMat.setRepairItem(new ItemStack(Doge.dogecoin));
-		Doge.dogeArmorMat.setRepairItem(new ItemStack(Doge.dogecoin));
-	}*/
 }

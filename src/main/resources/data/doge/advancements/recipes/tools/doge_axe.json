@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "doge:doge_axe"
+    ]
+  },
+  "criteria": {
+    "has_dogecoin": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "doge:dogecoin"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "doge:doge_axe"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_dogecoin",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,9 +1,9 @@
 package mmdanggg2.doge.init;
 
 import mmdanggg2.doge.Doge;
-import mmdanggg2.doge.config.DogeConfig;
 import mmdanggg2.doge.item.DogeArmour;
 import mmdanggg2.doge.item.DogeGroup;
+import mmdanggg2.doge.item.DogeItemTier;
 import mmdanggg2.doge.item.DogeLauncher;
 import mmdanggg2.doge.item.Dogecoin;
 import mmdanggg2.doge.item.GPU;
@@ -12,9 +12,6 @@ import net.minecraft.item.AxeItem;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.HoeItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.Item.Properties;
-import net.minecraft.item.ItemTier;
-import net.minecraft.item.Items;
 import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.ShovelItem;
 import net.minecraft.item.SpawnEggItem;
@@ -22,18 +19,17 @@ import net.minecraft.item.SwordItem;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.ObjectHolder;
 
 public class DogeItems {
 	
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Doge.ID);
 	
 	// Tools
-	public static final RegistryObject<PickaxeItem> DOGE_PICKAXE = ITEMS.register("doge_pickaxe", ()-> new PickaxeItem(ItemTier.DIAMOND, DogeConfig.toolDamage, DogeConfig.toolSpeed, new Item.Properties().group(DogeGroup.dogeGroup)));
-	public static final RegistryObject<AxeItem> DOGE_AXE = ITEMS.register("doge_axe", ()-> new AxeItem(ItemTier.DIAMOND, DogeConfig.toolDamage, DogeConfig.toolSpeed, new Item.Properties().group(DogeGroup.dogeGroup)));
-	public static final RegistryObject<ShovelItem> DOGE_SHOVEL = ITEMS.register("doge_shovel", ()-> new ShovelItem(ItemTier.DIAMOND, DogeConfig.toolDamage, DogeConfig.toolSpeed, new Item.Properties().group(DogeGroup.dogeGroup)));
-	public static final RegistryObject<HoeItem> DOGE_HOE = ITEMS.register("doge_hoe", ()-> new HoeItem(ItemTier.DIAMOND, DogeConfig.toolDamage, DogeConfig.toolSpeed, new Item.Properties().group(DogeGroup.dogeGroup)));
-	public static final RegistryObject<SwordItem> DOGE_SWORD = ITEMS.register("doge_sword", ()-> new SwordItem(ItemTier.DIAMOND, DogeConfig.toolDamage, DogeConfig.toolSpeed, new Item.Properties().group(DogeGroup.dogeGroup)));
+	public static final RegistryObject<PickaxeItem> DOGE_PICKAXE = ITEMS.register("doge_pickaxe", ()-> new PickaxeItem(	DogeItemTier.DOGE, 1, -2.5f, new Item.Properties().group(DogeGroup.dogeGroup)));
+	public static final RegistryObject<AxeItem> DOGE_AXE = ITEMS.register("doge_axe", ()-> new AxeItem(					DogeItemTier.DOGE, 5f, -2.8f, new Item.Properties().group(DogeGroup.dogeGroup)));
+	public static final RegistryObject<ShovelItem> DOGE_SHOVEL = ITEMS.register("doge_shovel", ()-> new ShovelItem(		DogeItemTier.DOGE, 1.5f, -3f, new Item.Properties().group(DogeGroup.dogeGroup)));
+	public static final RegistryObject<HoeItem> DOGE_HOE = ITEMS.register("doge_hoe", ()-> new HoeItem(					DogeItemTier.DOGE, -4, 0f, new Item.Properties().group(DogeGroup.dogeGroup)));
+	public static final RegistryObject<SwordItem> DOGE_SWORD = ITEMS.register("doge_sword", ()-> new SwordItem(			DogeItemTier.DOGE, 3, -2f, new Item.Properties().group(DogeGroup.dogeGroup)));
 	
 	// Doge Armour
 	public static final RegistryObject<DogeArmour> DOGE_HELMET = ITEMS.register("doge_helmet", ()-> new DogeArmour(EquipmentSlotType.HEAD));

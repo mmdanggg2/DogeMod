@@ -29,10 +29,6 @@ public class DogeConfig {
 		SERVER = specPair.getLeft();
 	}
 	
-	public static int toolDurability;
-	public static float toolSpeed;
-	public static int toolDamage;
-	
 	public static int rigChance;
 	public static int rigSpeed;
 	
@@ -59,10 +55,6 @@ public class DogeConfig {
 	}
 	
 	public static void bakeServerConfig() {
-		toolDurability = SERVER.toolDurability.get();
-		toolSpeed = SERVER.toolSpeed.get().floatValue();
-		toolDamage = SERVER.toolDamage.get();
-		
 		rigChance = SERVER.rigChance.get();
 		rigSpeed = SERVER.rigSpeed.get();
 		
@@ -94,10 +86,6 @@ public class DogeConfig {
 	}
 
 	public static class ServerConfig {
-		public final IntValue toolDurability;
-		public final DoubleValue toolSpeed;
-		public final IntValue toolDamage;
-		
 		public final IntValue rigChance;
 		public final IntValue rigSpeed;
 		
@@ -117,12 +105,6 @@ public class DogeConfig {
 		public final BooleanValue debug;
 
 		public ServerConfig(ForgeConfigSpec.Builder builder) {
-			builder.push("doge_tools");
-			toolDurability = builder.comment("How many uses the tools have").defineInRange("toolDurability", 780, 1, Integer.MAX_VALUE);
-			toolSpeed = builder.comment("How fast the tools mine their respective blocks").defineInRange("toolSpeed", 20.0F, 0.0F, Float.MAX_VALUE);
-			toolDamage = builder.comment("How much damage the tools do").defineInRange("toolDamage", 6, 0, Integer.MAX_VALUE);
-			builder.pop();
-
 			builder.push("mining_rig");
 			rigChance = builder.comment("How likely a GPU is to get a Dogecoin, lower is more likely. There is a 1 in x chance").defineInRange("rigChance", 5, 1, Integer.MAX_VALUE);
 			rigSpeed = builder.comment("How fast the rig uses the GPUs, lower is faster").defineInRange("rigSpeed", 100, 1, Integer.MAX_VALUE);
